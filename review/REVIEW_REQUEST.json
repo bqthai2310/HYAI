@@ -3,14 +3,14 @@
     "schemas/acceptance_contract.schema.json"
   ],
   "base_ref": "main",
-  "head_commit_sha": "a7fa5f3e5429660adb87f5b548fa95eaf0406fd4",
+  "head_commit_sha": "b5438ad283c1344ff8e8e06ad501a5417ede1b90",
   "phase_id": "F00",
   "repository": "https://github.com/bqthai2310/HYAI",
-  "requested_at": "2026-10-05T11:28:53.813397Z",
+  "requested_at": "2026-10-05T11:30:57.915502Z",
   "requested_by": {
     "id": "hermes",
     "principal_type": "EXECUTOR"
   },
-  "review_request_id": "review_f00_a7fa5f3e5429",
+  "review_request_id": "review_f00_b5438ad283c1",
   "schema_version": "2.0.0"
 }

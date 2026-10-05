@@ -729,7 +729,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "e5902c764069a48ca302be97cb343776725a31e0853841d7d1c4b712c1b5ab6c"
+        "value": "57f6fe634a3d405055495451237cbc8988e857e337d7cc58f06d84f9d45f167d"
       },
       "path": "scripts/generate_review_artifacts.py"
     },
@@ -1838,14 +1838,14 @@
       "path": "tests/unit/.gitkeep"
     }
   ],
-  "head_commit_sha": "a7fa5f3e5429660adb87f5b548fa95eaf0406fd4",
+  "head_commit_sha": "b5438ad283c1344ff8e8e06ad501a5417ede1b90",
   "policy_snapshot_id": "pol_f00_baseline",
   "repository": "https://github.com/bqthai2310/HYAI",
   "schema_version": "2.0.0",
   "subject_digest": {
     "algorithm": "sha256",
     "encoding": "hex",
-    "value": "1715836f2595653ae9e60a7d90f1d66db115a7b77aba1bdcd75773a27fa4743a"
+    "value": "d79d4014791c6e6c8b3beeb327ba7d5dfc3479467b9e56837749eeda57289723"
   },
   "subject_id": "subject_f00_governance_bootstrap"
 }

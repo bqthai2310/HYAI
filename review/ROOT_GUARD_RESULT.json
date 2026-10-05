@@ -9,8 +9,8 @@
     "encoding": "hex",
     "value": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
   },
-  "guard_result_id": "rootguard_f00_a7fa5f3e5429",
-  "issued_at": "2026-10-05T11:28:53.813397Z",
+  "guard_result_id": "rootguard_f00_b5438ad283c1",
+  "issued_at": "2026-10-05T11:30:57.915502Z",
   "result": "PASS",
   "schema_version": "2.0.0",
   "task_ref": "F00-governance-bootstrap",

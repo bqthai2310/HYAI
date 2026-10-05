@@ -62,16 +62,13 @@ def run_tests() -> subprocess.CompletedProcess[str]:
 
 
 def reviewed_files() -> list[str]:
-    """Return staged subject files, excluding generated review evidence.
+    """Return committed subject files, excluding generated review evidence.
 
     Review artifacts describe the subject; including them would make their
     content-addressed manifest self-referential.
     """
-    return [
-        path
-        for path in git("diff", "--staged", "--name-only").splitlines()
-        if path and not path.startswith("review/")
-    ]
+    paths = git("diff", "--name-only", "main..HEAD").splitlines()
+    return [path for path in paths if path and not path.startswith("review/")]
 
 
 def criteria() -> list[str]:

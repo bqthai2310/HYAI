@@ -9,7 +9,7 @@ F00 completed successfully. All 29 acceptance criteria passed.
 - Subject: `subject_f00_governance_bootstrap`
 - Repository: `https://github.com/bqthai2310/HYAI`
 - Base commit: `a7fa5f3e5429660adb87f5b548fa95eaf0406fd4`
-- Head commit: `a7fa5f3e5429660adb87f5b548fa95eaf0406fd4`
+- Head commit: `b5438ad283c1344ff8e8e06ad501a5417ede1b90`
 - Reviewed files: 229
 
 ## Commands executed
