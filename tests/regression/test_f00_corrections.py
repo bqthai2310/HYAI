@@ -206,3 +206,156 @@ def test_executor_cannot_self_approve():
         "issued_at": "2026-01-01T00:00:00Z",
     }
     assert list(Draft202012Validator(schema).iter_errors(document))
+
+
+# 13. GitHub API SUCCESS nhưng protection sai -> GIT-001 FAIL
+def test_git_001_fail_when_protection_invalid(monkeypatch):
+    live_path = ROOT / "review" / "LIVE_GITHUB_STATE.json"
+    data = _json(live_path)
+    data["api_status"] = "SUCCESS"
+    data["rulesets"] = [{"deletion_protected": False, "non_fast_forward_protected": False, "pull_request_required": False, "executor_bypass_prohibited": False}]
+    _patched_read_text(monkeypatch, {live_path: data})
+    errors = validate_spec.validate_review_artifacts(ROOT)
+    assert any("L9-REQ-GIT-001 predicate failed" in error for error in errors)
+
+
+# 14. PR evidence thiếu -> GIT-002 không PASS
+def test_git_002_fail_when_pr_evidence_missing(monkeypatch):
+    live_path = ROOT / "review" / "LIVE_GITHUB_STATE.json"
+    data = _json(live_path)
+    data["state"] = "closed"
+    _patched_read_text(monkeypatch, {live_path: data})
+    errors = validate_spec.validate_review_artifacts(ROOT)
+    assert any("L9-REQ-GIT-002 predicate failed" in error for error in errors)
+
+
+# 15. required checks từ stale SHA -> GIT-003 FAIL
+def test_git_003_fail_when_required_checks_from_stale_sha(monkeypatch):
+    live_path = ROOT / "review" / "LIVE_GITHUB_STATE.json"
+    data = _json(live_path)
+    data["check_runs"] = [{"name": "acceptance", "head_sha": "0" * 40}]
+    _patched_read_text(monkeypatch, {live_path: data})
+    errors = validate_spec.validate_review_artifacts(ROOT)
+    assert any("L9-REQ-GIT-003 predicate failed" in error for error in errors)
+
+
+# 16. review artifact không bind exact HEAD -> GIT-004 FAIL
+def test_git_004_fail_when_review_artifact_does_not_bind_exact_head(monkeypatch):
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    req_path = ROOT / "review" / "REVIEW_REQUEST.json"
+    data = _json(req_path)
+    data["head_commit_sha"] = "0" * 40
+    _patched_read_text(monkeypatch, {req_path: data})
+    errors = validate_spec.validate_review_artifacts(ROOT, head)
+    assert any("L9-REQ-GIT-004 predicate failed" in error or "REVIEW_REQUEST.head_commit_sha does not match" in error for error in errors)
+
+
+# 17. workflow changed nhưng chưa governance review -> GIT-006 không PASS
+def test_git_006_fail_when_workflow_changed_without_governance_review(monkeypatch):
+    acc_path = ROOT / "review" / "ACCEPTANCE_RESULTS.json"
+    acc = _json(acc_path)
+    for cr in acc["criterion_results"]:
+        if cr["criterion_id"] == "L9-REQ-GIT-006":
+            cr["result"] = "PASS"
+    _patched_read_text(monkeypatch, {acc_path: acc})
+    errors = validate_spec.validate_review_artifacts(ROOT)
+    assert any("L9-REQ-GIT-006 must not be PASS by executor prior to independent governance review" in error for error in errors)
+
+
+# 18. external attestation exact HEAD + exact subject digest -> independent-review-gate PASS
+def test_independent_review_gate_pass_with_exact_attestation(tmp_path):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": f"reviewatt_{head[:12]}",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [{"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_external_audit"]}],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "valid_attestation.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file)])
+    assert rc == 0
+
+
+# 19. stale attestation -> BLOCKED
+def test_independent_review_gate_blocked_on_stale_attestation(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_stale",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": "0" * 40,
+        "review_subject_digest": {"algorithm": "sha256", "encoding": "hex", "value": "0" * 64},
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [{"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_external_audit"]}],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "stale_attestation.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file)])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "reviewed_commit_sha does not match target head SHA" in out
+
+
+# 20. executor attestation -> BLOCKED
+def test_independent_review_gate_blocked_on_executor_attestation(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_executor",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "EXECUTOR", "id": "hermes"},
+        "verdict": "PASS",
+        "criterion_results": [{"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_external_audit"]}],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "executor_attestation.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file)])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "reviewer is not independent" in out

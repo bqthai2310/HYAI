@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Collect the live GitHub PR and branch-protection state used by F00 review."""
+"""Collect the live GitHub PR, branch-protection, and check-run state used by F00 review."""
 from __future__ import annotations
 
 import argparse
@@ -23,11 +23,9 @@ def github_get(url: str, token: str | None) -> object:
 
 
 def get_auth_token() -> str | None:
-    """Return a GitHub token from the environment or local CLI credentials."""
     token = os.getenv("GITHUB_TOKEN") or os.getenv("GH_TOKEN")
     if token:
         return token
-
     for command, input_text in (
         (["gh", "auth", "token"], None),
         (["git", "credential", "fill"], "protocol=https\nhost=github.com\n\n"),
@@ -78,10 +76,17 @@ def protection(details: dict[str, object]) -> dict[str, object]:
     checks = status_params.get("required_status_checks", []) if isinstance(status_params, dict) else []
     contexts = [check if isinstance(check, str) else check.get("context") for check in checks if isinstance(check, (str, dict))]
     contexts = sorted(context for context in contexts if isinstance(context, str))
-    return {"deletion_protected": "deletion" in by_type, "non_fast_forward_protected": "non_fast_forward" in by_type,
-            "pull_request_required": "pull_request" in by_type,
-            "required_approving_review_count": int(pr_params.get("required_approving_review_count", 0)) if isinstance(pr_params, dict) else 0,
-            "required_status_checks": contexts, "independent_review_gate_configured": "independent-review-gate" in contexts}
+    bypass_actors = details.get("bypass_actors") or []
+    return {
+        "deletion_protected": "deletion" in by_type,
+        "non_fast_forward_protected": "non_fast_forward" in by_type,
+        "pull_request_required": "pull_request" in by_type,
+        "required_approving_review_count": int(pr_params.get("required_approving_review_count", 0)) if isinstance(pr_params, dict) else 0,
+        "required_status_checks": contexts,
+        "independent_review_gate_configured": "independent-review-gate" in contexts,
+        "bypass_actors": bypass_actors,
+        "executor_bypass_prohibited": not bool(bypass_actors),
+    }
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -91,22 +96,59 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--pr-number", type=int, default=1)
     parser.add_argument("--head-sha")
     args = parser.parse_args(argv)
-    document: dict[str, object] = {"schema_version": "2.0.0", "collected_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
-        "repository": args.repo, "pr_number": args.pr_number, "head_commit_sha": args.head_sha or "", "base_ref": "main", "state": "UNKNOWN", "api_status": "OFFLINE", "rulesets": []}
+    document: dict[str, object] = {
+        "schema_version": "2.0.0",
+        "collected_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
+        "repository": args.repo,
+        "pr_number": args.pr_number,
+        "head_commit_sha": args.head_sha or "",
+        "base_ref": "main",
+        "state": "UNKNOWN",
+        "api_status": "OFFLINE",
+        "rulesets": [],
+        "check_runs": [],
+    }
     try:
         token = get_auth_token()
         pr = github_get(f"https://api.github.com/repos/{args.repo}/pulls/{args.pr_number}", token)
-        if not isinstance(pr, dict): raise ValueError("pull request response was not an object")
+        if not isinstance(pr, dict):
+            raise ValueError("pull request response was not an object")
         head, base = pr.get("head", {}), pr.get("base", {})
-        document.update({"head_commit_sha": args.head_sha or (head.get("sha", "") if isinstance(head, dict) else ""), "base_ref": base.get("ref", "main") if isinstance(base, dict) else "main", "state": pr.get("state", "UNKNOWN")})
+        actual_head_sha = args.head_sha or (head.get("sha", "") if isinstance(head, dict) else "")
+        document.update({
+            "head_commit_sha": actual_head_sha,
+            "base_ref": base.get("ref", "main") if isinstance(base, dict) else "main",
+            "state": pr.get("state", "UNKNOWN"),
+        })
         listing = github_get(f"https://api.github.com/repos/{args.repo}/rulesets", token)
-        if not isinstance(listing, list): raise ValueError("rulesets response was not a list")
+        if not isinstance(listing, list):
+            raise ValueError("rulesets response was not a list")
         selected = []
         for item in listing:
-            if not isinstance(item, dict) or item.get("enforcement") != "active" or not targets_main(item) or not isinstance(item.get("id"), int): continue
+            if not isinstance(item, dict) or item.get("enforcement") != "active" or not targets_main(item) or not isinstance(item.get("id"), int):
+                continue
             details = github_get(f"https://api.github.com/repos/{args.repo}/rulesets/{item['id']}", token)
-            if isinstance(details, dict) and targets_main(details): selected.append({"id": item["id"], "name": details.get("name", item.get("name", "")), **protection(details)})
+            if isinstance(details, dict) and targets_main(details):
+                selected.append({"id": item["id"], "name": details.get("name", item.get("name", "")), **protection(details)})
         document["rulesets"] = selected
+
+        if actual_head_sha:
+            try:
+                check_runs_resp = github_get(f"https://api.github.com/repos/{args.repo}/commits/{actual_head_sha}/check-runs", token)
+                if isinstance(check_runs_resp, dict) and isinstance(check_runs_resp.get("check_runs"), list):
+                    document["check_runs"] = [
+                        {
+                            "name": cr.get("name"),
+                            "head_sha": cr.get("head_sha"),
+                            "status": cr.get("status"),
+                            "conclusion": cr.get("conclusion"),
+                        }
+                        for cr in check_runs_resp["check_runs"]
+                        if isinstance(cr, dict)
+                    ]
+            except Exception:
+                pass
+
         document["api_status"] = "SUCCESS"
     except (HTTPError, URLError, OSError, TimeoutError, ValueError, json.JSONDecodeError) as error:
         document["error"] = str(error)
@@ -116,4 +158,5 @@ def main(argv: list[str] | None = None) -> int:
     return 0
 
 
-if __name__ == "__main__": raise SystemExit(main())
+if __name__ == "__main__":
+    raise SystemExit(main())
