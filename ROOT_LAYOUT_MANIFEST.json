@@ -1,0 +1,41 @@
+{
+  "schema_version": "2.0.0",
+  "manifest_id": "hyai_root_layout_v2",
+  "protected": true,
+  "authority_to_change": [
+    "PO",
+    "ARCHITECTURE_AUTHORITY"
+  ],
+  "allowed_root_directories": [
+    ".github",
+    ".hyai",
+    "src",
+    "tests",
+    "schemas",
+    "policies",
+    "migrations",
+    "config",
+    "scripts",
+    "review",
+    "evidence",
+    "artifacts",
+    "docs"
+  ],
+  "allowed_root_files": [
+    "README.md",
+    "pyproject.toml",
+    "ROOT_LAYOUT_MANIFEST.json",
+    "SECURITY.md",
+    "LICENSE"
+  ],
+  "runtime_write_zones": [
+    ".hyai/runtime",
+    ".hyai/tmp",
+    ".hyai/cache",
+    "artifacts",
+    "evidence",
+    "review"
+  ],
+  "generated_product_policy": "PRODUCT_WORKSPACE_OR_EXTERNAL_REPOSITORY_ONLY",
+  "executor_may_modify_manifest": false
+}

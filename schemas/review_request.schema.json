@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewRequest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "review_request_id",
+    "phase_id",
+    "repository",
+    "base_ref",
+    "head_commit_sha",
+    "acceptance_contract_refs",
+    "requested_by",
+    "requested_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "review_request_id": {
+      "type": "string",
+      "pattern": "^review_"
+    },
+    "phase_id": {
+      "type": "string",
+      "pattern": "^F[0-9]{2}$"
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "base_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "head_commit_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "acceptance_contract_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "requested_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "requested_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

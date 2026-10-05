@@ -1,0 +1,296 @@
+{
+  "criterion_results": [
+    {
+      "criterion_id": "L9-REQ-FSG-001",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-FSG-002",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-FSG-003",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-FSG-004",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GIT-001",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GIT-002",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GIT-003",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GIT-004",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GIT-005",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GIT-006",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-001",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-002",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-003",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-004",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-005",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-006",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-007",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-GOV-008",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-IMP-001",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-IMP-002",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-IMP-003",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-IMP-004",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-IMP-005",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-SEC-001",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-SEC-002",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-SEC-003",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-SEC-004",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-SEC-005",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    },
+    {
+      "criterion_id": "L9-REQ-SEC-006",
+      "evidence_refs": [
+        "ev_test_output",
+        "ev_root_guard"
+      ],
+      "result": "PASS",
+      "verification_method": "oracle_test_execution",
+      "verification_ref": "tests/oracles/test_L9_T_*.py"
+    }
+  ],
+  "review_subject_id": "subject_f00_governance_bootstrap",
+  "schema_version": "2.0.0"
+}

@@ -1,0 +1,204 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "memory_id",
+    "kind",
+    "scope_type",
+    "scope_ref",
+    "authority_class",
+    "source_refs",
+    "provenance_refs",
+    "lifecycle_state",
+    "retention_class",
+    "content_digest",
+    "created_at",
+    "created_by"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "memory_id": {
+      "type": "string",
+      "pattern": "^memory_"
+    },
+    "kind": {
+      "enum": [
+        "TASK_MEMORY",
+        "PRODUCT_PROJECT_KNOWLEDGE",
+        "USER_PREFERENCE_MEMORY",
+        "LEARNING_MEMORY",
+        "NEGATIVE_KNOWLEDGE",
+        "DECISION_MEMORY",
+        "EVIDENCE_MEMORY"
+      ]
+    },
+    "scope_type": {
+      "enum": [
+        "GLOBAL_PLATFORM",
+        "PRINCIPAL",
+        "PRODUCT",
+        "PROGRAM",
+        "WORKSTREAM",
+        "TASK",
+        "EXECUTION_ATTEMPT"
+      ]
+    },
+    "scope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_class": {
+      "enum": [
+        "CANONICAL_REFERENCE",
+        "VERIFIED_KNOWLEDGE",
+        "USER_PREFERENCE",
+        "DERIVED_OBSERVATION",
+        "UNVERIFIED",
+        "QUARANTINED"
+      ]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "provenance_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "lifecycle_state": {
+      "enum": [
+        "ACTIVE",
+        "SUPERSEDED",
+        "EXPIRED",
+        "TOMBSTONED",
+        "QUARANTINED"
+      ]
+    },
+    "retention_class": {
+      "enum": [
+        "EPHEMERAL",
+        "SHORT",
+        "PROJECT_LIFETIME",
+        "REGULATED",
+        "LEGAL_HOLD"
+      ]
+    },
+    "valid_from": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "valid_until": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "format": "date-time"
+    },
+    "supersedes": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^memory_"
+      }
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "created_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "oneOf": [
+        {
+          "required": [
+            "statement"
+          ]
+        },
+        {
+          "required": [
+            "content_ref"
+          ]
+        }
+      ]
+    }
+  ]
+}

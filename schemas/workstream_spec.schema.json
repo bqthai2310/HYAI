@@ -1,0 +1,56 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkstreamSpec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workstream_id",
+    "program_id",
+    "name",
+    "outcome",
+    "task_ids",
+    "dependency_refs",
+    "state"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workstream_id": {
+      "type": "string",
+      "pattern": "^ws_"
+    },
+    "program_id": {
+      "type": "string",
+      "pattern": "^prog_"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "outcome": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_ids": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^task_"
+      },
+      "uniqueItems": true
+    },
+    "dependency_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "state": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DeliveryContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "delivery_contract_id",
+    "product_ref",
+    "product_contract_digest",
+    "product_contract_revision",
+    "product_contract_ref",
+    "revision",
+    "release_subject_ref",
+    "required_acceptance_refs",
+    "required_security_gates",
+    "required_operational_gates",
+    "required_recovery_gates",
+    "required_bundle_items",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "delivery_contract_id": {
+      "type": "string",
+      "pattern": "^deliverycontract_"
+    },
+    "product_ref": {
+      "type": "string",
+      "pattern": "^product_"
+    },
+    "release_subject_ref": {
+      "type": "string"
+    },
+    "required_acceptance_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_security_gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_operational_gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_recovery_gates": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_bundle_items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "product_contract_ref": {
+      "type": "string",
+      "pattern": "^productcontract_"
+    },
+    "product_contract_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "product_contract_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

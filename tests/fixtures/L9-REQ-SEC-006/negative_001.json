@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-075-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-SEC-006",
+  "test_id": "L9-T-075",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Security material action attributable.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Security material action attributable.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-SEC-006 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-SEC-006 and L9-T-075."
+  ]
+}

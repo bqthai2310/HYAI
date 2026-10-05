@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "FederationNode",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "node_id",
+    "state",
+    "trust_class",
+    "platform",
+    "capabilities",
+    "health",
+    "registered_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "node_id": {
+      "type": "string",
+      "pattern": "^node_"
+    },
+    "state": {
+      "enum": [
+        "DISCOVERED",
+        "ATTESTING",
+        "ACTIVE",
+        "DRAINING",
+        "QUARANTINED",
+        "RETIRED"
+      ]
+    },
+    "trust_class": {
+      "enum": [
+        "UNTRUSTED",
+        "LIMITED",
+        "TRUSTED",
+        "HIGH_TRUST"
+      ]
+    },
+    "platform": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "health": {
+      "enum": [
+        "UNKNOWN",
+        "HEALTHY",
+        "DEGRADED",
+        "UNHEALTHY"
+      ]
+    },
+    "attestation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "registered_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

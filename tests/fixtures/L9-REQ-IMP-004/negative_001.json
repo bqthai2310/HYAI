@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-146-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-IMP-004",
+  "test_id": "L9-T-146",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Canonical DB changes use ordered migrations with rollback/irreversible declaration.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Canonical DB changes use ordered migrations with rollback/irreversible declaration.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-IMP-004 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-IMP-004 and L9-T-146."
+  ]
+}

@@ -1,0 +1,62 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "WorkflowInstance",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "workflow_id",
+    "task_id",
+    "workflow_type",
+    "revision",
+    "state",
+    "started_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workflow_id": {
+      "type": "string",
+      "pattern": "^wf_"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^task_"
+    },
+    "workflow_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "state": {
+      "enum": [
+        "CREATED",
+        "RUNNING",
+        "WAITING",
+        "RECOVERING",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "checkpoint_ref": {
+      "type": [
+        "string",
+        "null"
+      ]
+    }
+  }
+}

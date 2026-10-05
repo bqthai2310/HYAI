@@ -1,0 +1,96 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpgradeSignal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "signal_id",
+    "signal_type",
+    "subject_ref",
+    "evidence_refs",
+    "severity",
+    "detected_at",
+    "lifecycle_state",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "signal_id": {
+      "type": "string",
+      "pattern": "^upgradesignal_"
+    },
+    "signal_type": {
+      "enum": [
+        "EOL",
+        "SECURITY",
+        "CAPABILITY_GAP",
+        "REGRESSION",
+        "PROTOCOL_CHANGE",
+        "COST_LATENCY",
+        "SCALE_PRESSURE",
+        "BETTER_PROVEN_OPTION"
+      ]
+    },
+    "subject_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "severity": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "detected_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "DETECTED",
+        "TRIAGED",
+        "LINKED_TO_PROPOSAL",
+        "DISMISSED"
+      ]
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

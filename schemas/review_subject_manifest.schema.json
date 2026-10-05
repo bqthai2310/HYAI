@@ -1,0 +1,155 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewSubjectManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "subject_id",
+    "repository",
+    "head_commit_sha",
+    "base_commit_sha",
+    "files",
+    "config_digests",
+    "policy_snapshot_id",
+    "acceptance_versions",
+    "subject_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "subject_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "repository": {
+      "type": "string",
+      "minLength": 1
+    },
+    "head_commit_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "base_commit_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "path",
+          "digest"
+        ],
+        "properties": {
+          "path": {
+            "type": "string",
+            "minLength": 1
+          },
+          "digest": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "algorithm",
+              "encoding",
+              "value"
+            ],
+            "properties": {
+              "algorithm": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+              },
+              "encoding": {
+                "enum": [
+                  "hex",
+                  "base64url"
+                ]
+              },
+              "value": {
+                "type": "string",
+                "minLength": 16,
+                "maxLength": 1024,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          }
+        }
+      }
+    },
+    "config_digests": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "algorithm",
+          "encoding",
+          "value"
+        ],
+        "properties": {
+          "algorithm": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+          },
+          "encoding": {
+            "enum": [
+              "hex",
+              "base64url"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "minLength": 16,
+            "maxLength": 1024,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          }
+        }
+      }
+    },
+    "policy_snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptance_versions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "subject_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

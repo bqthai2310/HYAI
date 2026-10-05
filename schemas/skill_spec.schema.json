@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SkillSpec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "skill_id",
+    "semantic_version",
+    "content_digest",
+    "provided_capabilities",
+    "input_schema_refs",
+    "output_schema_refs",
+    "permission_profile",
+    "side_effect_class",
+    "failure_semantics",
+    "evaluation_policy_ref",
+    "lifecycle_state"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "skill_id": {
+      "type": "string",
+      "pattern": "^skill_"
+    },
+    "semantic_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$"
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "provided_capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "input_schema_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "output_schema_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "required_tools": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "required_providers": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "permission_profile": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "side_effect_class": {
+      "enum": [
+        "NONE",
+        "REVERSIBLE",
+        "COMPENSATABLE",
+        "IRREVERSIBLE"
+      ]
+    },
+    "failure_semantics": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evaluation_policy_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lifecycle_state": {
+      "enum": [
+        "DRAFT",
+        "REGISTERED",
+        "EVALUATING",
+        "QUALIFIED",
+        "ACTIVE",
+        "DEPRECATED",
+        "RETIRED",
+        "QUARANTINED",
+        "REVOKED"
+      ]
+    }
+  }
+}

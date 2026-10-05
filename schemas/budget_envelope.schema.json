@@ -1,0 +1,39 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "BudgetEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "budget_envelope_id",
+    "limits",
+    "currency"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "budget_envelope_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "currency": {
+      "type": "string"
+    },
+    "limits": {
+      "type": "object",
+      "additionalProperties": {
+        "type": [
+          "number",
+          "integer"
+        ],
+        "minimum": 0
+      }
+    },
+    "hard_stop_on_exceed": {
+      "type": "boolean",
+      "default": true
+    }
+  }
+}

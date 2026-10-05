@@ -1,0 +1,27 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "algorithm",
+    "encoding",
+    "value"
+  ],
+  "properties": {
+    "algorithm": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+    },
+    "encoding": {
+      "enum": [
+        "hex",
+        "base64url"
+      ]
+    },
+    "value": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 1024,
+      "pattern": "^[A-Za-z0-9_-]+$"
+    }
+  }
+}

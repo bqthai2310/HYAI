@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductComponent",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "component_id",
+    "product_id",
+    "name",
+    "component_type",
+    "owner_boundary",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "component_id": {
+      "type": "string",
+      "pattern": "^component_"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^product_"
+    },
+    "name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "component_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "owner_boundary": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,1 @@
+"""HYAI memory boundary."""

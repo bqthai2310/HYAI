@@ -1,0 +1,1851 @@
+{
+  "acceptance_versions": [
+    "2.1.0"
+  ],
+  "base_commit_sha": "a7fa5f3e5429660adb87f5b548fa95eaf0406fd4",
+  "config_digests": [],
+  "files": [
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c8149fe4596701fdaed2556e1b42834b313cf2314921f52d3903f56577cd89c6"
+      },
+      "path": ".github/workflows/f00-acceptance-gate.yml"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "742658f127249da1cb1cc2a9caba21949ca2332a9dac89be78c38ea474d668ce"
+      },
+      "path": ".github/workflows/review-artifact-gate.yml"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "412f68071c26e66bc058ca7a3dc8a926852f77c193c44ff792a1ee9fc9f73e98"
+      },
+      "path": ".github/workflows/root-layout-gate.yml"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "86af53d9cfb25a61a0708b6cf5464a918f5595d9c3539f3ee74faf083ba2859c"
+      },
+      "path": ".github/workflows/spec-gate.yml"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": ".hyai/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "11a4dc4069c4673c7a2c8681e9b2b8d190ac9e1c96cf8f030a2a2e99ce9d0a16"
+      },
+      "path": "LICENSE"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "da7544e4c2b4f4e514fd1a73e2f7f359ba7c5818f5d28f0c3a252f58717f5cc9"
+      },
+      "path": "README.md"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "b4402df1bb54a6e3b52b0c731e8ec11c454e157d53ff4ce9cf7cb7eac50ba081"
+      },
+      "path": "ROOT_LAYOUT_MANIFEST.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "103a2df7d5c286eff0482ce44f3135212363dcf562f0ad7123586ad6c993a99f"
+      },
+      "path": "SECURITY.md"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "artifacts/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "config/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "docs/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "evidence/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "migrations/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "policies/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "6aac111027899c356ed63eb02b2abe2a801f2073dd36bd1a1d27e295d254a1e1"
+      },
+      "path": "pyproject.toml"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "3510dbbb1c3d9932357dd1d06c85502681fd526740bb3acdf2e0d2a74013c06d"
+      },
+      "path": "schemas/acceptance_contract.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8717dee7ca3a62699ed84bcc7853ee9de7d16cb6179fb13cc74fb1b59d57b0d6"
+      },
+      "path": "schemas/acceptance_results.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "168157cdc4d39ad2532d8dec6abc5569815ad84fb309fdf47b3e881868def41d"
+      },
+      "path": "schemas/artifact_manifest.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "098a2d27df1da88cd33592947c1f0f29086de84367483857b43df692acc54e61"
+      },
+      "path": "schemas/authority_envelope.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "97fbef30038091e96b284e52f7c2d8440ff76d7772e2ca850496827424db7218"
+      },
+      "path": "schemas/authority_request.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "08ff47d33cbf17c881a0da6b34d785dbabbe479d5d31a7bd26665c29ea4541c4"
+      },
+      "path": "schemas/benchmark_suite.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0314a6fd02cfc62e9ae75910b0c4c9fe466834156144d866997bda8b187bb9ed"
+      },
+      "path": "schemas/budget_envelope.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a057d741aae6c9498021a33a2a9c928b496e3d2e7583a29d0c40ca8c7af63fc4"
+      },
+      "path": "schemas/canary_plan.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "dcff05ebec479300512b989b3fd2d43fe419363d8805bc702e5466d6ad762e7c"
+      },
+      "path": "schemas/capability_plan.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "4120e9d0da25ff9583a285ccdd1610f806ee0d33a05840f6c797aa1e19f0e557"
+      },
+      "path": "schemas/capability_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8820902d68ef8a2b37773595b70eebdccc5d46a338ac335a681a0dfa3bc99f38"
+      },
+      "path": "schemas/checkpoint.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "46e7eee894194ed2ca86253fed1ca49917892436c2d27faacc6debdb16755ead"
+      },
+      "path": "schemas/command_envelope.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "fabddf4888e4e6093ca928bdef0919351b4078a4c6ce6a2a8c9202aa5136ce1d"
+      },
+      "path": "schemas/common.digest.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f68ad19c7f19f5cd327aab746be4c37e0aaa5b417fdaf60f04af9c555feaadc6"
+      },
+      "path": "schemas/common.principal.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a6853bdafa8c14ab5dabf560da5797c65baffd4d0d1cb70cf23a10647a26a799"
+      },
+      "path": "schemas/compatibility_profile.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c01e6920166c7fcb04ff7c4594e541c387d792ca821a428fc7d43907083b5e6f"
+      },
+      "path": "schemas/component_abi_manifest.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "22a62ac2d230a072bd20902f5f61d0effe41822581dfb09aa86797b4bd9207ae"
+      },
+      "path": "schemas/contract_registry_entry.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "58d3c5a9ef66df4a2797138efb3e74ab0d603bda1e78a3f7ddc20b87d7c7ea41"
+      },
+      "path": "schemas/data_retention_policy.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "50c62ca127534e788e576b9bdbf7d27225d47c574f941ac2336dc2c4c945e491"
+      },
+      "path": "schemas/decision_record.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "baf3eef65ef321f49ae099127eac861b009eae2ac50b1e92bee38de5ae9f1951"
+      },
+      "path": "schemas/delivery_contract.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "9f4d90ee1b345b6e275e0155f74acebc6be35e54acee0744c934a03a6a8d1d31"
+      },
+      "path": "schemas/delivery_readiness_record.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f76d80c766e7bd74036c5fd2e2c6eb46a272813a6e6c1afcb5a3829ec6275627"
+      },
+      "path": "schemas/department_charter.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a4935cf7f63cb33ce3259d18c55b72c38d89bdcde9912fadd37a43376ce60938"
+      },
+      "path": "schemas/disaster_recovery_plan.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "4955b1101ecfc550f7a98a989359d4dd697cf3903da61f91ba5a908f11d23d01"
+      },
+      "path": "schemas/evaluation_run.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "cc32c8e9bc0f623c02d35160bf6f0d11a6d096faf1ade6d664d44c6b76626d8d"
+      },
+      "path": "schemas/evaluation_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "236c147ba4c9d8322a237fdd6ccc1c2c35b2291e2c5ed5533e9ebfdcefb9829d"
+      },
+      "path": "schemas/event_envelope.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "88107d792d329c43311eeeceaab5ad5730bd1651fbf645fb3872f9df94b707c5"
+      },
+      "path": "schemas/evidence_bundle.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d7cd756d1077ff28448899e2fd553a4efa39cbb3173477f18f76509dad22bafb"
+      },
+      "path": "schemas/evolution_proposal.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e2b52a3f8f4caa6b9d473eb4dd9a86360f19c91b8bc7198e592429600692cee2"
+      },
+      "path": "schemas/execution_attempt.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2775017982ce404fed248f2a6492b66d1df93a7ed7f03f996cab3a623e74640f"
+      },
+      "path": "schemas/executive_mandate.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c09601ab3ac718a9f80bf9f9c443fdf8d2188401e8c0b9ca56e44f60e11593dc"
+      },
+      "path": "schemas/experiment_plan.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "9cc9c0c33dfc2a0d727532576883c76dfe4eeebbbeae20ba5d13ebb526327534"
+      },
+      "path": "schemas/external_review_attestation.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "1789e6e602c53ea2cefdd479bb30a55292154eba53942471f70a52ed99b15df5"
+      },
+      "path": "schemas/federation_node.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "3d9322188af69b41479aeb48cb36557887a6d2b8cf8daa65ee8fd3a88ade82be"
+      },
+      "path": "schemas/goal_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c3d62a172b7bf64820c61561b61bb256aec6da5070c6a45e44f165a4edf9c10a"
+      },
+      "path": "schemas/handoff_contract.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "baf3f5d59b11d5056451046e91ce7c3c2fd2a145cacffb7ace7766c241a6b170"
+      },
+      "path": "schemas/memory_context_bundle.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "dc42096ff996f109afcaa66e1f7d2ae00c8f38fe96ecebe83e1ea04c8e1aa41c"
+      },
+      "path": "schemas/memory_query.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "596b31a79a071fde122e6fdc4c5f67d33e9f92e5978c5d78d9a26c4ee12128fb"
+      },
+      "path": "schemas/memory_record.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0c3b4f7103cb9343c8b1767ebe60bb3fd977a53abe5711e9f4101d53ee0b7797"
+      },
+      "path": "schemas/memory_tombstone.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "bf37dd20d716445b0926639e2d9845e528bfb6ac39e34f4457d1d4dd55b7ec17"
+      },
+      "path": "schemas/oracle_result.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "91e08b203c00b74ca5fc7bef4d15e4142fbd3293c68e9000e15dd79e17867470"
+      },
+      "path": "schemas/organization_route.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f9d97e90842ab29494ded70981ca4f72c7d064d83703dc4aaa63368227da5b0c"
+      },
+      "path": "schemas/organizational_lesson.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "ba00949df9f0245d4965de7c809e1deccd8046a261467f4cd730577ef702b144"
+      },
+      "path": "schemas/policy_snapshot.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "98a11974a096270fd1a3aa1fe2ac8fb4de0252c537b60a9c61a6cf64932c6df7"
+      },
+      "path": "schemas/product_component.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e7a8ef7279ececf2b119e2b0cdfe450dea10e55d07531377081fe7d440c1b8c8"
+      },
+      "path": "schemas/product_contract.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "38901f6447bc80dc7e81fbdbb22ee57cf4eef144bab569cf7406c0117a29cdb7"
+      },
+      "path": "schemas/product_delivery_bundle.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "367d3491b0d9f6ffe0839e56ee77eed6bffd6fdb5a1d938115a7d2b7acdfa403"
+      },
+      "path": "schemas/product_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "361d0892fa5436cef8cf33f1be28bbdfff7195382e5cafd0598b545585611d28"
+      },
+      "path": "schemas/program_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f411152dfb4643b025b698273baa2fd572872a469b84341a8bfabbfe095c8f4e"
+      },
+      "path": "schemas/promotion_approval.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "4b8b37a1d80fbc52018df9851b3e37b89a2c8356d9d949a1ef03f885399f8549"
+      },
+      "path": "schemas/promotion_request.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "920b3dee30a0005dde705c31e7b2be15ffb66ef052f3f271d10888a67d070b6d"
+      },
+      "path": "schemas/protocol_adapter_descriptor.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "ccd58b961290be1984f96c76cadca2055f11acafa95b51113349b526e2f345b5"
+      },
+      "path": "schemas/recovery_decision.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "284b22a267ca9250c4847cb365c2b259b809c18e8b70c196c76a79f2dd87c0b4"
+      },
+      "path": "schemas/release_record.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7cf92fd74e37f641c0c0581661eecafe122d34c0ac2d1f19b03aa611175ec144"
+      },
+      "path": "schemas/resource_lease.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2da9941f1d5a76c00cc86bac85f740f09af6aede1cfefd2a8c40f47991bb5d5f"
+      },
+      "path": "schemas/review_request.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "491bd6234cefae4e7f3227f8928d707cfe65ce379f59c99d52100cd3982466b3"
+      },
+      "path": "schemas/review_subject_manifest.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c98eeb1949736512df301648a7bf8eae0df3c840f8edaa63fc402f24d01ea792"
+      },
+      "path": "schemas/review_verdict.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "00a96f51b5276bfe2fa8211bbd79d446677f01e393c2becf0dca9282c5b22cc9"
+      },
+      "path": "schemas/risk_envelope.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8cf584064c613d4e67cbef8da9e10ef80b9ab76d7367c50d76e89bf7504ca4c9"
+      },
+      "path": "schemas/rollback_plan.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "63fab85edaf25ba04a58307ff3e8df21f2684f663360d932c5d8e2c8d1413ce5"
+      },
+      "path": "schemas/root_guard_result.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a823c41d776e8dc0f9a96f0ed4eb75b431eafd9367278638a740362ab3eb83f6"
+      },
+      "path": "schemas/root_layout_manifest.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "4705bae1d1e03150b01976119338724edfb49b1ecc906b829f74d5191136c4da"
+      },
+      "path": "schemas/skill_binding.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "03e9cd990e03d1d14891dec909e3ab74b4f9add275f6ff7218c01d7dab564720"
+      },
+      "path": "schemas/skill_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5c9e7c906d71924a3e7c2d9b8b0d7c93b5a485e742b378f7f6fe867197349fa8"
+      },
+      "path": "schemas/strategy_profile.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e0e0927302d344a1496a0978cdbc2b6ad0bb77ed46d007766553dc900c2effad"
+      },
+      "path": "schemas/supply_chain_attestation.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "9354cb7937f66127e217de3b91d15dff3c78e42f3772e6be7e0f645b012a6742"
+      },
+      "path": "schemas/task_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "472e8d219368debec9d1b1d00441a333261e7e41dc91e9be1a39cefdb34ed45c"
+      },
+      "path": "schemas/technology_lifecycle_entry.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c21504af26ff20acaa55556998b346cdcd09f42861f53ef1e0532f76f6de5f23"
+      },
+      "path": "schemas/test_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d7d2560952db2f435adc799b64e27367d5e7c37310732b4ac198b9a83dbbde5d"
+      },
+      "path": "schemas/upgrade_proposal.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "fcb6faf202d65b23feed0a79419dcd66b1ac449cd4e9a1214a9a50d1435fda3f"
+      },
+      "path": "schemas/upgrade_signal.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f11c79449811db39829f9f58ed7dcc022f4bf922e0ec74054120eb5ec7fbec0b"
+      },
+      "path": "schemas/worker_descriptor.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "6871553e8b34542357dd6e811778eeefbb59f2df41ed3494995bc31a40c8fbb9"
+      },
+      "path": "schemas/workflow_instance.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2c033004496d258bf7571e02f2e8784a9864382ad345b82852ae7f9dcd78f27d"
+      },
+      "path": "schemas/workstream_spec.schema.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5ae1c6053decd97f14101248e00de5fe9251a2e2e296b05a4cd5707f5f181093"
+      },
+      "path": "scripts/bootstrap.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e5902c764069a48ca302be97cb343776725a31e0853841d7d1c4b712c1b5ab6c"
+      },
+      "path": "scripts/generate_review_artifacts.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5bf429ab5f8817540309aea15e9585715d2fb83cc5b0d4904ccf63dc06615295"
+      },
+      "path": "scripts/root_guard.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c23c2ac69770f8d6c4466999a42d6433d255d10335acad4149e0c745befa0b90"
+      },
+      "path": "scripts/validate_spec.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "99ff36cbfc24a8c95cbe40e7672f9f2d01d0d19ba9cb249f13c763b28059059a"
+      },
+      "path": "scripts/validate_specs.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "17ec630a6ee364a6e6c036727393353cdc5c6d24b0db176eb5060d430d883f71"
+      },
+      "path": "src/hyai/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "92d2bf73da7615397184ee9ba99cb12739636205dd258b2e6a8a3e693a9b3a06"
+      },
+      "path": "src/hyai/acceptance/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d2dda4f55284a5510c28c686868728661671b859befabb3203184393cad4a702"
+      },
+      "path": "src/hyai/acceptance/compiler.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "1071cdc5345bfe1e11533f9cdaed94ffef8a3a9288fce03a2d4c763df414bc6a"
+      },
+      "path": "src/hyai/adapters/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "500065a9cf06d769c06f9ac2dcd69d8b19446aed277c7d0a2aa157a3c5c5cfc0"
+      },
+      "path": "src/hyai/adaptive/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "551360f185865566932cf005e0cd5edf74ca854865399766536842d539730806"
+      },
+      "path": "src/hyai/api/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d24580130ebc8cdb141ddb2e8a2e4e3d5d4d024f198370e2f556550cc75ed941"
+      },
+      "path": "src/hyai/assurance/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5bde05e733ce786e18865d54a7cc2b8ce69dcaff301f1e2c9bdb22d4908d0ea2"
+      },
+      "path": "src/hyai/assurance/review.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7752ecde73d9a1dd7051b70df489cfabb77590313209c2daccd5297ed853e8f7"
+      },
+      "path": "src/hyai/bootstrap/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "99e9b8acc796fa34bf382c779590ff2db739dfaa666cf6acf88b9666ca7c88dd"
+      },
+      "path": "src/hyai/bootstrap/runner.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5b5fc57ec3c8196b3c47b09217d92d0f7dd54d21b3de8de1a943b5a8c0bb0955"
+      },
+      "path": "src/hyai/capabilities/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0c6a0da0cda79e1fbb3a83ca13ab3681b5af71cd23fef090ec303ea48bd94391"
+      },
+      "path": "src/hyai/compatibility/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "1058817acf2212101fd70012e7a99eac038408f2e22861a0a040f5facd50392f"
+      },
+      "path": "src/hyai/constitution/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d0f44cf2fce90308887260b21eb1ad2805b75fb3c1ec2193d184c0f19340b850"
+      },
+      "path": "src/hyai/constitution/authority.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "701fce7263d0811f29ef05f65b42ab0d9e418f0d199a7e569d39f4e43140539c"
+      },
+      "path": "src/hyai/delivery/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "09faeddb0cc5929a48521c03e157c8758d00b41795d3477b334206304753d749"
+      },
+      "path": "src/hyai/departments/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "84450fb64938ba3522eb91227fe2e449e652a112c2b14464696596a6991eb13b"
+      },
+      "path": "src/hyai/evaluation/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c30ed5f6cc27384c17a9b5ecefaf73d226d03960388c67117f2f68d47d65c751"
+      },
+      "path": "src/hyai/evolution/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "6ae6da5cdaddd81d299c5d766a94d30916c45b773f04b3325d21e480c9b2f658"
+      },
+      "path": "src/hyai/executive/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "3d9970756d28e7324127d4d46021a02c472577bccbb6c019747391ce1d09a418"
+      },
+      "path": "src/hyai/federation/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "bd5c1bc606048aef15568ff93b833c6a1cc15ffe2c3068381c28b21c9fa961c1"
+      },
+      "path": "src/hyai/ingress/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "fdd1cb073f68b44a1a34a17ef1d2cafb4aaa8e140d77455f1edd4b50493ca073"
+      },
+      "path": "src/hyai/interoperability/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a27089b13c1274ac6d8125b968226a42ac0445c66447007f57cda6a5189eec86"
+      },
+      "path": "src/hyai/kernel/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e281812637c7ffe528e364b47ccb9a34a4f9c12f8bc790714bf44ff174e51e7b"
+      },
+      "path": "src/hyai/learning/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2d64204e90452904251390f75e2cc8e8f72076cbaa724a97864d6c44ac24bc23"
+      },
+      "path": "src/hyai/memory/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "45338db0b7e898c7c1290781464d2d7609423e6b8e0d4881048fbc4dc57a7a35"
+      },
+      "path": "src/hyai/observability/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "551938a63a9630f14d5d6b50388ef3f1e1d35539f1a2f37f16cfb65a131cd8ed"
+      },
+      "path": "src/hyai/organization/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "dcf50424b9b294f03cdaf8afe8287594fcab2de48be71d080497abac270d879c"
+      },
+      "path": "src/hyai/planning/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2c6eaa3af20b10c2b83ff15366f7148db5198bd45dd7e9faab1d5deeb523d74a"
+      },
+      "path": "src/hyai/portfolio/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e3d2d2b902997af25813773103f624d3e2630fd7c6e0437b072e96c7a4d38041"
+      },
+      "path": "src/hyai/ports/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e04289b1f3765e9bdf785c3d34febca81d14c512a11804e60fe4429390fe54a0"
+      },
+      "path": "src/hyai/ports/base.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "1a51e34d6a5053f1b41a5dc9a39b79882e0c9896d76158e461a79e937d46eb99"
+      },
+      "path": "src/hyai/product/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "57ee976aca81c70f121330af178777847ef2bb68059e08da648694a16e788815"
+      },
+      "path": "src/hyai/security/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "962b84521d8b1e8cd1c6f7a0e44a25afbf05964072505963a0ade87f6f808a2b"
+      },
+      "path": "src/hyai/security/governance.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2d144b2b1c4e381c5b627286382ccae7407bf01297321503af385b240eab9ef1"
+      },
+      "path": "src/hyai/skills/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e69c7784042f9c8212de48e23eeb9aa6ddacca84eb3036ba7c0c4d48f4c67ff3"
+      },
+      "path": "src/hyai/supply_chain/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5db7e3fa235116dfc0844f8673f76cb10d4ab50102a369367876210548a0ec33"
+      },
+      "path": "src/hyai/workflow/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/adversarial/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/contract/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/delivery/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/e2e/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2a0007a1a1ce7425278a610a449e44e4dce5a3b0f87e921a94c1260da7493cec"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-001/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2829aa71b2fd0624134894235cd924d542212770dacb9fd33cf2adbc01efa712"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-001/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "96b82404d56c7769d6f8092ab47ac1132dc1faa5d08f7e0a6eddb6fc79ed008b"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-002/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "27fda46098471e69b23995e7c93ea75d67099b206334ba6431576faeff6ab70f"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-002/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a9a78bd4d3af243492a3418aa20d0a8287711f153900628a45d9f7ccb5365686"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-003/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "fb38c9df31184783daaab05d860ba7b92c0da900b06c40252301843baa716115"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-003/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d118e8002af8f2cee78cb9f2734835da2e568f7ffb40e355678f884e54e0d36e"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-004/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0278a0630588b8f8b3e60dfb363fd2d9fc1f14562ca5c57774a921527480f642"
+      },
+      "path": "tests/fixtures/L9-REQ-FSG-004/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e19aa51fecca7e41c587c950950f80b22bbba535c04c5f3c4aa4b9c8049dd42f"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-001/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8b6a407a1e72117d54787299f891c44db910f26d19ad3e4990162a1df6dac070"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-001/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "46a4021d7a90c5a91b09a3704767d8a212a5ab9c098728a8ef1075bcbe70081a"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-002/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "9d0de3678bf3a2d8f0a512285dff4691e947b7fc63a60b74f8322b95212920c0"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-002/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0ae33673328859f67196f50bd05465fe786023729ba9ffc2208441b1cef2994a"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-003/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "936034498c7612b36f7c97181347449da6f80d73650f61455c669cfc5ec3f4d1"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-003/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "20038cedce154c198f7c2b356ca79da9508d6b99dd286c90dc5dd6fabc599219"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-004/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "6267faf520b941d34b7047b44de29f40294114c4264f2a42e56f576fcc20d5a7"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-004/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "10e276e2e47cabcd01150e55133ac09156a5f4f54a5c6c93154a4101b99ea0a7"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-005/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "3e31438f1f19d356f11fbc9f5acc33497c91b5638a378cf83342ed989ae7e4ad"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-005/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "938d56f26b18f642b0997cb191441e9f90f68f9f3c5d456d7d5b6538d97dc747"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-006/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c269ce8f7abd8a832715973a244dd0fd2518f559a2be868fd07b49609c7e4cc0"
+      },
+      "path": "tests/fixtures/L9-REQ-GIT-006/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "93b9b30cd1838cd285ae616ef7147dcbbc70676e37bb694efa0a570046c8ec3b"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-001/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a532741cdb650129339caf6486428b9289042c4fa350085530304512f870d515"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-001/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f18286620f1cc3024c6c116cf232f09d22e27649ef0566085615ade0279cb30b"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-002/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "6364f9adcf1c12b495ce47ee68f673d1e4101d486c5f4bb2af6acc9167e7a625"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-002/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "acd0bc8ee3beec5745e45554bb2cbce27a1b5f538fa0381f2c187939e1a5b8d0"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-003/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "daf28cecb013ff6bf2fada4b26d256cbb02c0832b28c6963a77dd832c555eaba"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-003/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "9d111ecef43fed3ee644c72c788b28f1ef61309fa6311266e7f1fc58649efb1e"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-004/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "cc7dec3b46a06af90f9ae387a406d7cc973599aeb524d1f6c52d087aaf00dd8b"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-004/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c3794d0d88ea2ecd0c04447762a8eb7e55e717673c7f588aa7aa1ba284328bf9"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-005/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "53dfde9d7ef9ed07c72456bf2ac1974179f3c1317c0d7c05708e5926dbc1d639"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-005/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "abcb7786c6ae97b6a4d9a42a7ca87c32d9af84e50f976dae57c567a99fc83313"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-006/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "10d979936f0ad3e8671c87c357780337e58efa9078818f0455d5f5116e03f3bf"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-006/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "4f01a205f9aa57f137ac5612dac0c00573ec8a71c72e8ab537681f5fe42c107a"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-007/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7b650dd80bd1d0186ce4561d3a428a4af54a1da312af7f097602dfadc87932f6"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-007/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "22fd477450b6db4fe3416131ac2f17bc595d60e5af7828a435595d6bd316760b"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-008/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "08cad36a504f1d941c2838690c9f0d7e64cdd547752fba444805e288e5db4f9a"
+      },
+      "path": "tests/fixtures/L9-REQ-GOV-008/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "63c618cc7a014bf4b5d4483f6e3ca6b25193845a7d8085a5143f71108adc11a9"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-001/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "24a717b6ab4bdf1b4d31411e899651a658381011e787905bcbaa8037c5ffd547"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-001/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "b25fd5668a1fc5bbe6f74383a76f5d5d8ef277059b9459de638b63557ab3c3e0"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-002/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "ce9b54a3d70e55840d72f626b022752e4763555576538be4a9164300388ff9b7"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-002/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "086b5c2b533f3aad6050484f6e4823bb380aa09c4b1f9a3e6fe6330571be531a"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-003/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "62ee60bf943479ef71f872d43728fe5007d38ca085155185445d3f908e34caa8"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-003/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f2b81682383327edf8119f95d7e334d562acc4cb6c30df57feccdf069d512910"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-004/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "442c34b32be823e7b69e23e035c37f7cb71147db6c8d5065ed0131f07bf8d70c"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-004/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "57a0204b1ac0ccf653e3c9afc01f13281fcafeabfbfddc0e194df10a44887b71"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-005/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8e11806602329c65463dd729cca2178a52bcb7d84c48a4f12e511097755d3b99"
+      },
+      "path": "tests/fixtures/L9-REQ-IMP-005/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5ca0c6e4542fc15c1f7b5eedf6cd0ef67a8667f289703172c33d26a89b42db23"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-001/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5233736037c3e2ba1f6ff5c3893a45f515b61a3ae703319600508c889d5d5faa"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-001/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0476d6f0800edc5ef1f1c0caeda956885dc550f508a3abb91100ba55378b2634"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-002/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7aeec679fa06f2db2db4495d9f2f1c6b47a498edac5003e19f0d99e5702feea0"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-002/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "6fd8d923dbd7cdeab0b984bdcb5497ebdba63d04ff72b700bedc3d8f55d87391"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-003/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "e0cd68b8844c5bf2b6022e82e87b95e7a34d0662e356d6c292de916ac846e291"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-003/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "36ee9d60b9dbb772643ccee65ea8943c20283019b69d94122dc1099e3787a2d4"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-004/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "dad6e003af8a4dc5b23a18dec4ea16905286cb83da7ef9a8abbe81747f9b6b1e"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-004/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d2d0aa1c8c92196326dd1076e021cbcfbc54fd939b0896985d38a253ba7bb5a3"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-005/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "b50974e5e17a727176836a1e6a17362830834eede855e04f1ce68575ad40a2f2"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-005/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d26310d08f32196df8f535e658d78b9b64c47a41eefa946e25671a7611c52fd1"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-006/negative_001.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "cfd5866c5b85be1299f5b22847a7c64ed33be40f527b7f97b50c5c674fc6cc47"
+      },
+      "path": "tests/fixtures/L9-REQ-SEC-006/positive.json"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/integration/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/oracles/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7b5e754b4f8b926c573314e9a7038196f69d26fde49d2c736f51703ad08153c0"
+      },
+      "path": "tests/oracles/__init__.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "342796d51e36c6460dd8fde4e1566422fba1e271690b063586b37865136c11da"
+      },
+      "path": "tests/oracles/_support.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "843e6b6fbdd6638b52758fd4d2f0aa95cfdce64a884b9e2e746b853f8639a316"
+      },
+      "path": "tests/oracles/test_L9_T_001.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8db941a3e9054f98815c2e16c846e0a7db3abd35aa3d0b54eee6ccd545bf0811"
+      },
+      "path": "tests/oracles/test_L9_T_002.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "aee1c5bd4a01893d5a4d15262ad6d34dc36e96c17f7f2042dbbd7ae4fac6d2bd"
+      },
+      "path": "tests/oracles/test_L9_T_003.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "d3a2a22cc9a1ee05cdb005df85819aee24c95dea44052e2b539aa485b7572a25"
+      },
+      "path": "tests/oracles/test_L9_T_004.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2b118d481afbfbc55607fd4320733da233213ba798c10d68d02eb58e2615e70a"
+      },
+      "path": "tests/oracles/test_L9_T_005.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "628b590616b1cb4dd2e716632b7ff2acadfb72b28e71f3176603ff856072daff"
+      },
+      "path": "tests/oracles/test_L9_T_006.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7a96a3abb8996d523e1026a18f0f61ca211c94006211f4b0abb53a32ca3ba7e3"
+      },
+      "path": "tests/oracles/test_L9_T_007.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "0b5dab41e2bc10dbfa4ed1c6e8d1f1c18c2d5ae77150e02ea43b480ef0c1d83d"
+      },
+      "path": "tests/oracles/test_L9_T_008.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "927436e859d8dd13d7e3643b71fa6531fe526af103f02aec1f295424af632de6"
+      },
+      "path": "tests/oracles/test_L9_T_070.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "f27ff61679a83942aa158e99f5de335d11b68ec6ee07667403e4e14dea501040"
+      },
+      "path": "tests/oracles/test_L9_T_071.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "470a970bfb9cdaa754c2650ae8a1349b797fddcc2c9da57009d3de823d39df3c"
+      },
+      "path": "tests/oracles/test_L9_T_072.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "42128b98069a18506daac94f45566ace5aef095f080cd311bdc61c17a69bebd5"
+      },
+      "path": "tests/oracles/test_L9_T_073.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "788d79598a65f91ae80991db353d939cf074e53c082507c20f2370319b0200de"
+      },
+      "path": "tests/oracles/test_L9_T_074.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "b85ccccfa02207fd74ed1d7b7dcb24ae677440ee3a9416107a8051eee62c2be6"
+      },
+      "path": "tests/oracles/test_L9_T_075.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "c05fe883bb1ce7ca47760577928d849ec564db79b44f911b0e6984a0aceea5d3"
+      },
+      "path": "tests/oracles/test_L9_T_081.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a4bd2adc95874da49e8ea18ca60a98aaf5bafdba5fd869257896b9e3403ead8b"
+      },
+      "path": "tests/oracles/test_L9_T_082.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "73068c1b139258d52b014f33046ec209ad118fcfcffb55ff22336408c5c245b6"
+      },
+      "path": "tests/oracles/test_L9_T_083.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "bccf8fca0397cf7f3de2c7a1db8761352726d1a4fcefc822c3b80c4f62c7d892"
+      },
+      "path": "tests/oracles/test_L9_T_084.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "a6cb4f3a5efd0cc0ce415050fa54204298a0d54e1950655914f25974e2d94d25"
+      },
+      "path": "tests/oracles/test_L9_T_085.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "4df418c92a655e7cf973ac60c4a64c68c1b4345385aac5175bfd023954367152"
+      },
+      "path": "tests/oracles/test_L9_T_086.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "859c7478edce66b1b17c1a83ea88c30d4f1d0d129d50937c4d2b0cd33bf92497"
+      },
+      "path": "tests/oracles/test_L9_T_143.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "2c43e0dd654f9c613e11da14975a4f05745d76477df73c8ed64101890e078dfa"
+      },
+      "path": "tests/oracles/test_L9_T_144.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "3c2050fa6040365269b291be8e8ee7d872b24a69e651579d2abcec7343f17988"
+      },
+      "path": "tests/oracles/test_L9_T_145.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "9fd0cdef06bc95ed257802b07a7bd58e63906426821f24c0e434d994791bb7aa"
+      },
+      "path": "tests/oracles/test_L9_T_146.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "fb70d3de7c68e4e1bd0266be7d91802ef385f103d93e2d4ae659a0638c96361a"
+      },
+      "path": "tests/oracles/test_L9_T_147.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "74e0993313bb54dcc55ff2d9f72cc0f3dd3ad1eb9631562afb8b0ab790d6121f"
+      },
+      "path": "tests/oracles/test_L9_T_196.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "46478dcf73182d948da6dc6b544c9730f0e72278ee63003d05d1b5a46b4a806c"
+      },
+      "path": "tests/oracles/test_L9_T_197.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "16e299140c168cc54a072aa151f848cea0aae0a4aefaab44823e5a716d38756f"
+      },
+      "path": "tests/oracles/test_L9_T_198.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "1ce70fab7c16b112630597618901e9bcf42d6e5013fe59ce092964a2509b7dbb"
+      },
+      "path": "tests/oracles/test_L9_T_199.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/portability/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/recovery/.gitkeep"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
+      },
+      "path": "tests/unit/.gitkeep"
+    }
+  ],
+  "head_commit_sha": "a7fa5f3e5429660adb87f5b548fa95eaf0406fd4",
+  "policy_snapshot_id": "pol_f00_baseline",
+  "repository": "https://github.com/bqthai2310/HYAI",
+  "schema_version": "2.0.0",
+  "subject_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "1715836f2595653ae9e60a7d90f1d66db115a7b77aba1bdcd75773a27fa4743a"
+  },
+  "subject_id": "subject_f00_governance_bootstrap"
+}

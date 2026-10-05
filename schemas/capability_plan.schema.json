@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CapabilityPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "task_id",
+    "plan_id",
+    "bindings",
+    "resolver_revision",
+    "policy_snapshot_id"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^task_"
+    },
+    "plan_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bindings": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "capability_id",
+          "implementation_ref"
+        ],
+        "properties": {
+          "capability_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "implementation_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fallback_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          }
+        }
+      }
+    },
+    "resolver_revision": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

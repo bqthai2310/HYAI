@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RiskEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "risk_envelope_id",
+    "max_risk_class",
+    "forbidden_impacts",
+    "requires_po_approval"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_envelope_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "max_risk_class": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "forbidden_impacts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "requires_po_approval": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

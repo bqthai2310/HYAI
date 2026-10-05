@@ -1,0 +1,4 @@
+pytest tests/
+python scripts/root_guard.py
+python scripts/bootstrap.py
+python scripts/validate_spec.py

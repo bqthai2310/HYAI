@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryContextBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "query_id",
+    "memory_items",
+    "bundle_digest",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^memctx_"
+    },
+    "query_id": {
+      "type": "string",
+      "pattern": "^memq_"
+    },
+    "memory_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "memory_id",
+          "revision_or_digest"
+        ],
+        "properties": {
+          "memory_id": {
+            "type": "string",
+            "pattern": "^memory_"
+          },
+          "revision_or_digest": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      },
+      "uniqueItems": true
+    },
+    "bundle_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

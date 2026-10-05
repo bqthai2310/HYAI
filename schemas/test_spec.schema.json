@@ -1,0 +1,211 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TestSpec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "test_id",
+    "requirement_id",
+    "phase_id",
+    "acceptance_id",
+    "verification_kind",
+    "objective",
+    "preconditions",
+    "expected_assertions",
+    "negative_cases",
+    "fixture_bindings",
+    "required_evidence",
+    "entrypoint",
+    "authority_locked"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "test_id": {
+      "type": "string",
+      "pattern": "^L9-T-\\d{3}$"
+    },
+    "requirement_id": {
+      "type": "string",
+      "pattern": "^L9-REQ-[A-Z]+-\\d{3}$"
+    },
+    "phase_id": {
+      "type": "string",
+      "pattern": "^F\\d{2}$"
+    },
+    "acceptance_id": {
+      "type": "string",
+      "pattern": "^F\\d{2}-AC-\\d{3}$"
+    },
+    "verification_kind": {
+      "enum": [
+        "UNIT",
+        "CONTRACT",
+        "INTEGRATION",
+        "STATE_MACHINE",
+        "ADVERSARIAL",
+        "RECOVERY",
+        "E2E",
+        "EXTERNAL_REVIEW"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "preconditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_assertions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "negative_cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "fixture_id",
+          "mutation_operator",
+          "frozen_predicate",
+          "expected_result",
+          "forbidden_result",
+          "required_assertions"
+        ],
+        "properties": {
+          "case_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "fixture_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "mutation_operator": {
+            "enum": [
+              "FORCE_FROZEN_PREDICATE_FALSE",
+              "EXACT_ADVERSARIAL_PAYLOAD"
+            ]
+          },
+          "frozen_predicate": {
+            "type": "string",
+            "minLength": 8
+          },
+          "expected_result": {
+            "enum": [
+              "FAIL",
+              "BLOCKED",
+              "INSUFFICIENT_EVIDENCE"
+            ]
+          },
+          "forbidden_result": {
+            "const": "PASS"
+          },
+          "required_assertions": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        }
+      }
+    },
+    "required_evidence": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "entrypoint": {
+      "type": "string",
+      "pattern": "^tests/oracles/"
+    },
+    "authority_locked": {
+      "const": true
+    },
+    "fixture_bindings": {
+      "type": "array",
+      "minItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "fixture_id",
+          "kind",
+          "path",
+          "digest"
+        ],
+        "properties": {
+          "fixture_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "kind": {
+            "enum": [
+              "POSITIVE_BASELINE",
+              "NEGATIVE_VECTOR"
+            ]
+          },
+          "path": {
+            "type": "string",
+            "pattern": "^30_executable_acceptance/fixtures/"
+          },
+          "digest": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "algorithm",
+              "encoding",
+              "value"
+            ],
+            "properties": {
+              "algorithm": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+              },
+              "encoding": {
+                "enum": [
+                  "hex",
+                  "base64url"
+                ]
+              },
+              "value": {
+                "type": "string",
+                "minLength": 16,
+                "maxLength": 1024,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          }
+        }
+      },
+      "contains": {
+        "type": "object",
+        "required": [
+          "kind"
+        ],
+        "properties": {
+          "kind": {
+            "const": "NEGATIVE_VECTOR"
+          }
+        }
+      },
+      "minContains": 1
+    }
+  }
+}

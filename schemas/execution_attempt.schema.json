@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExecutionAttempt",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "attempt_id",
+    "task_id",
+    "task_revision",
+    "workflow_id",
+    "lease_id",
+    "status",
+    "started_at",
+    "producer"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "pattern": "^attempt_"
+    },
+    "task_id": {
+      "type": "string",
+      "pattern": "^task_"
+    },
+    "task_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "workflow_id": {
+      "type": "string",
+      "pattern": "^wf_"
+    },
+    "lease_id": {
+      "type": "string",
+      "pattern": "^lease_"
+    },
+    "status": {
+      "enum": [
+        "STARTED",
+        "CHECKPOINTED",
+        "SUCCEEDED",
+        "FAILED",
+        "CANCELLED",
+        "EXPIRED"
+      ]
+    },
+    "started_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "finished_at": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "date-time"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "artifact_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "evidence_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

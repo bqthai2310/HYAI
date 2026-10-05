@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DisasterRecoveryPlan",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "dr_plan_id",
+    "system_scope",
+    "rpo_seconds",
+    "rto_seconds",
+    "backup_refs",
+    "restore_procedure_ref",
+    "drill_frequency",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "dr_plan_id": {
+      "type": "string",
+      "pattern": "^drplan_"
+    },
+    "system_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "rpo_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "rto_seconds": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "backup_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "restore_procedure_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "drill_frequency": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,184 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ExecutiveMandate",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "mandate_id",
+    "revision",
+    "raw_directive_ref",
+    "goal_ref",
+    "product_ref",
+    "objective",
+    "explicit_exclusions",
+    "delegated_decisions",
+    "reserved_decisions",
+    "risk_envelope_ref",
+    "budget_envelope_ref",
+    "time_ceiling",
+    "delivery_expectation",
+    "priority",
+    "escalation_triggers",
+    "issued_by",
+    "lifecycle_state",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "mandate_id": {
+      "type": "string",
+      "pattern": "^mandate_"
+    },
+    "goal_ref": {
+      "type": "string",
+      "pattern": "^goal_"
+    },
+    "product_ref": {
+      "type": "string",
+      "pattern": "^product_"
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "delegated_decisions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "reserved_decisions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "risk_envelope_ref": {
+      "type": "string"
+    },
+    "budget_envelope_ref": {
+      "type": "string"
+    },
+    "escalation_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "issued_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "lifecycle_state": {
+      "enum": [
+        "DRAFT",
+        "ACTIVE",
+        "SUPERSEDED",
+        "CLOSED"
+      ]
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "raw_directive_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "explicit_exclusions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "time_ceiling": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "deadline": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "max_duration_seconds": {
+          "type": "integer",
+          "minimum": 1
+        }
+      },
+      "anyOf": [
+        {
+          "required": [
+            "deadline"
+          ]
+        },
+        {
+          "required": [
+            "max_duration_seconds"
+          ]
+        }
+      ]
+    },
+    "delivery_expectation": {
+      "type": "string",
+      "minLength": 1
+    },
+    "priority": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    },
+    "supersedes_mandate_ref": {
+      "type": "string",
+      "pattern": "^mandate_"
+    }
+  }
+}
