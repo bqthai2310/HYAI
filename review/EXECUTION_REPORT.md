@@ -25,3 +25,9 @@ F00 completed successfully. All 29 acceptance criteria passed.
 - `ROOT_GUARD_RESULT.json` records the frozen before digest and the current root-layout digest.
 - Acceptance, subject, evidence, and request artifacts conform to their frozen JSON schemas.
 - Evidence digests are SHA-256 hex digests of their stored files; bundle and subject digests use canonical JSON serialization.
+
+## Material Blockers
+
+- Remote git push to branch `phase/F00-governance-bootstrap` was rejected by GitHub: 'refusing to allow a Personal Access Token to create or update workflow `.github/workflows/f00-acceptance-gate.yml` without workflow scope'
+- Current GitHub PAT scope: repo (missing workflow scope).
+- Requires PO to grant the 'workflow' scope to the GitHub token or push via SSH / authorized credential.
