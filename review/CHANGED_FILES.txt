@@ -1,4 +1,5 @@
 .github/workflows/f00-acceptance-gate.yml
+.github/workflows/independent-review-gate.yml
 .github/workflows/review-artifact-gate.yml
 .github/workflows/root-layout-gate.yml
 .github/workflows/spec-gate.yml
@@ -92,6 +93,7 @@ scripts/generate_review_artifacts.py
 scripts/root_guard.py
 scripts/validate_spec.py
 scripts/validate_specs.py
+scripts/verify_independent_review.py
 src/hyai/__init__.py
 src/hyai/acceptance/__init__.py
 src/hyai/acceptance/compiler.py
@@ -226,4 +228,5 @@ tests/oracles/test_L9_T_198.py
 tests/oracles/test_L9_T_199.py
 tests/portability/.gitkeep
 tests/recovery/.gitkeep
+tests/regression/test_f00_corrections.py
 tests/unit/.gitkeep

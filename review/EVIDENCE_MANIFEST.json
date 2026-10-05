@@ -2,12 +2,12 @@
   "bundle_digest": {
     "algorithm": "sha256",
     "encoding": "hex",
-    "value": "acfd7fe27d9e905019cf4998d97dceb9c6740c321061965733ad12b880a63631"
+    "value": "8a0b273a5cc3d4015cc5f4ddd2b8a548a1d5efbc9c9194ae18d4213e05c3c7e9"
   },
-  "bundle_id": "bundle_f00_b5438ad283c1",
+  "bundle_id": "bundle_f00_12bd9e86f5a9",
   "items": [
     {
-      "created_at": "2026-10-05T11:30:57.915502Z",
+      "created_at": "2026-10-05T13:27:53.980411Z",
       "criterion_refs": [
         "L9-REQ-FSG-001",
         "L9-REQ-FSG-002",
@@ -42,7 +42,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "ab85f7021fd139f846d643bd91a3965aadc0ed5b0d8b767e81205ced77173fc5"
+        "value": "92de067bf0312ee2c9a6e28c861a38408954eb8c6a0cb26a5ac21ed7c47a3388"
       },
       "evidence_id": "ev_test_output",
       "media_type": "text/plain",
@@ -56,7 +56,7 @@
       "type": "test_execution"
     },
     {
-      "created_at": "2026-10-05T11:30:57.915502Z",
+      "created_at": "2026-10-05T13:27:53.980411Z",
       "criterion_refs": [
         "L9-REQ-FSG-001",
         "L9-REQ-FSG-002",
@@ -66,7 +66,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "d08ed7675aaea5bb9c9c8f0ba82834b2f2af4375fff13c9384d83544e310dab9"
+        "value": "5b77be21eb60c8da245f11540bbdb595d31f88d60eb65a7b1c971aa08b59a636"
       },
       "evidence_id": "ev_root_guard",
       "media_type": "application/json",
@@ -78,6 +78,66 @@
       "storage_ref": "review/ROOT_GUARD_RESULT.json",
       "subject_ref": "subject_f00_governance_bootstrap",
       "type": "root_guard_result"
+    },
+    {
+      "created_at": "2026-10-05T13:27:53.980411Z",
+      "criterion_refs": [
+        "L9-REQ-GOV-001",
+        "L9-REQ-GOV-002",
+        "L9-REQ-GOV-003",
+        "L9-REQ-GOV-004",
+        "L9-REQ-GOV-005",
+        "L9-REQ-GOV-006",
+        "L9-REQ-GOV-007",
+        "L9-REQ-GOV-008",
+        "L9-REQ-SEC-001",
+        "L9-REQ-SEC-002",
+        "L9-REQ-SEC-003",
+        "L9-REQ-SEC-004",
+        "L9-REQ-SEC-005",
+        "L9-REQ-SEC-006"
+      ],
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "8459931a65f431037f7a57ec0400d774ac41aa4e51de270b88e9bdc8a6b31739"
+      },
+      "evidence_id": "ev_spec_validation",
+      "media_type": "text/plain",
+      "producer": {
+        "id": "hermes",
+        "principal_type": "EXECUTOR"
+      },
+      "redaction_status": "NOT_REQUIRED",
+      "storage_ref": "review/SPEC_VALIDATION.txt",
+      "subject_ref": "subject_f00_governance_bootstrap",
+      "type": "spec_validation"
+    },
+    {
+      "created_at": "2026-10-05T13:27:53.980411Z",
+      "criterion_refs": [
+        "L9-REQ-GIT-001",
+        "L9-REQ-GIT-002",
+        "L9-REQ-GIT-003",
+        "L9-REQ-GIT-004",
+        "L9-REQ-GIT-005",
+        "L9-REQ-GIT-006"
+      ],
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "7a7597866e54c2bff4580213eb6d052280f41fac791e1464d3219c0b012c87fd"
+      },
+      "evidence_id": "ev_workflow_static",
+      "media_type": "text/plain",
+      "producer": {
+        "id": "hermes",
+        "principal_type": "EXECUTOR"
+      },
+      "redaction_status": "NOT_REQUIRED",
+      "storage_ref": "review/WORKFLOW_STATIC_CONFORMANCE.txt",
+      "subject_ref": "subject_f00_governance_bootstrap",
+      "type": "workflow_static_conformance"
     }
   ],
   "review_subject_id": "subject_f00_governance_bootstrap",

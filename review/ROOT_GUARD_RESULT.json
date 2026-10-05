@@ -1,18 +1,1 @@
-{
-  "after_digest": {
-    "algorithm": "sha256",
-    "encoding": "hex",
-    "value": "2e1418c946c116b002a921a591f5324c4fd30390e1b71eef2f610ca4234f598e"
-  },
-  "before_digest": {
-    "algorithm": "sha256",
-    "encoding": "hex",
-    "value": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
-  },
-  "guard_result_id": "rootguard_f00_b5438ad283c1",
-  "issued_at": "2026-10-05T11:30:57.915502Z",
-  "result": "PASS",
-  "schema_version": "2.0.0",
-  "task_ref": "F00-governance-bootstrap",
-  "unauthorized_entries": []
-}
+{"after_digest": {"algorithm": "sha256", "encoding": "hex", "value": "2e1418c946c116b002a921a591f5324c4fd30390e1b71eef2f610ca4234f598e"}, "before_digest": {"algorithm": "sha256", "encoding": "hex", "value": "2e1418c946c116b002a921a591f5324c4fd30390e1b71eef2f610ca4234f598e"}, "guard_result_id": "rootguard_df7d9d22ca8e4a579b7f802d49297a26", "issued_at": "2026-10-05T13:27:53.365954Z", "result": "PASS", "schema_version": "2.0.0", "task_ref": "F00-governance-bootstrap", "unauthorized_entries": []}

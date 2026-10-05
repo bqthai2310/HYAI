@@ -17,7 +17,15 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "742658f127249da1cb1cc2a9caba21949ca2332a9dac89be78c38ea474d668ce"
+        "value": "9add3ae8b12ba50f6ace2e58093896b4746291acee68c6b4944d5c5ffa26dfdc"
+      },
+      "path": ".github/workflows/independent-review-gate.yml"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "5e782bd39576f18f2737e967127ffe3e24fa9505311ae45c79a33153637a7908"
       },
       "path": ".github/workflows/review-artifact-gate.yml"
     },
@@ -729,7 +737,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "57f6fe634a3d405055495451237cbc8988e857e337d7cc58f06d84f9d45f167d"
+        "value": "7d4d9b9561888b8baa8a795ec90b8d57f0f178bd442041697e4b5b00e633c3d6"
       },
       "path": "scripts/generate_review_artifacts.py"
     },
@@ -737,7 +745,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "5bf429ab5f8817540309aea15e9585715d2fb83cc5b0d4904ccf63dc06615295"
+        "value": "99698f0c3c4907b43872d92d4012bb57cf378d28f3f8e0d0c46dfe1d9ff204fb"
       },
       "path": "scripts/root_guard.py"
     },
@@ -745,7 +753,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "c23c2ac69770f8d6c4466999a42d6433d255d10335acad4149e0c745befa0b90"
+        "value": "b4a11ff6080b96db860dbd53ea8320c99466441779057e563204b5802b3852ec"
       },
       "path": "scripts/validate_spec.py"
     },
@@ -756,6 +764,14 @@
         "value": "99ff36cbfc24a8c95cbe40e7672f9f2d01d0d19ba9cb249f13c763b28059059a"
       },
       "path": "scripts/validate_specs.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "ee4f4e55d76b8ae02f6354d38eabfd6a0b6783ad53fa4a1a3d75bbc1c2085d1e"
+      },
+      "path": "scripts/verify_independent_review.py"
     },
     {
       "digest": {
@@ -1697,7 +1713,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "c05fe883bb1ce7ca47760577928d849ec564db79b44f911b0e6984a0aceea5d3"
+        "value": "1f6628f2843c8d8fcd39ca28ba09d1c004717c33b95835e75efa6fe870c46258"
       },
       "path": "tests/oracles/test_L9_T_081.py"
     },
@@ -1705,7 +1721,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "a4bd2adc95874da49e8ea18ca60a98aaf5bafdba5fd869257896b9e3403ead8b"
+        "value": "647feceeb608d99fd22a2899149fa02d74b5ede4e865c2cb98c5bfa4889482c5"
       },
       "path": "tests/oracles/test_L9_T_082.py"
     },
@@ -1713,7 +1729,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "73068c1b139258d52b014f33046ec209ad118fcfcffb55ff22336408c5c245b6"
+        "value": "409d375b69d0f0169bc12e23110a44c2042600a36ba21012f6969bcb2e258939"
       },
       "path": "tests/oracles/test_L9_T_083.py"
     },
@@ -1721,7 +1737,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "bccf8fca0397cf7f3de2c7a1db8761352726d1a4fcefc822c3b80c4f62c7d892"
+        "value": "c4508ec30bdca4dc872fc0a6c59df71879ff3c6d6a7ac4cec7f628561f795f0a"
       },
       "path": "tests/oracles/test_L9_T_084.py"
     },
@@ -1793,7 +1809,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "46478dcf73182d948da6dc6b544c9730f0e72278ee63003d05d1b5a46b4a806c"
+        "value": "d95440f0be6bb2120f9a704521d1dc4bb32325c56c570d5e182ca3dee7d7d96e"
       },
       "path": "tests/oracles/test_L9_T_197.py"
     },
@@ -1833,19 +1849,27 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
+        "value": "51a705ecac8495e821770f7b774c8de8ab7cc00fa9c2031a87c08372c619a3e3"
+      },
+      "path": "tests/regression/test_f00_corrections.py"
+    },
+    {
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
         "value": "01ba4719c80b6fe911b091a7c05124b64eeece964e09c058ef8f9805daca546b"
       },
       "path": "tests/unit/.gitkeep"
     }
   ],
-  "head_commit_sha": "b5438ad283c1344ff8e8e06ad501a5417ede1b90",
+  "head_commit_sha": "12bd9e86f5a9d71ea60bf1c4e4db1a6789b1f7ae",
   "policy_snapshot_id": "pol_f00_baseline",
   "repository": "https://github.com/bqthai2310/HYAI",
   "schema_version": "2.0.0",
   "subject_digest": {
     "algorithm": "sha256",
     "encoding": "hex",
-    "value": "d79d4014791c6e6c8b3beeb327ba7d5dfc3479467b9e56837749eeda57289723"
+    "value": "113ef286ab6410ac8bbf21876d7736eed7f795340138f98c53089f5d899b4e5c"
   },
   "subject_id": "subject_f00_governance_bootstrap"
 }

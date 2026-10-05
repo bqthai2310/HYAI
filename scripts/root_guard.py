@@ -11,6 +11,7 @@ from typing import Any, Mapping
 from uuid import uuid4
 
 MANIFEST_NAME = "ROOT_LAYOUT_MANIFEST.json"
+FROZEN_CANONICAL_MANIFEST_SHA256 = "b4402df1bb54a6e3b52b0c731e8ec11c454e157d53ff4ce9cf7cb7eac50ba081"
 IGNORED_ROOT_ENTRIES = frozenset({".git"})
 _SNAPSHOT_MANIFEST_DIGESTS: dict[str, str] = {}
 
@@ -69,6 +70,8 @@ def verify_root(before_digest: Mapping[str, Any] | str, task_ref: str, root: str
         entries = {entry.name for entry in repository_root.iterdir()} - IGNORED_ROOT_ENTRIES
         unauthorized.extend(sorted(entries - allowed))
         unauthorized.extend(f"MISSING_DECLARED_ENTRY:{name}" for name in sorted(allowed - entries))
+        if _manifest_sha256(repository_root) != FROZEN_CANONICAL_MANIFEST_SHA256:
+            unauthorized.append(f"CANONICAL_MANIFEST_DIGEST_MISMATCH:{MANIFEST_NAME}")
         if expected_manifest_sha256 is not None and _manifest_sha256(repository_root) != expected_manifest_sha256:
             unauthorized.append(f"PROTECTED_MANIFEST_MODIFIED:{MANIFEST_NAME}")
     except (FileNotFoundError, ValueError, json.JSONDecodeError, KeyError) as error:
@@ -92,6 +95,7 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", type=Path, default=Path.cwd(), help="repository root (default: cwd)")
     parser.add_argument("--task-ref", default="root-layout-gate", help="identifier for this verification")
     parser.add_argument("--json", action="store_true", help="emit the RootGuardResult JSON document")
+    parser.add_argument("--output-json", type=Path, help="write the raw RootGuardResult JSON document to this path")
     args = parser.parse_args(argv)
     try:
         snapshot = take_snapshot(args.root)
@@ -99,6 +103,9 @@ def main(argv: list[str] | None = None) -> int:
     except (FileNotFoundError, ValueError, json.JSONDecodeError) as error:
         print(f"ROOT_GUARD=FAIL_QUARANTINED error={error}")
         return 1
+    if args.output_json:
+        args.output_json.parent.mkdir(parents=True, exist_ok=True)
+        args.output_json.write_text(json.dumps(result, sort_keys=True) + "\n", encoding="utf-8")
     if args.json:
         print(json.dumps(result, sort_keys=True))
     else:
