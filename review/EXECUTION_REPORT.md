@@ -5,7 +5,7 @@
 - Subject ID: `subject_f00_governance_bootstrap`
 - Repository: `https://github.com/bqthai2310/HYAI`
 - Base commit: `a7fa5f3e5429660adb87f5b548fa95eaf0406fd4`
-- Head commit: `12bd9e86f5a9d71ea60bf1c4e4db1a6789b1f7ae`
+- Head commit: `86fa54fde1a6c6c8fa2692dd6b581b8a915d221d`
 - Criteria count: 29
 - Files count: 232
 

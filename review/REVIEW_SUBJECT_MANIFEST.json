@@ -17,7 +17,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "9add3ae8b12ba50f6ace2e58093896b4746291acee68c6b4944d5c5ffa26dfdc"
+        "value": "7073ec4c9b8fbac53ce1b87c5dee5d7b12affbb480bab1bd1a8702fc97210d64"
       },
       "path": ".github/workflows/independent-review-gate.yml"
     },
@@ -25,7 +25,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "5e782bd39576f18f2737e967127ffe3e24fa9505311ae45c79a33153637a7908"
+        "value": "ddea4f807985752ebf7411fa44dcd0ca602c0f432e9020100c450d0d5771d639"
       },
       "path": ".github/workflows/review-artifact-gate.yml"
     },
@@ -737,7 +737,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "7d4d9b9561888b8baa8a795ec90b8d57f0f178bd442041697e4b5b00e633c3d6"
+        "value": "6ae2129ae2053def4abc4ea6317ca296ebf5c6ec9aa56544664c2ca25d6b949f"
       },
       "path": "scripts/generate_review_artifacts.py"
     },
@@ -753,7 +753,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "b4a11ff6080b96db860dbd53ea8320c99466441779057e563204b5802b3852ec"
+        "value": "2715aa75fd95c30b37bc59ea3c29b9f66b039e3e2d2dd32c35e9d73796bb862a"
       },
       "path": "scripts/validate_spec.py"
     },
@@ -769,7 +769,7 @@
       "digest": {
         "algorithm": "sha256",
         "encoding": "hex",
-        "value": "ee4f4e55d76b8ae02f6354d38eabfd6a0b6783ad53fa4a1a3d75bbc1c2085d1e"
+        "value": "18b68328cc3ca32fc6b32e4b63e5a8a06395d8d33014e7db9679200468f184a6"
       },
       "path": "scripts/verify_independent_review.py"
     },
@@ -1862,14 +1862,14 @@
       "path": "tests/unit/.gitkeep"
     }
   ],
-  "head_commit_sha": "12bd9e86f5a9d71ea60bf1c4e4db1a6789b1f7ae",
+  "head_commit_sha": "86fa54fde1a6c6c8fa2692dd6b581b8a915d221d",
   "policy_snapshot_id": "pol_f00_baseline",
   "repository": "https://github.com/bqthai2310/HYAI",
   "schema_version": "2.0.0",
   "subject_digest": {
     "algorithm": "sha256",
     "encoding": "hex",
-    "value": "113ef286ab6410ac8bbf21876d7736eed7f795340138f98c53089f5d899b4e5c"
+    "value": "b541a9afff5c2ed338a3fbe63566e316da658f19a27f81aa9d4c17f9bfa4b30d"
   },
   "subject_id": "subject_f00_governance_bootstrap"
 }

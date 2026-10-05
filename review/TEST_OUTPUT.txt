@@ -37,4 +37,4 @@ tests\oracles\test_L9_T_198.py .                                         [ 73%]
 tests\oracles\test_L9_T_199.py .                                         [ 76%]
 tests\regression\test_f00_corrections.py .........                       [100%]
 
-============================= 38 passed in 2.41s ==============================
+============================= 38 passed in 2.52s ==============================
