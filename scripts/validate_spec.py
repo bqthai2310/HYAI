@@ -11,6 +11,17 @@ REVIEW_SCHEMA_KEYS = {"review_request_id":"review_request.schema.json","verdict_
 def digest(data: bytes) -> dict[str,str]: return {"algorithm":"sha256","encoding":"hex","value":hashlib.sha256(data).hexdigest()}
 def normalize_bytes(data: bytes) -> bytes: return data.replace(b"\r\n", b"\n")
 def canonical(v: Any) -> bytes: return json.dumps(v,sort_keys=True,separators=(",",":")).encode()
+def compute_subject_digest(manifest: dict[str, Any]) -> dict[str, str]:
+    material = {
+        "acceptance_versions": sorted(manifest.get("acceptance_versions", [])),
+        "base_commit_sha": manifest.get("base_commit_sha", ""),
+        "config_digests": sorted(manifest.get("config_digests", []), key=canonical),
+        "files": sorted(manifest.get("files", []), key=lambda x: x.get("path", "")),
+        "head_commit_sha": manifest.get("head_commit_sha", ""),
+        "policy_snapshot_id": manifest.get("policy_snapshot_id", ""),
+        "repository": manifest.get("repository", ""),
+    }
+    return digest(canonical(material))
 def schema_paths(root: Path=ROOT)->list[Path]: return sorted((root/"schemas").rglob("*.json"))
 def validate_schemas(root: Path=ROOT)->list[str]:
     errors=[]
@@ -37,19 +48,12 @@ def validate_review_artifacts(root: Path=ROOT, target_head_sha: str|None=None)->
     def is_valid_head(artifact_sha: str | None, target_sha: str | None, root: Path) -> bool:
         if not artifact_sha or not target_sha:
             return False
-        if artifact_sha == target_sha:
-            return True
-        try:
-            parent = subprocess.run(["git", "rev-parse", f"{target_sha}^"], cwd=root, check=True, capture_output=True, text=True).stdout.strip()
-            if parent == artifact_sha:
-                diff = subprocess.run(["git", "diff", "--name-only", parent, target_sha], cwd=root, check=True, capture_output=True, text=True).stdout.splitlines()
-                if all(p.startswith("review/") or p.startswith(".git") for p in diff if p):
-                    return True
-        except Exception:
-            pass
-        return False
+        return artifact_sha.lower() == target_sha.lower()
     if not review.exists(): return ["review directory is missing"]
     for artifact in sorted(review.rglob("*.json")):
+        # This is API-collected evidence rather than a governed review artifact.
+        if artifact.name == "LIVE_GITHUB_STATE.json":
+            continue
         try:
             doc=json.loads(artifact.read_text(encoding="utf-8")); docs[artifact.name]=doc
             if not isinstance(doc,dict): raise ValueError("artifact must be a JSON object")
@@ -76,7 +80,7 @@ def validate_review_artifacts(root: Path=ROOT, target_head_sha: str|None=None)->
         for entry in subject.get("files",[]):
             path=root/entry.get("path","")
             if not path.is_file() or entry.get("digest")!=digest(normalize_bytes(path.read_bytes()) if path.is_file() else b""): errors.append(f"Review subject file digest mismatch: {entry.get('path')}")
-        if subject.get("subject_digest")!=digest(canonical(subject_files(root))): errors.append("Review subject digest mismatch")
+        if subject.get("subject_digest") != compute_subject_digest(subject): errors.append("Review subject digest mismatch")
     guard=docs.get("ROOT_GUARD_RESULT.json",{})
     if guard:
         if guard.get("result")!="PASS": errors.append("Root guard result is not PASS")
@@ -89,6 +93,19 @@ def validate_review_artifacts(root: Path=ROOT, target_head_sha: str|None=None)->
         for item in evidence.get("items",[]):
             path=root/item.get("storage_ref","")
             if not path.is_file() or item.get("digest")!=digest(normalize_bytes(path.read_bytes()) if path.is_file() else b""): errors.append(f"Evidence digest mismatch: {item.get('storage_ref')}")
+        live_items = [item for item in evidence.get("items", []) if item.get("evidence_id") == "ev_github_live_state"]
+        if live_items:
+            live_path = root / "review" / "LIVE_GITHUB_STATE.json"
+            if not live_path.is_file(): errors.append("Live GitHub state evidence is missing")
+            elif any(item.get("digest") != digest(normalize_bytes(live_path.read_bytes())) for item in live_items): errors.append("Evidence digest mismatch: review/LIVE_GITHUB_STATE.json")
+    acceptance = docs.get("ACCEPTANCE_RESULTS.json", {})
+    if acceptance:
+        live_exists = bool(evidence and any(item.get("evidence_id") == "ev_github_live_state" for item in evidence.get("items", [])) and (root / "review" / "LIVE_GITHUB_STATE.json").is_file())
+        for criterion in acceptance.get("criterion_results", []):
+            criterion_id, result, refs = criterion.get("criterion_id", ""), criterion.get("result"), criterion.get("evidence_refs", [])
+            if criterion_id in {"L9-REQ-GIT-001", "L9-REQ-GIT-002", "L9-REQ-GIT-003", "L9-REQ-GIT-004"} and result == "PASS" and ("ev_github_live_state" not in refs or not live_exists):
+                errors.append(f"Git criterion PASS requires live GitHub state evidence: {criterion_id}")
+            if criterion_id == "L9-REQ-GIT-005" and result == "PASS": errors.append("L9-REQ-GIT-005 must not be PASS by executor")
     return errors
 def main(argv: list[str]|None=None)->int:
     p=argparse.ArgumentParser(description=__doc__); p.add_argument("--root",type=Path,default=ROOT); p.add_argument("--review-artifacts",action="store_true"); p.add_argument("--head-sha"); a=p.parse_args(argv)

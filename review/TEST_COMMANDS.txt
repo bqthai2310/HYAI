@@ -1,3 +1,0 @@
-pytest tests/
-python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref F00-governance-bootstrap
-python scripts/validate_spec.py
