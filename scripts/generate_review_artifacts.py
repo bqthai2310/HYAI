@@ -9,7 +9,15 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "review"
-SUBJECT_ID = "subject_f04_acceptance_compiler_and_registry"
+PHASE_SUBJECTS = {
+    "F00": "subject_f00_review_gate_enforcement",
+    "F01": "subject_f01_executive_mandate_and_goal_ingress",
+    "F02": "subject_f02_program_and_portfolio_kernel",
+    "F03": "subject_f03_portfolio_kernel_and_product_contracts",
+    "F04": "subject_f04_acceptance_compiler_and_registry",
+    "F05": "subject_f05_sovereign_kernel_and_durable_state",
+}
+SUBJECT_ID = PHASE_SUBJECTS.get("F05", "subject_f05_sovereign_kernel_and_durable_state")
 REPOSITORY_URL = "https://github.com/bqthai2310/HYAI"
 
 def digest(value: bytes) -> dict[str, str]:
@@ -64,6 +72,16 @@ F04_ORACLE_TESTS = {
     "L9-REQ-ORC-001": "L9-T-100", "L9-REQ-ORC-002": "L9-T-101",
     "L9-REQ-ORC-003": "L9-T-102", "L9-REQ-ORC-004": "L9-T-103",
     "L9-REQ-ORC-005": "L9-T-104", "L9-REQ-ORC-006": "L9-T-105",
+    "L9-REQ-MEM-001": "L9-T-106",
+    "L9-REQ-MEM-002": "L9-T-107",
+    "L9-REQ-MEM-003": "L9-T-108",
+    "L9-REQ-MEM-004": "L9-T-109",
+    "L9-REQ-MEM-005": "L9-T-110",
+    "L9-REQ-MEM-006": "L9-T-111",
+    "L9-REQ-MEM-007": "L9-T-112",
+    "L9-REQ-MEM-008": "L9-T-113",
+    "L9-REQ-MEM-009": "L9-T-114",
+    "L9-REQ-MEM-010": "L9-T-115",
     "L9-REQ-DLV-001": "L9-T-164",
 }
 
@@ -133,7 +151,8 @@ def evaluate_git_predicates(live_state: dict[str, Any], head: str, subject_files
     return results
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--head-sha"); parser.add_argument("--phase", default="F04"); parser.add_argument("--skip-tests", action="store_true", help="skip subprocess pytest run"); args = parser.parse_args(argv)
+    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--head-sha"); parser.add_argument("--phase", default="F05"); parser.add_argument("--skip-tests", action="store_true", help="skip subprocess pytest run"); args = parser.parse_args(argv)
+    subject_id = PHASE_SUBJECTS.get(args.phase, f"subject_{args.phase.lower()}_sovereign_kernel_and_durable_state")
     REVIEW.mkdir(exist_ok=True); head, base = resolve_head(args.head_sha), resolve_base()
     subprocess.run([sys.executable, "scripts/collect_github_live_state.py", "--head-sha", head], cwd=ROOT, check=True)
     criterion_ids = criteria()
@@ -144,7 +163,7 @@ def main(argv: list[str] | None = None) -> int:
         (REVIEW / "TEST_OUTPUT.txt").write_text(test.stdout + test.stderr, encoding="utf-8")
         if test.returncode: raise RuntimeError(f"pytest tests/ failed with exit code {test.returncode}")
     root_guard_path = REVIEW / "ROOT_GUARD_RESULT.json"
-    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", f"{args.phase}-acceptance-compiler-and-registry"], cwd=ROOT, capture_output=True, text=True)
+    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", f"{args.phase.lower()}-sovereign-kernel-and-durable-state"], cwd=ROOT, capture_output=True, text=True)
     if guard.returncode: raise RuntimeError(f"root guard failed: {guard.stdout}{guard.stderr}")
     root_guard = json.loads(root_guard_path.read_text(encoding="utf-8"))
     validate(root_guard, "root_guard_result.schema.json")
@@ -157,11 +176,11 @@ def main(argv: list[str] | None = None) -> int:
     write_text("CHANGED_FILES.txt", "\n".join(entry["path"] for entry in files) + "\n")
     commands = [
         "pytest tests/",
-        f"python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref {args.phase}-acceptance-compiler-and-registry",
+        f"python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref {args.phase.lower()}-sovereign-kernel-and-durable-state",
         "python scripts/validate_spec.py",
     ]
     write_text("TEST_COMMANDS.txt", "\n".join(commands) + "\n")
-    subject = {"schema_version":"2.0.0","subject_id":SUBJECT_ID,"repository":REPOSITORY_URL,"head_commit_sha":head,"base_commit_sha":base,"files":files,"config_digests":[],"policy_snapshot_id":"pol_f03_portfolio_baseline","acceptance_versions":["2.1.0"]}
+    subject = {"schema_version":"2.0.0","subject_id":subject_id,"repository":REPOSITORY_URL,"head_commit_sha":head,"base_commit_sha":base,"files":files,"config_digests":[],"policy_snapshot_id":"pol_f03_portfolio_baseline","acceptance_versions":["2.1.0"]}
     subject["subject_digest"] = compute_subject_digest(subject)
     validate(subject, "review_subject_manifest.schema.json"); write_json("REVIEW_SUBJECT_MANIFEST.json", subject)
     fsg = {f"L9-REQ-FSG-00{i}" for i in range(1,5)}; git_ids = {f"L9-REQ-GIT-00{i}" for i in range(1,7)}; gov_sec = {f"L9-REQ-GOV-00{i}" for i in range(1,9)} | {f"L9-REQ-SEC-00{i}" for i in range(1,7)}
@@ -180,13 +199,13 @@ def main(argv: list[str] | None = None) -> int:
         return "PASS"
 
     acceptance_specs = {item["criterion_id"]: item for item in extract_acceptance_criteria()}
-    acceptance = {"schema_version":"2.0.0","review_subject_id":SUBJECT_ID,"criterion_results":[{"criterion_id":c,"result":result(c),"evidence_refs":refs(c),"verification_method":acceptance_specs[c]["verification_method"],"verification_ref":acceptance_specs[c]["verification_ref"]} for c in criterion_ids]}
+    acceptance = {"schema_version":"2.0.0","review_subject_id":subject_id,"criterion_results":[{"criterion_id":c,"result":result(c),"evidence_refs":refs(c),"verification_method":acceptance_specs[c]["verification_method"],"verification_ref":acceptance_specs[c]["verification_ref"]} for c in criterion_ids]}
     validate(acceptance, "acceptance_results.schema.json"); write_json("ACCEPTANCE_RESULTS.json", acceptance)
     now = datetime.now(UTC).isoformat().replace("+00:00", "Z")
     sources = [("ev_test_output","test_execution",REVIEW/"TEST_OUTPUT.txt","text/plain",criterion_ids),("ev_root_guard","root_guard_result",root_guard_path,"application/json",sorted(fsg)),("ev_spec_validation","spec_validation",REVIEW/"SPEC_VALIDATION.txt","text/plain",sorted(gov_sec)),("ev_workflow_static","workflow_static_conformance",REVIEW/"WORKFLOW_STATIC_CONFORMANCE.txt","text/plain",sorted(git_ids))]
     if live_path.is_file(): sources.append(("ev_github_live_state", "live_github_state", live_path, "application/json", sorted(git_ids)))
-    items = [{"evidence_id":eid,"type":typ,"producer":{"principal_type":"EXECUTOR","id":"hermes"},"subject_ref":SUBJECT_ID,"created_at":now,"media_type":media,"storage_ref":source.relative_to(ROOT).as_posix(),"digest":digest(normalize_bytes(source.read_bytes())),"criterion_refs":cs,"redaction_status":"NOT_REQUIRED"} for eid,typ,source,media,cs in sources]
-    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_{args.phase.lower()}_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
+    items = [{"evidence_id":eid,"type":typ,"producer":{"principal_type":"EXECUTOR","id":"hermes"},"subject_ref":subject_id,"created_at":now,"media_type":media,"storage_ref":source.relative_to(ROOT).as_posix(),"digest":digest(normalize_bytes(source.read_bytes())),"criterion_refs":cs,"redaction_status":"NOT_REQUIRED"} for eid,typ,source,media,cs in sources]
+    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_{args.phase.lower()}_{head[:12]}","review_subject_id":subject_id,"items":items,"bundle_digest":digest(canonical(items))}
     validate(evidence,"evidence_bundle.schema.json"); write_json("EVIDENCE_MANIFEST.json", evidence)
     request = {"schema_version":"2.0.0","review_request_id":f"review_{args.phase.lower()}_{head[:12]}","phase_id":args.phase,"repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
     validate(request,"review_request.schema.json"); write_json("REVIEW_REQUEST.json",request)
@@ -194,7 +213,7 @@ def main(argv: list[str] | None = None) -> int:
 
 ## Review subject
 
-- Subject ID: `{SUBJECT_ID}`
+- Subject ID: `{subject_id}`
 - Repository: `{REPOSITORY_URL}`
 - Base commit: `{base}`
 - Head commit: `{head}`
