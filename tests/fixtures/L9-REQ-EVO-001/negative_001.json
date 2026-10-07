@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-059-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-EVO-001",
+  "test_id": "L9-T-059",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Self-evolution creates explicit EvolutionProposal.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Self-evolution creates explicit EvolutionProposal.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-EVO-001 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-EVO-001 and L9-T-059."
+  ]
+}

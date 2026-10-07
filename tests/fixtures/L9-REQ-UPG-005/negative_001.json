@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-184-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-UPG-005",
+  "test_id": "L9-T-184",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "PromotionApproval binds exact candidate digest/scope/tier and becomes stale on changed candidate.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: PromotionApproval binds exact candidate digest/scope/tier and becomes stale on changed candidate.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-UPG-005 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-UPG-005 and L9-T-184."
+  ]
+}
