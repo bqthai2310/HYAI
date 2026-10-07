@@ -55,6 +55,54 @@ def get_auth_token() -> str | None:
     return None
 
 
+def git_value(command: list[str]) -> str:
+    try:
+        result = subprocess.run(
+            command,
+            cwd=ROOT,
+            capture_output=True,
+            check=False,
+            text=True,
+            timeout=10,
+        )
+    except (OSError, subprocess.TimeoutExpired):
+        return ""
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
+def matching_open_pr_number(
+    repo: str, token: str | None, head_sha: str, branch: str
+) -> int | None:
+    open_prs = github_get(f"https://api.github.com/repos/{repo}/pulls?state=open", token)
+    if not isinstance(open_prs, list):
+        raise ValueError("open pull requests response was not a list")
+
+    matches: list[dict[str, object]] = []
+    for pr in open_prs:
+        if not isinstance(pr, dict) or not isinstance(pr.get("number"), int):
+            continue
+        head = pr.get("head")
+        if not isinstance(head, dict):
+            continue
+        if (head_sha and head.get("sha") == head_sha) or (
+            branch and head.get("ref") == branch
+        ):
+            matches.append(pr)
+
+    if not matches:
+        return None
+    sha_match = next(
+        (
+            pr
+            for pr in matches
+            if isinstance(pr.get("head"), dict) and pr["head"].get("sha") == head_sha
+        ),
+        None,
+    )
+    number = (sha_match or matches[0]).get("number")
+    return number if isinstance(number, int) else None
+
+
 def targets_main(ruleset: dict[str, object]) -> bool:
     conditions = ruleset.get("conditions")
     if not isinstance(conditions, dict):
@@ -96,12 +144,14 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--pr-number", type=int, default=1)
     parser.add_argument("--head-sha")
     args = parser.parse_args(argv)
+    actual_head_sha = args.head_sha or git_value(["git", "rev-parse", "HEAD"])
+    current_branch = git_value(["git", "branch", "--show-current"])
     document: dict[str, object] = {
         "schema_version": "2.0.0",
         "collected_at": datetime.now(UTC).isoformat().replace("+00:00", "Z"),
         "repository": args.repo,
         "pr_number": args.pr_number,
-        "head_commit_sha": args.head_sha or "",
+        "head_commit_sha": actual_head_sha,
         "base_ref": "main",
         "state": "UNKNOWN",
         "api_status": "OFFLINE",
@@ -110,11 +160,19 @@ def main(argv: list[str] | None = None) -> int:
     }
     try:
         token = get_auth_token()
-        pr = github_get(f"https://api.github.com/repos/{args.repo}/pulls/{args.pr_number}", token)
+        pr_number = args.pr_number
+        if args.pr_number == 1:
+            discovered_pr_number = matching_open_pr_number(
+                args.repo, token, actual_head_sha, current_branch
+            )
+            if discovered_pr_number is not None:
+                pr_number = discovered_pr_number
+        document["pr_number"] = pr_number
+        pr = github_get(f"https://api.github.com/repos/{args.repo}/pulls/{pr_number}", token)
         if not isinstance(pr, dict):
             raise ValueError("pull request response was not an object")
         head, base = pr.get("head", {}), pr.get("base", {})
-        actual_head_sha = args.head_sha or (head.get("sha", "") if isinstance(head, dict) else "")
+        actual_head_sha = actual_head_sha or (head.get("sha", "") if isinstance(head, dict) else "")
         document.update({
             "head_commit_sha": actual_head_sha,
             "base_ref": base.get("ref", "main") if isinstance(base, dict) else "main",

@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-088-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-CTR-002",
+  "test_id": "L9-T-088",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Không canonical object nào thiếu schema khi object yêu cầu machine contract."
+  ],
+  "expected_result": "PASS"
+}

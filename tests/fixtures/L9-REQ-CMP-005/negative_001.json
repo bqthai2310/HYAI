@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-192-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-CMP-005",
+  "test_id": "L9-T-192",
+  "mutation_operator": "EXACT_ADVERSARIAL_PAYLOAD",
+  "frozen_predicate": "Digest/signature algorithm is policy/registry controlled, not permanently hard-coded to one algorithm.",
+  "mutation": "Submit ReviewSubjectManifest file entry using legacy field sha256 instead of Digest{algorithm,encoding,value}. Schema must reject the hard-coded digest field.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-CMP-005 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-CMP-005 and L9-T-192."
+  ]
+}
