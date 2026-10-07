@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-113-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-MEM-008",
+  "test_id": "L9-T-113",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Sensitive memory obeys ACL/classification; secrets are not persisted as memory payload.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Sensitive memory obeys ACL/classification; secrets are not persisted as memory payload.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-MEM-008 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-MEM-008 and L9-T-113."
+  ]
+}
