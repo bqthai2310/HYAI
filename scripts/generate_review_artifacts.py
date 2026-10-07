@@ -106,7 +106,14 @@ def evaluate_git_predicates(live_state: dict[str, Any], head: str, subject_files
     results["L9-REQ-GIT-005"] = ("BLOCKED", ["ev_test_output"])
 
     # GIT-006: Workflow changes require governance review
-    has_workflow_changes = any(p.startswith(".github/workflows/") for p in subject_files)
+    diff_files = subprocess.run(
+        ["git", "diff", "--name-only", live_state.get("base_ref", "main"), head],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.splitlines()
+    has_workflow_changes = any(p.startswith(".github/workflows/") for p in diff_files)
     results["L9-REQ-GIT-006"] = ("BLOCKED" if has_workflow_changes else "PASS", ["ev_workflow_static", "ev_test_output"])
 
     return results
