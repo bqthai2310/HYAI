@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-142-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-EVAL-007",
+  "test_id": "L9-T-142",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Aggregate metric does not replace raw evaluation evidence.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Aggregate metric does not replace raw evaluation evidence.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-EVAL-007 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-EVAL-007 and L9-T-142."
+  ]
+}

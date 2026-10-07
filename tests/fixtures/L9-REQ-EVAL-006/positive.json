@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-141-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-EVAL-006",
+  "test_id": "L9-T-141",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Capability/skill/strategy optimization uses evaluation evidence rather than narrative score."
+  ],
+  "expected_result": "PASS"
+}
