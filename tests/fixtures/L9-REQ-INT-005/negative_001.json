@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-206-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-INT-005",
+  "test_id": "L9-T-206",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "External agent cannot direct-write HYAI canonical state or self-grant authority.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: External agent cannot direct-write HYAI canonical state or self-grant authority.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-INT-005 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-INT-005 and L9-T-206."
+  ]
+}

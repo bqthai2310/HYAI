@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-057-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-FED-004",
+  "test_id": "L9-T-057",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "No competing canonical writer.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: No competing canonical writer.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-FED-004 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-FED-004 and L9-T-057."
+  ]
+}
