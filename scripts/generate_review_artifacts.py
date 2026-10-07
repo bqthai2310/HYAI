@@ -105,19 +105,8 @@ def evaluate_git_predicates(live_state: dict[str, Any], head: str, subject_files
     # GIT-005: Reviewer verdict bound to head SHA (Independent Implementation Review)
     results["L9-REQ-GIT-005"] = ("BLOCKED", ["ev_test_output"])
 
-    # GIT-006: Workflow changes require governance review
-    res = subprocess.run(
-        ["git", "diff", "--name-only", live_state.get("base_ref", "main"), head],
-        cwd=ROOT,
-        capture_output=True,
-        text=True,
-    )
-    # CI may have a shallow clone or no local copy of the base branch.  Do not
-    # infer workflow changes from subject_files: it contains every repository
-    # file and would falsely block this requirement.
-    diff_files = res.stdout.splitlines() if res.returncode == 0 else []
-    has_workflow_changes = any(p.startswith(".github/workflows/") for p in diff_files)
-    results["L9-REQ-GIT-006"] = ("BLOCKED" if has_workflow_changes else "PASS", ["ev_workflow_static", "ev_test_output"])
+    # GIT-006: Executor cannot self-certify governance review of workflows.
+    results["L9-REQ-GIT-006"] = ("BLOCKED", ["ev_workflow_static", "ev_test_output"])
 
     return results
 
