@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-021-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-PLAN-002",
+  "test_id": "L9-T-021",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Criterion machine-verifiable khi domain cho phép."
+  ],
+  "expected_result": "PASS"
+}

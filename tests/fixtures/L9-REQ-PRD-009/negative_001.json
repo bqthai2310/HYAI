@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-216-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-PRD-009",
+  "test_id": "L9-T-216",
+  "mutation_operator": "EXACT_ADVERSARIAL_PAYLOAD",
+  "frozen_predicate": "Material Product cannot enter decomposition or organization routing without a versioned ProductContract bound to Product, Goal, ExecutiveMandate, acceptance baseline and Definition of Done.",
+  "mutation": "Attempt to activate decomposition/organization routing for a material Product without a valid ProductContract bound to Product/Goal/Mandate/acceptance/DoD. Gate must reject.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-PRD-009 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-PRD-009 and L9-T-216."
+  ]
+}
