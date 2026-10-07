@@ -262,8 +262,392 @@ def test_git_006_fail_when_workflow_changed_without_governance_review(monkeypatc
     assert any("L9-REQ-GIT-006 must not be PASS by executor prior to independent governance review" in error for error in errors)
 
 
-# 18. external attestation exact HEAD + exact subject digest -> independent-review-gate PASS
-def test_independent_review_gate_pass_with_exact_attestation(tmp_path):
+# 18. executor tự khai reviewer -> BLOCKED
+def test_independent_review_gate_blocked_on_executor_self_claim(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_executor",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "hermes"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "executor_self_claim.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "hermes"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "executor cannot issue independent review attestation" in out or "executor actor" in out
+
+
+# 19. untrusted actor -> BLOCKED
+def test_independent_review_gate_blocked_on_untrusted_actor(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_untrusted",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "untrusted_actor.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "untrusted-attacker"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "not authorized" in out
+
+
+# 20. reviewer mismatch -> BLOCKED
+def test_independent_review_gate_blocked_on_reviewer_mismatch(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_mismatch",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "unknown-authority"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "mismatch.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "bqthai2310"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "not an authorized trusted review authority" in out
+
+
+# 21. wrong repository -> BLOCKED
+def test_independent_review_gate_blocked_on_wrong_repository(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_wrong_repo",
+        "repository": "https://github.com/other-org/other-repo",
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "wrong_repo.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "repository mismatch" in out
+
+
+# 22. wrong PR -> BLOCKED
+def test_independent_review_gate_blocked_on_wrong_pr(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_wrong_pr",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 999,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "wrong_pr.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian", "--pr-number", "1"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "pr_number mismatch" in out
+
+
+# 23. stale SHA -> BLOCKED
+def test_independent_review_gate_blocked_on_stale_sha(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_stale",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": "0" * 40,
+        "review_subject_digest": {"algorithm": "sha256", "encoding": "hex", "value": "0" * 64},
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "stale.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "reviewed_commit_sha does not match target head SHA" in out
+
+
+# 24. wrong digest -> BLOCKED
+def test_independent_review_gate_blocked_on_wrong_digest(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_wrong_digest",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": {"algorithm": "sha256", "encoding": "hex", "value": "a" * 64},
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "wrong_digest.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "review_subject_digest does not match current subject digest" in out
+
+
+# 25. missing GIT-005 -> BLOCKED
+def test_independent_review_gate_blocked_on_missing_git_005(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_no_git005",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "no_git005.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "L9-REQ-GIT-005" in out
+
+
+# 26. missing GIT-006 -> BLOCKED
+def test_independent_review_gate_blocked_on_missing_git_006(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_no_git006",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "no_git006.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "L9-REQ-GIT-006" in out
+
+
+# 27. fake evidence ref -> BLOCKED
+def test_independent_review_gate_blocked_on_fake_evidence_ref(tmp_path, capsys):
+    import verify_independent_review
+    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
+    expected_subject = {
+        "schema_version": "2.0.0",
+        "subject_id": generate_review_artifacts.SUBJECT_ID,
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "head_commit_sha": head,
+        "base_commit_sha": generate_review_artifacts.resolve_base(),
+        "files": generate_review_artifacts.file_entries(ROOT),
+        "config_digests": [],
+        "policy_snapshot_id": "pol_f00_baseline",
+        "acceptance_versions": ["2.1.0"],
+    }
+    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
+    att = {
+        "schema_version": "2.0.0",
+        "attestation_id": "reviewatt_fake_ref",
+        "repository": generate_review_artifacts.REPOSITORY_URL,
+        "pr_number": 1,
+        "reviewed_commit_sha": head,
+        "review_subject_digest": digest,
+        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
+        "verdict": "PASS",
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_fake_nonexistent"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
+        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
+        "issued_at": "2026-10-05T15:00:00Z",
+    }
+    att_file = tmp_path / "fake_ref.json"
+    att_file.write_text(json.dumps(att), encoding="utf-8")
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
+    assert rc == 1
+    out = capsys.readouterr().out
+    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
+    assert "unresolved or fake evidence ref" in out
+
+
+# 28. trusted reviewer + exact binding + complete evidence -> PASS
+def test_independent_review_gate_pass_with_trusted_reviewer_and_complete_evidence(tmp_path):
     import verify_independent_review
     head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
     expected_subject = {
@@ -287,75 +671,15 @@ def test_independent_review_gate_pass_with_exact_attestation(tmp_path):
         "review_subject_digest": digest,
         "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
         "verdict": "PASS",
-        "criterion_results": [{"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_external_audit"]}],
+        "criterion_results": [
+            {"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_test_output"]},
+            {"criterion_id": "L9-REQ-GIT-006", "result": "PASS", "evidence_refs": ["ev_workflow_static"]},
+        ],
         "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
         "issued_at": "2026-10-05T15:00:00Z",
     }
-    att_file = tmp_path / "valid_attestation.json"
+    att_file = tmp_path / "valid_complete_attestation.json"
     att_file.write_text(json.dumps(att), encoding="utf-8")
-    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file)])
+    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file), "--actor", "architecture-guardian"])
     assert rc == 0
 
-
-# 19. stale attestation -> BLOCKED
-def test_independent_review_gate_blocked_on_stale_attestation(tmp_path, capsys):
-    import verify_independent_review
-    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
-    att = {
-        "schema_version": "2.0.0",
-        "attestation_id": "reviewatt_stale",
-        "repository": generate_review_artifacts.REPOSITORY_URL,
-        "pr_number": 1,
-        "reviewed_commit_sha": "0" * 40,
-        "review_subject_digest": {"algorithm": "sha256", "encoding": "hex", "value": "0" * 64},
-        "reviewer": {"principal_type": "INDEPENDENT_REVIEWER", "id": "architecture-guardian"},
-        "verdict": "PASS",
-        "criterion_results": [{"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_external_audit"]}],
-        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
-        "issued_at": "2026-10-05T15:00:00Z",
-    }
-    att_file = tmp_path / "stale_attestation.json"
-    att_file.write_text(json.dumps(att), encoding="utf-8")
-    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file)])
-    assert rc == 1
-    out = capsys.readouterr().out
-    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
-    assert "reviewed_commit_sha does not match target head SHA" in out
-
-
-# 20. executor attestation -> BLOCKED
-def test_independent_review_gate_blocked_on_executor_attestation(tmp_path, capsys):
-    import verify_independent_review
-    head = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True, check=True).stdout.strip()
-    expected_subject = {
-        "schema_version": "2.0.0",
-        "subject_id": generate_review_artifacts.SUBJECT_ID,
-        "repository": generate_review_artifacts.REPOSITORY_URL,
-        "head_commit_sha": head,
-        "base_commit_sha": generate_review_artifacts.resolve_base(),
-        "files": generate_review_artifacts.file_entries(ROOT),
-        "config_digests": [],
-        "policy_snapshot_id": "pol_f00_baseline",
-        "acceptance_versions": ["2.1.0"],
-    }
-    digest = generate_review_artifacts.compute_subject_digest(expected_subject)
-    att = {
-        "schema_version": "2.0.0",
-        "attestation_id": "reviewatt_executor",
-        "repository": generate_review_artifacts.REPOSITORY_URL,
-        "pr_number": 1,
-        "reviewed_commit_sha": head,
-        "review_subject_digest": digest,
-        "reviewer": {"principal_type": "EXECUTOR", "id": "hermes"},
-        "verdict": "PASS",
-        "criterion_results": [{"criterion_id": "L9-REQ-GIT-005", "result": "PASS", "evidence_refs": ["ev_external_audit"]}],
-        "source_ref": "https://github.com/bqthai2310/HYAI/pull/1",
-        "issued_at": "2026-10-05T15:00:00Z",
-    }
-    att_file = tmp_path / "executor_attestation.json"
-    att_file.write_text(json.dumps(att), encoding="utf-8")
-    rc = verify_independent_review.main(["--head-sha", head, "--attestation-file", str(att_file)])
-    assert rc == 1
-    out = capsys.readouterr().out
-    assert "INDEPENDENT_REVIEW_GATE=BLOCKED" in out
-    assert "reviewer is not independent" in out

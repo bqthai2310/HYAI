@@ -16,6 +16,9 @@ on:
       attestation_url:
         description: "URL to fetch external review attestation from"
         required: false
+      actor:
+        description: "Authenticated reviewer provenance actor"
+        required: false
 
 permissions:
   contents: read
@@ -39,9 +42,12 @@ jobs:
           INPUT_ATTESTATION_FILE: ${{ github.event.inputs.attestation_file }}
           INPUT_ATTESTATION_JSON: ${{ github.event.inputs.attestation_json }}
           INPUT_ATTESTATION_URL: ${{ github.event.inputs.attestation_url }}
+          INPUT_ACTOR: ${{ github.event.inputs.actor || github.actor }}
+          GITHUB_ACTOR: ${{ github.actor }}
         run: |
           ARGS=(--head-sha "$INPUT_HEAD_SHA")
           if [ -n "$INPUT_ATTESTATION_FILE" ]; then ARGS+=(--attestation-file "$INPUT_ATTESTATION_FILE"); fi
           if [ -n "$INPUT_ATTESTATION_JSON" ]; then ARGS+=(--attestation-json "$INPUT_ATTESTATION_JSON"); fi
           if [ -n "$INPUT_ATTESTATION_URL" ]; then ARGS+=(--attestation-url "$INPUT_ATTESTATION_URL"); fi
+          if [ -n "$INPUT_ACTOR" ]; then ARGS+=(--actor "$INPUT_ACTOR"); fi
           python scripts/verify_independent_review.py "${ARGS[@]}"
