@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-040-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-ASS-004",
+  "test_id": "L9-T-040",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "New commit invalidates old verdict."
+  ],
+  "expected_result": "PASS"
+}

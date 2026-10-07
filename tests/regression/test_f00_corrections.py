@@ -222,21 +222,31 @@ def test_git_001_fail_when_protection_invalid(monkeypatch):
 # 14. PR evidence thiếu -> GIT-002 không PASS
 def test_git_002_fail_when_pr_evidence_missing(monkeypatch):
     live_path = ROOT / "review" / "LIVE_GITHUB_STATE.json"
+    acc_path = ROOT / "review" / "ACCEPTANCE_RESULTS.json"
     data = _json(live_path)
+    acceptance = _json(acc_path)
     data["state"] = "closed"
-    _patched_read_text(monkeypatch, {live_path: data})
+    for result in acceptance["criterion_results"]:
+        if result["criterion_id"] == "L9-REQ-GIT-002":
+            result["result"] = "PASS"
+    _patched_read_text(monkeypatch, {live_path: data, acc_path: acceptance})
     errors = validate_spec.validate_review_artifacts(ROOT)
-    assert any("L9-REQ-GIT-002 predicate failed" in error for error in errors)
+    assert "Git criterion L9-REQ-GIT-002 predicate failed: PR evidence missing or invalid" in errors
 
 
 # 15. required checks từ stale SHA -> GIT-003 FAIL
 def test_git_003_fail_when_required_checks_from_stale_sha(monkeypatch):
     live_path = ROOT / "review" / "LIVE_GITHUB_STATE.json"
+    acc_path = ROOT / "review" / "ACCEPTANCE_RESULTS.json"
     data = _json(live_path)
+    acceptance = _json(acc_path)
     data["check_runs"] = [{"name": "acceptance", "head_sha": "0" * 40}]
-    _patched_read_text(monkeypatch, {live_path: data})
+    for result in acceptance["criterion_results"]:
+        if result["criterion_id"] == "L9-REQ-GIT-003":
+            result["result"] = "PASS"
+    _patched_read_text(monkeypatch, {live_path: data, acc_path: acceptance})
     errors = validate_spec.validate_review_artifacts(ROOT)
-    assert any("L9-REQ-GIT-003 predicate failed" in error for error in errors)
+    assert "Git criterion L9-REQ-GIT-003 predicate failed: required status checks from stale SHA or missing" in errors
 
 
 # 16. review artifact không bind exact HEAD -> GIT-004 FAIL

@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-189-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-CMP-002",
+  "test_id": "L9-T-189",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Canonical contracts/components declare version and compatibility range/class.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Canonical contracts/components declare version and compatibility range/class.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-CMP-002 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-CMP-002 and L9-T-189."
+  ]
+}
