@@ -1,0 +1,1 @@
+"""HYAI adapters boundary."""

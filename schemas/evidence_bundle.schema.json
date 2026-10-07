@@ -1,0 +1,178 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvidenceBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "review_subject_id",
+    "items",
+    "bundle_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^bundle_"
+    },
+    "review_subject_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "items": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "evidence_id",
+          "type",
+          "producer",
+          "subject_ref",
+          "created_at",
+          "media_type",
+          "storage_ref",
+          "digest",
+          "criterion_refs"
+        ],
+        "properties": {
+          "evidence_id": {
+            "type": "string",
+            "pattern": "^ev_"
+          },
+          "type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "producer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "principal_type",
+              "id"
+            ],
+            "properties": {
+              "principal_type": {
+                "type": "string",
+                "enum": [
+                  "PO",
+                  "ARCHITECT",
+                  "EXECUTOR",
+                  "INDEPENDENT_REVIEWER",
+                  "ASSURANCE_SERVICE",
+                  "RUNTIME_WORKER",
+                  "POLICY_ENGINE",
+                  "EVOLUTION_CONTROLLER",
+                  "RELEASE_MANAGER",
+                  "SYSTEM"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "subject_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "media_type": {
+            "type": "string",
+            "minLength": 1
+          },
+          "storage_ref": {
+            "type": "string",
+            "minLength": 1
+          },
+          "digest": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "algorithm",
+              "encoding",
+              "value"
+            ],
+            "properties": {
+              "algorithm": {
+                "type": "string",
+                "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+              },
+              "encoding": {
+                "enum": [
+                  "hex",
+                  "base64url"
+                ]
+              },
+              "value": {
+                "type": "string",
+                "minLength": 16,
+                "maxLength": 1024,
+                "pattern": "^[A-Za-z0-9_-]+$"
+              }
+            }
+          },
+          "criterion_refs": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "provenance_refs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "uniqueItems": true
+          },
+          "redaction_status": {
+            "enum": [
+              "NOT_REQUIRED",
+              "REDACTED",
+              "FAILED"
+            ]
+          }
+        }
+      }
+    },
+    "bundle_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

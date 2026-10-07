@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DataRetentionPolicy",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "policy_id",
+    "data_class",
+    "retention_period",
+    "deletion_semantics",
+    "backup_required",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "policy_id": {
+      "type": "string",
+      "pattern": "^retention_"
+    },
+    "data_class": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retention_period": {
+      "type": "string",
+      "minLength": 1
+    },
+    "deletion_semantics": {
+      "type": "string",
+      "minLength": 1
+    },
+    "backup_required": {
+      "type": "boolean"
+    },
+    "legal_hold_supported": {
+      "type": "boolean"
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

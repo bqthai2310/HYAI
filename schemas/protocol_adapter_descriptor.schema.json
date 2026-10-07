@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProtocolAdapterDescriptor",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "adapter_id",
+    "protocol_name",
+    "protocol_version",
+    "capabilities",
+    "security_profile",
+    "compatibility_ref",
+    "lifecycle_state",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "adapter_id": {
+      "type": "string",
+      "pattern": "^protocoladapter_"
+    },
+    "protocol_name": {
+      "type": "string",
+      "minLength": 1
+    },
+    "protocol_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "capabilities": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "security_profile": {
+      "type": "string",
+      "minLength": 1
+    },
+    "compatibility_ref": {
+      "type": "string",
+      "pattern": "^compat_"
+    },
+    "lifecycle_state": {
+      "enum": [
+        "TRIAL",
+        "ACTIVE",
+        "DEPRECATED",
+        "RETIRED"
+      ]
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SupplyChainAttestation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "attestation_id",
+    "subject_digest",
+    "source_revision_ref",
+    "builder_identity",
+    "materials",
+    "sbom_refs",
+    "provenance_refs",
+    "verification_results",
+    "issued_at",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "attestation_id": {
+      "type": "string",
+      "pattern": "^supplyatt_"
+    },
+    "subject_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "source_revision_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "builder_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "materials": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "sbom_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "provenance_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "verification_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

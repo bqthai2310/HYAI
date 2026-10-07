@@ -1,0 +1,66 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RootLayoutManifest",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "manifest_id",
+    "protected",
+    "authority_to_change",
+    "allowed_root_directories",
+    "allowed_root_files",
+    "runtime_write_zones",
+    "generated_product_policy",
+    "executor_may_modify_manifest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "manifest_id": {
+      "type": "string",
+      "pattern": "^hyai_root_layout_"
+    },
+    "protected": {
+      "const": true
+    },
+    "authority_to_change": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "allowed_root_directories": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "allowed_root_files": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "runtime_write_zones": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "generated_product_policy": {
+      "const": "PRODUCT_WORKSPACE_OR_EXTERNAL_REPOSITORY_ONLY"
+    },
+    "executor_may_modify_manifest": {
+      "const": false
+    }
+  }
+}

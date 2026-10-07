@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReleaseRecord",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "release_id",
+    "product_id",
+    "source_commits",
+    "artifact_digests",
+    "verdict_refs",
+    "environment_ref",
+    "status",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "release_id": {
+      "type": "string",
+      "pattern": "^release_"
+    },
+    "product_id": {
+      "type": "string",
+      "pattern": "^product_"
+    },
+    "source_commits": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{40}$"
+      }
+    },
+    "artifact_digests": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "algorithm",
+          "encoding",
+          "value"
+        ],
+        "properties": {
+          "algorithm": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+          },
+          "encoding": {
+            "enum": [
+              "hex",
+              "base64url"
+            ]
+          },
+          "value": {
+            "type": "string",
+            "minLength": 16,
+            "maxLength": 1024,
+            "pattern": "^[A-Za-z0-9_-]+$"
+          }
+        }
+      }
+    },
+    "verdict_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "environment_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "enum": [
+        "CANDIDATE",
+        "PROMOTED",
+        "DEPLOYED",
+        "ROLLED_BACK",
+        "FAILED",
+        "RETIRED"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

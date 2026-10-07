@@ -1,0 +1,240 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewVerdict",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "verdict_id",
+    "review_request_id",
+    "reviewed_commit_sha",
+    "review_subject_digest",
+    "reviewer",
+    "verdict",
+    "criterion_results",
+    "issued_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "verdict_id": {
+      "type": "string",
+      "pattern": "^verdict_"
+    },
+    "review_request_id": {
+      "type": "string",
+      "pattern": "^review_"
+    },
+    "reviewed_commit_sha": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{40}$"
+    },
+    "review_subject_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "reviewer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "verdict": {
+      "enum": [
+        "PASS",
+        "CORRECTION_REQUIRED",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    "criterion_results": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "criterion_id",
+          "result",
+          "evidence_refs"
+        ],
+        "properties": {
+          "criterion_id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "result": {
+            "enum": [
+              "PASS",
+              "FAIL",
+              "BLOCKED",
+              "INSUFFICIENT_EVIDENCE"
+            ]
+          },
+          "evidence_refs": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1
+            },
+            "uniqueItems": true
+          },
+          "verification_method": {
+            "type": "string"
+          },
+          "verification_ref": {
+            "type": "string"
+          }
+        },
+        "allOf": [
+          {
+            "if": {
+              "properties": {
+                "result": {
+                  "const": "PASS"
+                }
+              }
+            },
+            "then": {
+              "properties": {
+                "evidence_refs": {
+                  "minItems": 1
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "verdict": {
+            "const": "PASS"
+          }
+        },
+        "required": [
+          "verdict"
+        ]
+      },
+      "then": {
+        "properties": {
+          "reviewer": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "principal_type",
+              "id"
+            ],
+            "properties": {
+              "principal_type": {
+                "enum": [
+                  "INDEPENDENT_REVIEWER",
+                  "ASSURANCE_SERVICE"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          },
+          "criterion_results": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "criterion_id",
+                "result",
+                "evidence_refs"
+              ],
+              "properties": {
+                "criterion_id": {
+                  "type": "string",
+                  "minLength": 1
+                },
+                "result": {
+                  "const": "PASS"
+                },
+                "evidence_refs": {
+                  "type": "array",
+                  "minItems": 1,
+                  "items": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "uniqueItems": true
+                },
+                "verification_method": {
+                  "type": "string"
+                },
+                "verification_ref": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

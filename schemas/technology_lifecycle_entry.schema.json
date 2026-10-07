@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TechnologyLifecycleEntry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "technology_id",
+    "category",
+    "lifecycle_state",
+    "current_version",
+    "supported_range",
+    "criticality",
+    "owner",
+    "evaluation_refs",
+    "exit_plan_ref",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "technology_id": {
+      "type": "string",
+      "pattern": "^technology_"
+    },
+    "category": {
+      "type": "string",
+      "minLength": 1
+    },
+    "lifecycle_state": {
+      "enum": [
+        "EXPERIMENTAL",
+        "TRIAL",
+        "ADOPTED",
+        "STABLE",
+        "DEPRECATED",
+        "RETIRED"
+      ]
+    },
+    "current_version": {
+      "type": "string"
+    },
+    "supported_range": {
+      "type": "string"
+    },
+    "criticality": {
+      "enum": [
+        "LOW",
+        "MEDIUM",
+        "HIGH",
+        "CRITICAL"
+      ]
+    },
+    "owner": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "evaluation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "exit_plan_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

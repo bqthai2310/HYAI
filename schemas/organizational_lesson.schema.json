@@ -1,0 +1,99 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrganizationalLesson",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "lesson_id",
+    "authority_class",
+    "statement",
+    "applicability_scope",
+    "source_refs",
+    "evidence_refs",
+    "invalidation_triggers",
+    "lifecycle_state",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "lesson_id": {
+      "type": "string",
+      "pattern": "^lesson_"
+    },
+    "authority_class": {
+      "enum": [
+        "OBSERVED",
+        "SUPPORTED",
+        "VERIFIED",
+        "NEGATIVE_KNOWLEDGE"
+      ]
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "applicability_scope": {
+      "type": "string",
+      "minLength": 1
+    },
+    "source_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "invalidation_triggers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "lifecycle_state": {
+      "enum": [
+        "ACTIVE",
+        "SUPERSEDED",
+        "DEPRECATED",
+        "RETIRED"
+      ]
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

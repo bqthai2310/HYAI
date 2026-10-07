@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-002-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-GOV-002",
+  "test_id": "L9-T-002",
+  "mutation_operator": "EXACT_ADVERSARIAL_PAYLOAD",
+  "frozen_predicate": "Executor không được phát hành independent PASS cho subject do mình tạo.",
+  "mutation": "Submit ReviewVerdict with verdict=PASS and reviewer.principal_type=EXECUTOR. Schema/gateway must reject; PASS is forbidden.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-GOV-002 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-GOV-002 and L9-T-002."
+  ]
+}

@@ -1,0 +1,136 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "OrganizationRoute",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "route_id",
+    "product_ref",
+    "product_contract_digest",
+    "product_contract_revision",
+    "product_contract_ref",
+    "mandate_ref",
+    "department_nodes",
+    "handoff_edges",
+    "risk_class",
+    "version",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "route_id": {
+      "type": "string",
+      "pattern": "^orgroute_"
+    },
+    "product_ref": {
+      "type": "string",
+      "pattern": "^product_"
+    },
+    "mandate_ref": {
+      "type": "string",
+      "pattern": "^mandate_"
+    },
+    "department_nodes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "handoff_edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "from",
+          "to",
+          "contract_ref"
+        ],
+        "properties": {
+          "from": {
+            "type": "string"
+          },
+          "to": {
+            "type": "string"
+          },
+          "contract_ref": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "risk_class": {
+      "type": "string"
+    },
+    "version": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "product_contract_ref": {
+      "type": "string",
+      "pattern": "^productcontract_"
+    },
+    "product_contract_revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "product_contract_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

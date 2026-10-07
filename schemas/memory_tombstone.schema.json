@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryTombstone",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "tombstone_id",
+    "memory_id",
+    "reason",
+    "authority",
+    "issued_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "tombstone_id": {
+      "type": "string",
+      "pattern": "^memtomb_"
+    },
+    "memory_id": {
+      "type": "string",
+      "pattern": "^memory_"
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "purge_required": {
+      "type": "boolean"
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

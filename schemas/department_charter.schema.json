@@ -1,0 +1,112 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DepartmentCharter",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "department_id",
+    "version",
+    "mission",
+    "authority",
+    "required_capabilities",
+    "input_types",
+    "output_types",
+    "forbidden_actions",
+    "escalation_conditions",
+    "lifecycle_state",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "department_id": {
+      "type": "string",
+      "pattern": "^department_"
+    },
+    "version": {
+      "type": "string"
+    },
+    "mission": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "required_capabilities": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "input_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "output_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "forbidden_actions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "escalation_conditions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "lifecycle_state": {
+      "enum": [
+        "ACTIVE",
+        "DEPRECATED",
+        "RETIRED"
+      ]
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

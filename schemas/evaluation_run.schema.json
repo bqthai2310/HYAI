@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvaluationRun",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "evaluation_run_id",
+    "evaluation_spec_id",
+    "subject_digest",
+    "suite_digest",
+    "raw_evidence_refs",
+    "metrics",
+    "result",
+    "created_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "evaluation_run_id": {
+      "type": "string",
+      "pattern": "^evalrun_"
+    },
+    "evaluation_spec_id": {
+      "type": "string",
+      "pattern": "^evalspec_"
+    },
+    "subject_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "suite_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "raw_evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "metrics": {
+      "type": "object",
+      "minProperties": 1
+    },
+    "result": {
+      "enum": [
+        "QUALIFIED",
+        "FAILED",
+        "BLOCKED",
+        "INSUFFICIENT_EVIDENCE"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  }
+}

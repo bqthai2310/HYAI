@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-147-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-IMP-005",
+  "test_id": "L9-T-147",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Developer/test environment has deterministic one-command bootstrap without secrets.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Developer/test environment has deterministic one-command bootstrap without secrets.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-IMP-005 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-IMP-005 and L9-T-147."
+  ]
+}

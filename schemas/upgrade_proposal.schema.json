@@ -1,0 +1,139 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "UpgradeProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "upgrade_proposal_id",
+    "signal_refs",
+    "tier",
+    "current_subject_refs",
+    "candidate_subject_refs",
+    "expected_benefit",
+    "material_risks",
+    "evaluation_refs",
+    "approval_required",
+    "lifecycle_state",
+    "created_by",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "upgrade_proposal_id": {
+      "type": "string",
+      "pattern": "^upgradeproposal_"
+    },
+    "signal_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tier": {
+      "enum": [
+        "T1_MANAGED_COMPONENT",
+        "T2_ARCHITECTURE",
+        "T3_CONSTITUTIONAL"
+      ]
+    },
+    "current_subject_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "candidate_subject_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "expected_benefit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "material_risks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evaluation_refs": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "approval_required": {
+      "const": true
+    },
+    "lifecycle_state": {
+      "enum": [
+        "RESEARCHING",
+        "PROPOSED",
+        "CANDIDATE_BUILT",
+        "VERIFIED",
+        "AWAITING_APPROVAL",
+        "APPROVED",
+        "REJECTED",
+        "PROMOTED",
+        "ROLLED_BACK"
+      ]
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "created_by": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "EVOLUTION_CONTROLLER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

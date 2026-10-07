@@ -1,0 +1,52 @@
+name: Independent review gate
+
+on:
+  workflow_dispatch:
+    inputs:
+      head_sha:
+        description: "Target head commit SHA"
+        required: false
+      attestation_file:
+        description: "Path to external review attestation file"
+        required: false
+      attestation_json:
+        description: "Raw JSON text of external review attestation"
+        required: false
+      attestation_url:
+        description: "URL to fetch external review attestation from"
+        required: false
+      actor:
+        description: "Authenticated reviewer provenance actor"
+        required: false
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  independent-review-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.head_sha || github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install "jsonschema>=4.20.0"
+      - name: Verify independent review
+        env:
+          INPUT_HEAD_SHA: ${{ github.event.inputs.head_sha || github.event.pull_request.head.sha || github.sha }}
+          INPUT_ATTESTATION_FILE: ${{ github.event.inputs.attestation_file }}
+          INPUT_ATTESTATION_JSON: ${{ github.event.inputs.attestation_json }}
+          INPUT_ATTESTATION_URL: ${{ github.event.inputs.attestation_url }}
+          INPUT_ACTOR: ${{ github.event.inputs.actor || github.actor }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        run: |
+          ARGS=(--head-sha "$INPUT_HEAD_SHA")
+          if [ -n "$INPUT_ATTESTATION_FILE" ]; then ARGS+=(--attestation-file "$INPUT_ATTESTATION_FILE"); fi
+          if [ -n "$INPUT_ATTESTATION_JSON" ]; then ARGS+=(--attestation-json "$INPUT_ATTESTATION_JSON"); fi
+          if [ -n "$INPUT_ATTESTATION_URL" ]; then ARGS+=(--attestation-url "$INPUT_ATTESTATION_URL"); fi
+          if [ -n "$INPUT_ACTOR" ]; then ARGS+=(--actor "$INPUT_ACTOR"); fi
+          python scripts/verify_independent_review.py "${ARGS[@]}"

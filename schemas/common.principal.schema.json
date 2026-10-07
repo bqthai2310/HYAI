@@ -1,0 +1,29 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "principal_type",
+    "id"
+  ],
+  "properties": {
+    "principal_type": {
+      "type": "string",
+      "enum": [
+        "PO",
+        "ARCHITECT",
+        "EXECUTOR",
+        "INDEPENDENT_REVIEWER",
+        "ASSURANCE_SERVICE",
+        "RUNTIME_WORKER",
+        "POLICY_ENGINE",
+        "EVOLUTION_CONTROLLER",
+        "RELEASE_MANAGER",
+        "SYSTEM"
+      ]
+    },
+    "id": {
+      "type": "string",
+      "minLength": 1
+    }
+  }
+}

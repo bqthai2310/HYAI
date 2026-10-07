@@ -1,0 +1,187 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "PromotionApproval",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "approval_id",
+    "proposal_ref",
+    "candidate_subject_digest",
+    "approved_scope",
+    "tier",
+    "approver",
+    "approval_authority_ref",
+    "decision",
+    "issued_at",
+    "expires_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "approval_id": {
+      "type": "string",
+      "pattern": "^promotionapproval_"
+    },
+    "proposal_ref": {
+      "type": "string",
+      "pattern": "^upgradeproposal_"
+    },
+    "candidate_subject_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "approved_scope": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "tier": {
+      "enum": [
+        "T1_MANAGED_COMPONENT",
+        "T2_ARCHITECTURE",
+        "T3_CONSTITUTIONAL"
+      ]
+    },
+    "approver": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "RELEASE_MANAGER"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "decision": {
+      "enum": [
+        "APPROVE",
+        "REJECT"
+      ]
+    },
+    "issued_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "approval_authority_ref": {
+      "type": "string",
+      "minLength": 1
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "tier": {
+            "const": "T1_MANAGED_COMPONENT"
+          }
+        },
+        "required": [
+          "tier"
+        ]
+      },
+      "then": {
+        "properties": {
+          "approver": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "principal_type",
+              "id"
+            ],
+            "properties": {
+              "principal_type": {
+                "enum": [
+                  "PO",
+                  "ARCHITECT",
+                  "RELEASE_MANAGER"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "tier": {
+            "enum": [
+              "T2_ARCHITECTURE",
+              "T3_CONSTITUTIONAL"
+            ]
+          }
+        },
+        "required": [
+          "tier"
+        ]
+      },
+      "then": {
+        "properties": {
+          "approver": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "principal_type",
+              "id"
+            ],
+            "properties": {
+              "principal_type": {
+                "const": "PO"
+              },
+              "id": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

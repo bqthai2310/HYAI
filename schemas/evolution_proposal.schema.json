@@ -1,0 +1,128 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvolutionProposal",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "proposal_id",
+    "problem",
+    "evidence_refs",
+    "affected_invariants",
+    "proposed_change",
+    "expected_benefit",
+    "blast_radius",
+    "acceptance_ref",
+    "rollback_ref",
+    "reversibility",
+    "required_authority",
+    "status",
+    "producer"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "proposal_id": {
+      "type": "string",
+      "pattern": "^evo_"
+    },
+    "problem": {
+      "type": "string",
+      "minLength": 1
+    },
+    "evidence_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "affected_invariants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "proposed_change": {
+      "type": "string",
+      "minLength": 1
+    },
+    "expected_benefit": {
+      "type": "string",
+      "minLength": 1
+    },
+    "blast_radius": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptance_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "rollback_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "reversibility": {
+      "enum": [
+        "REVERSIBLE",
+        "COSTLY_TO_REVERSE",
+        "IRREVERSIBLE"
+      ]
+    },
+    "required_authority": {
+      "enum": [
+        "A1",
+        "A2",
+        "A3",
+        "A4"
+      ]
+    },
+    "status": {
+      "enum": [
+        "DRAFT",
+        "SCREENED",
+        "SANDBOX",
+        "VERIFIED",
+        "CANARY",
+        "PROMOTION_PENDING",
+        "PROMOTED",
+        "REJECTED",
+        "ROLLED_BACK"
+      ]
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

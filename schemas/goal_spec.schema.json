@@ -1,0 +1,186 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GoalSpec",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "goal_id",
+    "original_input_ref",
+    "original_input_digest",
+    "objective",
+    "desired_outcomes",
+    "constraints",
+    "out_of_scope",
+    "assumptions",
+    "ambiguity_flags",
+    "authority_envelope_ref",
+    "risk_envelope_ref",
+    "budget_envelope_ref",
+    "success_metrics",
+    "acceptance_intent",
+    "decomposition_policy",
+    "created_at",
+    "producer"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "goal_id": {
+      "type": "string",
+      "pattern": "^goal_"
+    },
+    "original_input_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "original_input_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1
+    },
+    "desired_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "out_of_scope": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "assumptions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "ambiguity_flags": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "uniqueItems": true
+    },
+    "authority_envelope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "risk_envelope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "budget_envelope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "success_metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "metric",
+          "target"
+        ],
+        "properties": {
+          "metric": {
+            "type": "string",
+            "minLength": 1
+          },
+          "target": {},
+          "verification": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "acceptance_intent": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "decomposition_policy": {
+      "type": "string",
+      "enum": [
+        "AUTO_WITHIN_ENVELOPE",
+        "REQUIRE_PO_PLAN_APPROVAL"
+      ]
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

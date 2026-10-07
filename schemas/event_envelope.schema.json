@@ -1,0 +1,124 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EventEnvelope",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "event_id",
+    "event_type",
+    "schema_version",
+    "occurred_at",
+    "producer",
+    "aggregate_type",
+    "aggregate_id",
+    "aggregate_revision",
+    "correlation_id",
+    "payload",
+    "payload_digest"
+  ],
+  "properties": {
+    "event_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "event_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "occurred_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "aggregate_type": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aggregate_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "aggregate_revision": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "causation_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "correlation_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "policy_snapshot_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "payload": {
+      "type": "object"
+    },
+    "payload_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}

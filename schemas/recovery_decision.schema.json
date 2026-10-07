@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RecoveryDecision",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "recovery_id",
+    "attempt_id",
+    "failure_class",
+    "action",
+    "reason",
+    "retry_count",
+    "policy_snapshot_id",
+    "producer"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "recovery_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "attempt_id": {
+      "type": "string",
+      "pattern": "^attempt_"
+    },
+    "failure_class": {
+      "enum": [
+        "TRANSIENT",
+        "PERMANENT",
+        "CONFIG",
+        "AUTH",
+        "NETWORK",
+        "DEPENDENCY",
+        "CODE",
+        "TEST",
+        "EVIDENCE",
+        "PERMISSION",
+        "PROVIDER",
+        "CAPACITY",
+        "NO_PROGRESS",
+        "DATA_CORRUPTION",
+        "EXTERNAL_BLOCKER"
+      ]
+    },
+    "action": {
+      "enum": [
+        "RETRY",
+        "RESUME",
+        "ROLLBACK",
+        "COMPENSATE",
+        "ESCALATE",
+        "ABORT"
+      ]
+    },
+    "reason": {
+      "type": "string",
+      "minLength": 1
+    },
+    "retry_count": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "policy_snapshot_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "producer": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    }
+  }
+}

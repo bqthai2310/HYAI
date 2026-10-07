@@ -1,0 +1,1 @@
+"""HYAI planning boundary."""

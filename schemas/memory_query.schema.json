@@ -1,0 +1,71 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "MemoryQuery",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "query_id",
+    "requester",
+    "scope_filters",
+    "query_text",
+    "max_items"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string"
+    },
+    "query_id": {
+      "type": "string",
+      "pattern": "^memq_"
+    },
+    "requester": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "principal_type",
+        "id"
+      ],
+      "properties": {
+        "principal_type": {
+          "type": "string",
+          "enum": [
+            "PO",
+            "ARCHITECT",
+            "EXECUTOR",
+            "INDEPENDENT_REVIEWER",
+            "ASSURANCE_SERVICE",
+            "RUNTIME_WORKER",
+            "POLICY_ENGINE",
+            "EVOLUTION_CONTROLLER",
+            "RELEASE_MANAGER",
+            "SYSTEM"
+          ]
+        },
+        "id": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "scope_filters": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string"
+      }
+    },
+    "query_text": {
+      "type": "string",
+      "minLength": 1
+    },
+    "authority_floor": {
+      "type": "string"
+    },
+    "max_items": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 100
+    }
+  }
+}

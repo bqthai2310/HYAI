@@ -1,0 +1,180 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ProductContract",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "product_contract_id",
+    "revision",
+    "product_ref",
+    "goal_ref",
+    "executive_mandate_ref",
+    "target_consumers",
+    "expected_outcomes",
+    "required_features",
+    "nonfunctional_requirements",
+    "explicit_exclusions",
+    "deployment_target",
+    "operational_expectations",
+    "risk_envelope_ref",
+    "budget_envelope_ref",
+    "acceptance_baseline_refs",
+    "definition_of_done",
+    "delivery_expectations",
+    "lifecycle_state",
+    "content_digest"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "product_contract_id": {
+      "type": "string",
+      "pattern": "^productcontract_"
+    },
+    "revision": {
+      "type": "integer",
+      "minimum": 1
+    },
+    "product_ref": {
+      "type": "string",
+      "pattern": "^product_"
+    },
+    "goal_ref": {
+      "type": "string",
+      "pattern": "^goal_"
+    },
+    "executive_mandate_ref": {
+      "type": "string",
+      "pattern": "^mandate_"
+    },
+    "target_consumers": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "expected_outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "required_features": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "nonfunctional_requirements": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "explicit_exclusions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "deployment_target": {
+      "type": "string",
+      "minLength": 1
+    },
+    "operational_expectations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "risk_envelope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "budget_envelope_ref": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptance_baseline_refs": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      },
+      "uniqueItems": true
+    },
+    "definition_of_done": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "delivery_expectations": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "lifecycle_state": {
+      "enum": [
+        "DRAFT",
+        "BASELINED",
+        "ACTIVE",
+        "SUPERSEDED",
+        "CLOSED"
+      ]
+    },
+    "supersedes_ref": {
+      "type": "string",
+      "pattern": "^productcontract_"
+    },
+    "content_digest": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "algorithm",
+        "encoding",
+        "value"
+      ],
+      "properties": {
+        "algorithm": {
+          "type": "string",
+          "pattern": "^[a-z0-9][a-z0-9._-]{1,31}$"
+        },
+        "encoding": {
+          "enum": [
+            "hex",
+            "base64url"
+          ]
+        },
+        "value": {
+          "type": "string",
+          "minLength": 16,
+          "maxLength": 1024,
+          "pattern": "^[A-Za-z0-9_-]+$"
+        }
+      }
+    }
+  }
+}
