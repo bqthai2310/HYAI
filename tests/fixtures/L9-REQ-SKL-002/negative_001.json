@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-117-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-SKL-002",
+  "test_id": "L9-T-117",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Material execution binds exact immutable skill version/digest.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Material execution binds exact immutable skill version/digest.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-SKL-002 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-SKL-002 and L9-T-117."
+  ]
+}

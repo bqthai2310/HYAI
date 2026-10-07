@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-121-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-SKL-006",
+  "test_id": "L9-T-121",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Composite skill is explicit acyclic DAG with schema-compatible edges and bounded recursion.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Composite skill is explicit acyclic DAG with schema-compatible edges and bounded recursion.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-SKL-006 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-SKL-006 and L9-T-121."
+  ]
+}

@@ -16,8 +16,18 @@ PHASE_SUBJECTS = {
     "F03": "subject_f03_portfolio_kernel_and_product_contracts",
     "F04": "subject_f04_acceptance_compiler_and_registry",
     "F05": "subject_f05_sovereign_kernel_and_durable_state",
+    "F06": "subject_f06_capability_and_worker_fabric",
+    "F07": "subject_f07_knowledge_and_reasoning_fabric",
+    "F08": "subject_f08_tool_execution_and_external_systems",
+    "F09": "subject_f09_delivery_and_deployment_fabric",
+    "F10": "subject_f10_runtime_attestation_and_security",
+    "F11": "subject_f11_multi_agent_and_human_collaboration",
+    "F12": "subject_f12_governance_evolution_and_policy",
+    "F13": "subject_f13_economics_budget_and_resource_accounting",
+    "F14": "subject_f14_company_formation_and_incorporation",
+    "F15": "subject_f15_production_readiness_and_handover",
 }
-SUBJECT_ID = PHASE_SUBJECTS.get("F05", "subject_f05_sovereign_kernel_and_durable_state")
+SUBJECT_ID = PHASE_SUBJECTS.get("F15", "subject_f15_production_readiness_and_handover")
 REPOSITORY_URL = "https://github.com/bqthai2310/HYAI"
 
 def digest(value: bytes) -> dict[str, str]:
@@ -151,7 +161,7 @@ def evaluate_git_predicates(live_state: dict[str, Any], head: str, subject_files
     return results
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--head-sha"); parser.add_argument("--phase", default="F05"); parser.add_argument("--skip-tests", action="store_true", help="skip subprocess pytest run"); args = parser.parse_args(argv)
+    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--head-sha"); parser.add_argument("--phase", default="F15"); parser.add_argument("--skip-tests", action="store_true", help="skip subprocess pytest run"); args = parser.parse_args(argv)
     subject_id = PHASE_SUBJECTS.get(args.phase, f"subject_{args.phase.lower()}_sovereign_kernel_and_durable_state")
     REVIEW.mkdir(exist_ok=True); head, base = resolve_head(args.head_sha), resolve_base()
     subprocess.run([sys.executable, "scripts/collect_github_live_state.py", "--head-sha", head], cwd=ROOT, check=True)

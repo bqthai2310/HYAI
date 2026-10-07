@@ -40,3 +40,6 @@ def content_digest(document: Mapping[str, Any]) -> dict[str, str]:
 
 def timestamp() -> str:
     return datetime.now(UTC).isoformat().replace("+00:00", "Z")
+
+
+sha256_digest = compute_digest
