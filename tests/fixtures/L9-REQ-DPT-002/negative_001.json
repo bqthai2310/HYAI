@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-157-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-DPT-002",
+  "test_id": "L9-T-157",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "OrganizationRouter activates minimum sufficient departments based on Product/risk/complexity.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: OrganizationRouter activates minimum sufficient departments based on Product/risk/complexity.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-DPT-002 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-DPT-002 and L9-T-157."
+  ]
+}

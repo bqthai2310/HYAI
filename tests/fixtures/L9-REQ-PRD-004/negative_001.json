@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-095-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-PRD-004",
+  "test_id": "L9-T-095",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Product repository/workspace binding có identity/provenance.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Product repository/workspace binding có identity/provenance.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-PRD-004 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-PRD-004 and L9-T-095."
+  ]
+}

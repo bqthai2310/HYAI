@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-216-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-PRD-009",
+  "test_id": "L9-T-216",
+  "frozen_preconditions": [
+    "Architecture/TestSpec revision is the frozen input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Material Product cannot enter decomposition or organization routing without a versioned ProductContract bound to Product, Goal, ExecutiveMandate, acceptance baseline and Definition of Done."
+  ],
+  "expected_result": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-092-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-PRD-001",
+  "test_id": "L9-T-092",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Goal tạo/đổi outcome lâu dài phải map ProductSpec hoặc explicit non-product outcome.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Goal tạo/đổi outcome lâu dài phải map ProductSpec hoặc explicit non-product outcome.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-PRD-001 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-PRD-001 and L9-T-092."
+  ]
+}

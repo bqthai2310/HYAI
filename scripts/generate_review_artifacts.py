@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate content-addressed F02 review artifacts from the working tree."""
+"""Generate content-addressed F03 review artifacts from the working tree."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys
 from datetime import UTC, datetime
@@ -9,7 +9,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "review"
-SUBJECT_ID = "subject_f02_natural_language_goal_ingress"
+SUBJECT_ID = "subject_f03_portfolio_and_program_kernel"
 REPOSITORY_URL = "https://github.com/bqthai2310/HYAI"
 
 def digest(value: bytes) -> dict[str, str]:
@@ -52,8 +52,26 @@ def validate(document: dict[str, Any], schema_name: str) -> None:
     schema = json.loads((ROOT / "schemas" / schema_name).read_text(encoding="utf-8"))
     errors = list(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(document))
     if errors: raise ValueError(f"{schema_name}: " + "; ".join(e.message for e in errors))
+F03_ORACLE_TESTS = {
+    "L9-REQ-PORT-001": "L9-T-015", "L9-REQ-PORT-002": "L9-T-016", "L9-REQ-PORT-003": "L9-T-017",
+    "L9-REQ-PORT-004": "L9-T-018", "L9-REQ-PORT-005": "L9-T-019", "L9-REQ-PLAN-001": "L9-T-020",
+    "L9-REQ-PLAN-002": "L9-T-021", "L9-REQ-PLAN-003": "L9-T-022", "L9-REQ-PLAN-004": "L9-T-023",
+    "L9-REQ-PRD-001": "L9-T-092", "L9-REQ-PRD-002": "L9-T-093", "L9-REQ-PRD-003": "L9-T-094",
+    "L9-REQ-PRD-004": "L9-T-095", "L9-REQ-PRD-005": "L9-T-096", "L9-REQ-PRD-006": "L9-T-097",
+    "L9-REQ-PRD-007": "L9-T-098", "L9-REQ-PRD-008": "L9-T-099", "L9-REQ-PRD-009": "L9-T-216",
+    "L9-REQ-EXE-005": "L9-T-152", "L9-REQ-EXE-006": "L9-T-153", "L9-REQ-DPT-002": "L9-T-157",
+    "L9-REQ-FSG-005": "L9-T-200",
+}
+
+def extract_acceptance_criteria() -> list[dict[str, str]]:
+    """Return every fixture criterion plus explicit F03 oracle bindings."""
+    fixture_ids = sorted(p.name for p in (ROOT / "tests" / "fixtures").iterdir() if p.is_dir() and (p / "positive.json").is_file())
+    return [{"criterion_id": criterion, "verification_method": "oracle_test_execution",
+             "verification_ref": f"tests/oracles/test_{F03_ORACLE_TESTS[criterion].replace('-', '_')}.py" if criterion in F03_ORACLE_TESTS else "tests/oracles/test_L9_T_*.py"}
+            for criterion in fixture_ids]
+
 def criteria() -> list[str]:
-    return sorted(p.name for p in (ROOT / "tests" / "fixtures").iterdir() if p.is_dir() and p.name not in {"L9-REQ-FSG-005", "L9-REQ-FSG-006"} and (p / "positive.json").is_file())
+    return [item["criterion_id"] for item in extract_acceptance_criteria()]
 
 def evaluate_git_predicates(live_state: dict[str, Any], head: str, subject_files: list[str]) -> dict[str, tuple[str, list[str]]]:
     live_refs = ["ev_github_live_state", "ev_test_output", "ev_workflow_static"]
@@ -122,7 +140,7 @@ def main(argv: list[str] | None = None) -> int:
         (REVIEW / "TEST_OUTPUT.txt").write_text(test.stdout + test.stderr, encoding="utf-8")
         if test.returncode: raise RuntimeError(f"pytest tests/ failed with exit code {test.returncode}")
     root_guard_path = REVIEW / "ROOT_GUARD_RESULT.json"
-    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", "F02-natural-language-goal-ingress"], cwd=ROOT, capture_output=True, text=True)
+    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", "F03-portfolio-and-program-kernel"], cwd=ROOT, capture_output=True, text=True)
     if guard.returncode: raise RuntimeError(f"root guard failed: {guard.stdout}{guard.stderr}")
     root_guard = json.loads(root_guard_path.read_text(encoding="utf-8"))
     validate(root_guard, "root_guard_result.schema.json")
@@ -135,11 +153,11 @@ def main(argv: list[str] | None = None) -> int:
     write_text("CHANGED_FILES.txt", "\n".join(entry["path"] for entry in files) + "\n")
     commands = [
         "pytest tests/",
-        "python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref F02-natural-language-goal-ingress",
+        "python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref F03-portfolio-and-program-kernel",
         "python scripts/validate_spec.py",
     ]
     write_text("TEST_COMMANDS.txt", "\n".join(commands) + "\n")
-    subject = {"schema_version":"2.0.0","subject_id":SUBJECT_ID,"repository":REPOSITORY_URL,"head_commit_sha":head,"base_commit_sha":base,"files":files,"config_digests":[],"policy_snapshot_id":"pol_f02_baseline","acceptance_versions":["2.1.0"]}
+    subject = {"schema_version":"2.0.0","subject_id":SUBJECT_ID,"repository":REPOSITORY_URL,"head_commit_sha":head,"base_commit_sha":base,"files":files,"config_digests":[],"policy_snapshot_id":"pol_f03_portfolio_baseline","acceptance_versions":["2.1.0"]}
     subject["subject_digest"] = compute_subject_digest(subject)
     validate(subject, "review_subject_manifest.schema.json"); write_json("REVIEW_SUBJECT_MANIFEST.json", subject)
     fsg = {f"L9-REQ-FSG-00{i}" for i in range(1,5)}; git_ids = {f"L9-REQ-GIT-00{i}" for i in range(1,7)}; gov_sec = {f"L9-REQ-GOV-00{i}" for i in range(1,9)} | {f"L9-REQ-SEC-00{i}" for i in range(1,7)}
@@ -157,17 +175,18 @@ def main(argv: list[str] | None = None) -> int:
         if c in git_evals: return git_evals[c][0]
         return "PASS"
 
-    acceptance = {"schema_version":"2.0.0","review_subject_id":SUBJECT_ID,"criterion_results":[{"criterion_id":c,"result":result(c),"evidence_refs":refs(c),"verification_method":"oracle_test_execution","verification_ref":"tests/oracles/test_L9_T_*.py"} for c in criterion_ids]}
+    acceptance_specs = {item["criterion_id"]: item for item in extract_acceptance_criteria()}
+    acceptance = {"schema_version":"2.0.0","review_subject_id":SUBJECT_ID,"criterion_results":[{"criterion_id":c,"result":result(c),"evidence_refs":refs(c),"verification_method":acceptance_specs[c]["verification_method"],"verification_ref":acceptance_specs[c]["verification_ref"]} for c in criterion_ids]}
     validate(acceptance, "acceptance_results.schema.json"); write_json("ACCEPTANCE_RESULTS.json", acceptance)
     now = datetime.now(UTC).isoformat().replace("+00:00", "Z")
     sources = [("ev_test_output","test_execution",REVIEW/"TEST_OUTPUT.txt","text/plain",criterion_ids),("ev_root_guard","root_guard_result",root_guard_path,"application/json",sorted(fsg)),("ev_spec_validation","spec_validation",REVIEW/"SPEC_VALIDATION.txt","text/plain",sorted(gov_sec)),("ev_workflow_static","workflow_static_conformance",REVIEW/"WORKFLOW_STATIC_CONFORMANCE.txt","text/plain",sorted(git_ids))]
     if live_path.is_file(): sources.append(("ev_github_live_state", "live_github_state", live_path, "application/json", sorted(git_ids)))
     items = [{"evidence_id":eid,"type":typ,"producer":{"principal_type":"EXECUTOR","id":"hermes"},"subject_ref":SUBJECT_ID,"created_at":now,"media_type":media,"storage_ref":source.relative_to(ROOT).as_posix(),"digest":digest(normalize_bytes(source.read_bytes())),"criterion_refs":cs,"redaction_status":"NOT_REQUIRED"} for eid,typ,source,media,cs in sources]
-    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_f02_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
+    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_f03_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
     validate(evidence,"evidence_bundle.schema.json"); write_json("EVIDENCE_MANIFEST.json", evidence)
-    request = {"schema_version":"2.0.0","review_request_id":f"review_f02_{head[:12]}","phase_id":"F02","repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
+    request = {"schema_version":"2.0.0","review_request_id":f"review_f03_{head[:12]}","phase_id":"F03","repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
     validate(request,"review_request.schema.json"); write_json("REVIEW_REQUEST.json",request)
-    write_text("EXECUTION_REPORT.md", f"""# F02 Execution Report
+    write_text("EXECUTION_REPORT.md", f"""# F03 Execution Report
 
 ## Review subject
 
