@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-102-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-ORC-003",
+  "test_id": "L9-T-102",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Material TestSpec có negative/adversarial case chứng minh oracle có thể FAIL."
+  ],
+  "expected_result": "PASS"
+}

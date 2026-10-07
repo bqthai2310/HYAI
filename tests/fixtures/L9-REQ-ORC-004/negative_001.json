@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-103-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-ORC-004",
+  "test_id": "L9-T-103",
+  "mutation_operator": "EXACT_ADVERSARIAL_PAYLOAD",
+  "frozen_predicate": "OracleResult bind subject digest và raw evidence.",
+  "mutation": "Submit OracleResult with result=PASS while one assertion_results[].result=FAIL. Schema must reject; PASS is forbidden.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-ORC-004 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-ORC-004 and L9-T-103."
+  ]
+}

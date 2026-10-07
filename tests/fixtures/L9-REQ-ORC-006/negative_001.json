@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-105-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-ORC-006",
+  "test_id": "L9-T-105",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Requirement không machine-verifiable phải explicit EXTERNAL_REVIEW, không giả automated PASS.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Requirement không machine-verifiable phải explicit EXTERNAL_REVIEW, không giả automated PASS.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-ORC-006 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-ORC-006 and L9-T-105."
+  ]
+}

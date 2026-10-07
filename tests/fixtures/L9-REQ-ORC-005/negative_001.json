@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-104-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-ORC-005",
+  "test_id": "L9-T-104",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Fixture material có ID/digest; đổi fixture invalidates affected verdict.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Fixture material có ID/digest; đổi fixture invalidates affected verdict.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-ORC-005 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-ORC-005 and L9-T-104."
+  ]
+}

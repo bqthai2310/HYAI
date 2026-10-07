@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate content-addressed F03 review artifacts from the working tree."""
+"""Generate content-addressed F04 review artifacts from the working tree."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys
 from datetime import UTC, datetime
@@ -9,7 +9,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "review"
-SUBJECT_ID = "subject_f03_portfolio_and_program_kernel"
+SUBJECT_ID = "subject_f04_acceptance_compiler_and_registry"
 REPOSITORY_URL = "https://github.com/bqthai2310/HYAI"
 
 def digest(value: bytes) -> dict[str, str]:
@@ -52,7 +52,7 @@ def validate(document: dict[str, Any], schema_name: str) -> None:
     schema = json.loads((ROOT / "schemas" / schema_name).read_text(encoding="utf-8"))
     errors = list(Draft202012Validator(schema, format_checker=FormatChecker()).iter_errors(document))
     if errors: raise ValueError(f"{schema_name}: " + "; ".join(e.message for e in errors))
-F03_ORACLE_TESTS = {
+F04_ORACLE_TESTS = {
     "L9-REQ-PORT-001": "L9-T-015", "L9-REQ-PORT-002": "L9-T-016", "L9-REQ-PORT-003": "L9-T-017",
     "L9-REQ-PORT-004": "L9-T-018", "L9-REQ-PORT-005": "L9-T-019", "L9-REQ-PLAN-001": "L9-T-020",
     "L9-REQ-PLAN-002": "L9-T-021", "L9-REQ-PLAN-003": "L9-T-022", "L9-REQ-PLAN-004": "L9-T-023",
@@ -61,13 +61,17 @@ F03_ORACLE_TESTS = {
     "L9-REQ-PRD-007": "L9-T-098", "L9-REQ-PRD-008": "L9-T-099", "L9-REQ-PRD-009": "L9-T-216",
     "L9-REQ-EXE-005": "L9-T-152", "L9-REQ-EXE-006": "L9-T-153", "L9-REQ-DPT-002": "L9-T-157",
     "L9-REQ-FSG-005": "L9-T-200",
+    "L9-REQ-ORC-001": "L9-T-100", "L9-REQ-ORC-002": "L9-T-101",
+    "L9-REQ-ORC-003": "L9-T-102", "L9-REQ-ORC-004": "L9-T-103",
+    "L9-REQ-ORC-005": "L9-T-104", "L9-REQ-ORC-006": "L9-T-105",
+    "L9-REQ-DLV-001": "L9-T-164",
 }
 
 def extract_acceptance_criteria() -> list[dict[str, str]]:
-    """Return every fixture criterion plus explicit F03 oracle bindings."""
+    """Return every fixture criterion plus explicit F04 oracle bindings."""
     fixture_ids = sorted(p.name for p in (ROOT / "tests" / "fixtures").iterdir() if p.is_dir() and (p / "positive.json").is_file())
     return [{"criterion_id": criterion, "verification_method": "oracle_test_execution",
-             "verification_ref": f"tests/oracles/test_{F03_ORACLE_TESTS[criterion].replace('-', '_')}.py" if criterion in F03_ORACLE_TESTS else "tests/oracles/test_L9_T_*.py"}
+             "verification_ref": f"tests/oracles/test_{F04_ORACLE_TESTS[criterion].replace('-', '_')}.py" if criterion in F04_ORACLE_TESTS else "tests/oracles/test_L9_T_*.py"}
             for criterion in fixture_ids]
 
 def criteria() -> list[str]:
@@ -129,7 +133,7 @@ def evaluate_git_predicates(live_state: dict[str, Any], head: str, subject_files
     return results
 
 def main(argv: list[str] | None = None) -> int:
-    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--head-sha"); parser.add_argument("--skip-tests", action="store_true", help="skip subprocess pytest run"); args = parser.parse_args(argv)
+    parser = argparse.ArgumentParser(description=__doc__); parser.add_argument("--head-sha"); parser.add_argument("--phase", default="F04"); parser.add_argument("--skip-tests", action="store_true", help="skip subprocess pytest run"); args = parser.parse_args(argv)
     REVIEW.mkdir(exist_ok=True); head, base = resolve_head(args.head_sha), resolve_base()
     subprocess.run([sys.executable, "scripts/collect_github_live_state.py", "--head-sha", head], cwd=ROOT, check=True)
     criterion_ids = criteria()
@@ -140,7 +144,7 @@ def main(argv: list[str] | None = None) -> int:
         (REVIEW / "TEST_OUTPUT.txt").write_text(test.stdout + test.stderr, encoding="utf-8")
         if test.returncode: raise RuntimeError(f"pytest tests/ failed with exit code {test.returncode}")
     root_guard_path = REVIEW / "ROOT_GUARD_RESULT.json"
-    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", "F03-portfolio-and-program-kernel"], cwd=ROOT, capture_output=True, text=True)
+    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", f"{args.phase}-acceptance-compiler-and-registry"], cwd=ROOT, capture_output=True, text=True)
     if guard.returncode: raise RuntimeError(f"root guard failed: {guard.stdout}{guard.stderr}")
     root_guard = json.loads(root_guard_path.read_text(encoding="utf-8"))
     validate(root_guard, "root_guard_result.schema.json")
@@ -153,7 +157,7 @@ def main(argv: list[str] | None = None) -> int:
     write_text("CHANGED_FILES.txt", "\n".join(entry["path"] for entry in files) + "\n")
     commands = [
         "pytest tests/",
-        "python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref F03-portfolio-and-program-kernel",
+        f"python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref {args.phase}-acceptance-compiler-and-registry",
         "python scripts/validate_spec.py",
     ]
     write_text("TEST_COMMANDS.txt", "\n".join(commands) + "\n")
@@ -182,11 +186,11 @@ def main(argv: list[str] | None = None) -> int:
     sources = [("ev_test_output","test_execution",REVIEW/"TEST_OUTPUT.txt","text/plain",criterion_ids),("ev_root_guard","root_guard_result",root_guard_path,"application/json",sorted(fsg)),("ev_spec_validation","spec_validation",REVIEW/"SPEC_VALIDATION.txt","text/plain",sorted(gov_sec)),("ev_workflow_static","workflow_static_conformance",REVIEW/"WORKFLOW_STATIC_CONFORMANCE.txt","text/plain",sorted(git_ids))]
     if live_path.is_file(): sources.append(("ev_github_live_state", "live_github_state", live_path, "application/json", sorted(git_ids)))
     items = [{"evidence_id":eid,"type":typ,"producer":{"principal_type":"EXECUTOR","id":"hermes"},"subject_ref":SUBJECT_ID,"created_at":now,"media_type":media,"storage_ref":source.relative_to(ROOT).as_posix(),"digest":digest(normalize_bytes(source.read_bytes())),"criterion_refs":cs,"redaction_status":"NOT_REQUIRED"} for eid,typ,source,media,cs in sources]
-    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_f03_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
+    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_{args.phase.lower()}_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
     validate(evidence,"evidence_bundle.schema.json"); write_json("EVIDENCE_MANIFEST.json", evidence)
-    request = {"schema_version":"2.0.0","review_request_id":f"review_f03_{head[:12]}","phase_id":"F03","repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
+    request = {"schema_version":"2.0.0","review_request_id":f"review_{args.phase.lower()}_{head[:12]}","phase_id":args.phase,"repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
     validate(request,"review_request.schema.json"); write_json("REVIEW_REQUEST.json",request)
-    write_text("EXECUTION_REPORT.md", f"""# F03 Execution Report
+    write_text("EXECUTION_REPORT.md", f"""# {args.phase} Execution Report
 
 ## Review subject
 

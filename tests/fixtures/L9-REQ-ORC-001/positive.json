@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-100-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-ORC-001",
+  "test_id": "L9-T-100",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Mọi canonical requirement có frozen TestSpec trước implementation phase."
+  ],
+  "expected_result": "PASS"
+}
