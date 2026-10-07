@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-124-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-DAT-001",
+  "test_id": "L9-T-124",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Canonical/evidence/memory/telemetry/secrets/transient data have explicit class/owner."
+  ],
+  "expected_result": "PASS"
+}

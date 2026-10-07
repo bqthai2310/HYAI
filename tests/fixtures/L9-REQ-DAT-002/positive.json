@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-125-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-DAT-002",
+  "test_id": "L9-T-125",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Each durable class has versioned retention/deletion semantics."
+  ],
+  "expected_result": "PASS"
+}
