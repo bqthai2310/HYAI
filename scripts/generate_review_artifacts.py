@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate content-addressed F00 review artifacts from the working tree."""
+"""Generate content-addressed F02 review artifacts from the working tree."""
 from __future__ import annotations
 import argparse, hashlib, json, os, subprocess, sys
 from datetime import UTC, datetime
@@ -9,7 +9,7 @@ from jsonschema import Draft202012Validator, FormatChecker
 
 ROOT = Path(__file__).resolve().parents[1]
 REVIEW = ROOT / "review"
-SUBJECT_ID = "subject_f01_canonical_schemas_and_ids"
+SUBJECT_ID = "subject_f02_natural_language_goal_ingress"
 REPOSITORY_URL = "https://github.com/bqthai2310/HYAI"
 
 def digest(value: bytes) -> dict[str, str]:
@@ -122,7 +122,7 @@ def main(argv: list[str] | None = None) -> int:
         (REVIEW / "TEST_OUTPUT.txt").write_text(test.stdout + test.stderr, encoding="utf-8")
         if test.returncode: raise RuntimeError(f"pytest tests/ failed with exit code {test.returncode}")
     root_guard_path = REVIEW / "ROOT_GUARD_RESULT.json"
-    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", "F01-canonical-schemas-and-ids"], cwd=ROOT, capture_output=True, text=True)
+    guard = subprocess.run([sys.executable, "scripts/root_guard.py", "--json", "--output-json", str(root_guard_path), "--task-ref", "F02-natural-language-goal-ingress"], cwd=ROOT, capture_output=True, text=True)
     if guard.returncode: raise RuntimeError(f"root guard failed: {guard.stdout}{guard.stderr}")
     root_guard = json.loads(root_guard_path.read_text(encoding="utf-8"))
     validate(root_guard, "root_guard_result.schema.json")
@@ -135,11 +135,11 @@ def main(argv: list[str] | None = None) -> int:
     write_text("CHANGED_FILES.txt", "\n".join(entry["path"] for entry in files) + "\n")
     commands = [
         "pytest tests/",
-        "python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref F01-canonical-schemas-and-ids",
+        "python scripts/root_guard.py --json --output-json review/ROOT_GUARD_RESULT.json --task-ref F02-natural-language-goal-ingress",
         "python scripts/validate_spec.py",
     ]
     write_text("TEST_COMMANDS.txt", "\n".join(commands) + "\n")
-    subject = {"schema_version":"2.0.0","subject_id":SUBJECT_ID,"repository":REPOSITORY_URL,"head_commit_sha":head,"base_commit_sha":base,"files":files,"config_digests":[],"policy_snapshot_id":"pol_f01_baseline","acceptance_versions":["2.1.0"]}
+    subject = {"schema_version":"2.0.0","subject_id":SUBJECT_ID,"repository":REPOSITORY_URL,"head_commit_sha":head,"base_commit_sha":base,"files":files,"config_digests":[],"policy_snapshot_id":"pol_f02_baseline","acceptance_versions":["2.1.0"]}
     subject["subject_digest"] = compute_subject_digest(subject)
     validate(subject, "review_subject_manifest.schema.json"); write_json("REVIEW_SUBJECT_MANIFEST.json", subject)
     fsg = {f"L9-REQ-FSG-00{i}" for i in range(1,5)}; git_ids = {f"L9-REQ-GIT-00{i}" for i in range(1,7)}; gov_sec = {f"L9-REQ-GOV-00{i}" for i in range(1,9)} | {f"L9-REQ-SEC-00{i}" for i in range(1,7)}
@@ -163,11 +163,11 @@ def main(argv: list[str] | None = None) -> int:
     sources = [("ev_test_output","test_execution",REVIEW/"TEST_OUTPUT.txt","text/plain",criterion_ids),("ev_root_guard","root_guard_result",root_guard_path,"application/json",sorted(fsg)),("ev_spec_validation","spec_validation",REVIEW/"SPEC_VALIDATION.txt","text/plain",sorted(gov_sec)),("ev_workflow_static","workflow_static_conformance",REVIEW/"WORKFLOW_STATIC_CONFORMANCE.txt","text/plain",sorted(git_ids))]
     if live_path.is_file(): sources.append(("ev_github_live_state", "live_github_state", live_path, "application/json", sorted(git_ids)))
     items = [{"evidence_id":eid,"type":typ,"producer":{"principal_type":"EXECUTOR","id":"hermes"},"subject_ref":SUBJECT_ID,"created_at":now,"media_type":media,"storage_ref":source.relative_to(ROOT).as_posix(),"digest":digest(normalize_bytes(source.read_bytes())),"criterion_refs":cs,"redaction_status":"NOT_REQUIRED"} for eid,typ,source,media,cs in sources]
-    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_f01_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
+    evidence = {"schema_version":"2.0.0","bundle_id":f"bundle_f02_{head[:12]}","review_subject_id":SUBJECT_ID,"items":items,"bundle_digest":digest(canonical(items))}
     validate(evidence,"evidence_bundle.schema.json"); write_json("EVIDENCE_MANIFEST.json", evidence)
-    request = {"schema_version":"2.0.0","review_request_id":f"review_f01_{head[:12]}","phase_id":"F01","repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
+    request = {"schema_version":"2.0.0","review_request_id":f"review_f02_{head[:12]}","phase_id":"F02","repository":REPOSITORY_URL,"base_ref":"main","head_commit_sha":head,"acceptance_contract_refs":["schemas/acceptance_contract.schema.json"],"requested_by":{"principal_type":"EXECUTOR","id":"hermes"},"requested_at":now}
     validate(request,"review_request.schema.json"); write_json("REVIEW_REQUEST.json",request)
-    write_text("EXECUTION_REPORT.md", f"""# F01 Execution Report
+    write_text("EXECUTION_REPORT.md", f"""# F02 Execution Report
 
 ## Review subject
 
