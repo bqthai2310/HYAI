@@ -1,7 +1,6 @@
 name: Independent review gate
 
 on:
-  pull_request:
   workflow_dispatch:
     inputs:
       head_sha:
