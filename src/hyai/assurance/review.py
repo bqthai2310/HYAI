@@ -147,3 +147,72 @@ def can_promote_to_production(verdict: ReviewVerdict, authorization: AuthorityDe
     principal = authorization.get("authority", authorization.get("principal", authorization))
     role = principal.get("principal_type") if isinstance(principal, Mapping) else None
     return authorization.get("status", "APPROVED") == "APPROVED" and authorization.get("required_class", authorization.get("authority_class", "A4")) == "A4" and role in {"PO", "RELEASE_MANAGER"}
+
+
+class ReviewGatewayError(ValueError):
+    """Base error for ReviewGateway."""
+
+
+class StaleAttestationError(ReviewGatewayError):
+    """Raised when an ingested attestation targets an outdated commit SHA (L9-REQ-REV-004)."""
+
+
+class SelfApprovalError(ReviewGatewayError):
+    """Raised when executor self-certifies review (L9-REQ-REV-001)."""
+
+
+class NonIndependentAttestationError(ReviewGatewayError):
+    """Raised when verdict is not produced by an independent principal (L9-REQ-REV-001, L9-REQ-REV-003)."""
+
+
+class ReviewGateway:
+    """Central gateway for ingesting and validating canonical independent attestations (L9-REQ-REV-003)."""
+
+    def __init__(self) -> None:
+        self._attestations: dict[str, dict[str, Any]] = {}
+
+    def ingest_attestation(
+        self,
+        request: ReviewRequest,
+        subject: ReviewSubject,
+        verdict: ReviewVerdict,
+        current_head_sha: str,
+    ) -> dict[str, Any]:
+        valid, reason = validate_verdict(request, subject, verdict, current_target_commit_sha=current_head_sha)
+        if not valid:
+            if "NO_SELF_APPROVAL" in reason or "self" in reason.lower():
+                raise SelfApprovalError(reason)
+            if "exact head commit" in reason:
+                raise StaleAttestationError(reason)
+            if "independent reviewer" in reason:
+                raise NonIndependentAttestationError(reason)
+            raise ReviewGatewayError(reason)
+
+        if verdict.reviewed_commit_sha != current_head_sha:
+            raise StaleAttestationError(
+                f"Attestation commit {verdict.reviewed_commit_sha} does not match current HEAD {current_head_sha}"
+            )
+
+        attestation = {
+            "review_request_id": request.review_request_id,
+            "reviewed_commit_sha": verdict.reviewed_commit_sha,
+            "subject_digest": dict(verdict.review_subject_digest),
+            "reviewer_id": verdict.reviewer.id,
+            "verdict": verdict.verdict,
+            "criterion_results": list(verdict.criterion_results),
+        }
+        self._attestations[current_head_sha] = attestation
+        return attestation
+
+    def get_current_attestation(self, current_head_sha: str) -> dict[str, Any] | None:
+        return self._attestations.get(current_head_sha)
+
+    def invalidate_for_new_head(self, new_head_sha: str) -> None:
+        """Invalidates prior attestations when a new head SHA is committed (L9-REQ-REV-004)."""
+        self._attestations = {
+            sha: att for sha, att in self._attestations.items() if sha == new_head_sha
+        }
+
+    def is_ci_green_equivalent_to_review_pass(self, ci_status: str) -> bool:
+        """CI green cannot be interpreted as Independent Review PASS (L9-REQ-REV-005)."""
+        return False
