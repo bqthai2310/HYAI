@@ -1,0 +1,762 @@
+{
+  "generated_at": "2026-10-08T10:17:58.354475+00:00",
+  "issue": "TAI-2",
+  "target_directory": "C:\\Users\\THAIPC\\AppData\\Local\\Temp\\hyai_stack01_fresh\\schemas",
+  "validator": "jsonschema.Draft202012Validator.check_schema",
+  "jsonschema_version": "4.26.0",
+  "python_version": "3.11.15",
+  "expected_count": 73,
+  "discovered_count": 73,
+  "valid_count": 73,
+  "invalid_count": 0,
+  "count_matches_expected": true,
+  "drift": {
+    "baseline_type": "local_git_HEAD",
+    "baseline_commit": "65df5bcfab1c3a5766c4f760a20ef8d6560f963d",
+    "baseline_schema_count": 73,
+    "added": [],
+    "missing": [],
+    "modified_json": [],
+    "byte_differences": [
+      "schemas/acceptance_contract.schema.json",
+      "schemas/acceptance_results.schema.json",
+      "schemas/artifact_manifest.schema.json",
+      "schemas/authority_envelope.schema.json",
+      "schemas/authority_request.schema.json",
+      "schemas/benchmark_suite.schema.json",
+      "schemas/budget_envelope.schema.json",
+      "schemas/canary_plan.schema.json",
+      "schemas/capability_plan.schema.json",
+      "schemas/capability_spec.schema.json",
+      "schemas/checkpoint.schema.json",
+      "schemas/command_envelope.schema.json",
+      "schemas/common.digest.schema.json",
+      "schemas/common.principal.schema.json",
+      "schemas/compatibility_profile.schema.json",
+      "schemas/component_abi_manifest.schema.json",
+      "schemas/contract_registry_entry.schema.json",
+      "schemas/data_retention_policy.schema.json",
+      "schemas/decision_record.schema.json",
+      "schemas/delivery_contract.schema.json",
+      "schemas/delivery_readiness_record.schema.json",
+      "schemas/department_charter.schema.json",
+      "schemas/disaster_recovery_plan.schema.json",
+      "schemas/evaluation_run.schema.json",
+      "schemas/evaluation_spec.schema.json",
+      "schemas/event_envelope.schema.json",
+      "schemas/evidence_bundle.schema.json",
+      "schemas/evolution_proposal.schema.json",
+      "schemas/execution_attempt.schema.json",
+      "schemas/executive_mandate.schema.json",
+      "schemas/experiment_plan.schema.json",
+      "schemas/external_review_attestation.schema.json",
+      "schemas/federation_node.schema.json",
+      "schemas/goal_spec.schema.json",
+      "schemas/handoff_contract.schema.json",
+      "schemas/memory_context_bundle.schema.json",
+      "schemas/memory_query.schema.json",
+      "schemas/memory_record.schema.json",
+      "schemas/memory_tombstone.schema.json",
+      "schemas/oracle_result.schema.json",
+      "schemas/organization_route.schema.json",
+      "schemas/organizational_lesson.schema.json",
+      "schemas/policy_snapshot.schema.json",
+      "schemas/product_component.schema.json",
+      "schemas/product_contract.schema.json",
+      "schemas/product_delivery_bundle.schema.json",
+      "schemas/product_spec.schema.json",
+      "schemas/program_spec.schema.json",
+      "schemas/promotion_approval.schema.json",
+      "schemas/promotion_request.schema.json",
+      "schemas/protocol_adapter_descriptor.schema.json",
+      "schemas/recovery_decision.schema.json",
+      "schemas/release_record.schema.json",
+      "schemas/resource_lease.schema.json",
+      "schemas/review_request.schema.json",
+      "schemas/review_subject_manifest.schema.json",
+      "schemas/review_verdict.schema.json",
+      "schemas/risk_envelope.schema.json",
+      "schemas/rollback_plan.schema.json",
+      "schemas/root_guard_result.schema.json",
+      "schemas/root_layout_manifest.schema.json",
+      "schemas/skill_binding.schema.json",
+      "schemas/skill_spec.schema.json",
+      "schemas/strategy_profile.schema.json",
+      "schemas/supply_chain_attestation.schema.json",
+      "schemas/task_spec.schema.json",
+      "schemas/technology_lifecycle_entry.schema.json",
+      "schemas/test_spec.schema.json",
+      "schemas/upgrade_proposal.schema.json",
+      "schemas/upgrade_signal.schema.json",
+      "schemas/worker_descriptor.schema.json",
+      "schemas/workflow_instance.schema.json",
+      "schemas/workstream_spec.schema.json"
+    ],
+    "scope": "Inventory and parsed JSON comparison to current local Git HEAD; no separate historical approved baseline supplied.",
+    "detected": false,
+    "byte_difference_explanation": "All 73 byte differences are CRLF/LF line endings only; all files are identical after newline normalization."
+  },
+  "limitations": [
+    "check_schema validates schema definitions against the Draft 2020-12 metaschema; it does not validate application instances or prove runtime contract compatibility."
+  ],
+  "schemas": [
+    {
+      "file": "schemas/acceptance_contract.schema.json",
+      "sha256": "0753324a8974865c1f9d6ed44633bbb8fd0052ccd5ddbd4ec91db9f36694dd69",
+      "valid": true,
+      "baseline_sha256": "3510dbbb1c3d9932357dd1d06c85502681fd526740bb3acdf2e0d2a74013c06d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/acceptance_results.schema.json",
+      "sha256": "433c7fe4efcb5c5dbbfe02e3d54925be4c405890f0eac3c92f110005c358ed97",
+      "valid": true,
+      "baseline_sha256": "8717dee7ca3a62699ed84bcc7853ee9de7d16cb6179fb13cc74fb1b59d57b0d6",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/artifact_manifest.schema.json",
+      "sha256": "247bbb01dc4346e1f3cab1ea60f669532e0c9a0f7fc800913243ad4991003e9a",
+      "valid": true,
+      "baseline_sha256": "168157cdc4d39ad2532d8dec6abc5569815ad84fb309fdf47b3e881868def41d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/authority_envelope.schema.json",
+      "sha256": "4cbdb327fcc6019959728cf6cc04e1374b0f04a4e4d4f7a878e3c23ade656336",
+      "valid": true,
+      "baseline_sha256": "098a2d27df1da88cd33592947c1f0f29086de84367483857b43df692acc54e61",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/authority_request.schema.json",
+      "sha256": "667099e497553edd8bf851e5f89014c0a9ff398a3fcfffa3f0ed08dfc0d8e8cf",
+      "valid": true,
+      "baseline_sha256": "97fbef30038091e96b284e52f7c2d8440ff76d7772e2ca850496827424db7218",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/benchmark_suite.schema.json",
+      "sha256": "95b141f03622f0097d5f3fb56a034d6d164a38656d0e5f92191e3aa4ff32b10d",
+      "valid": true,
+      "baseline_sha256": "08ff47d33cbf17c881a0da6b34d785dbabbe479d5d31a7bd26665c29ea4541c4",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/budget_envelope.schema.json",
+      "sha256": "945b4b08cc2e0d2326c1cc14de4bf9da9ef415cd8a080c9ed1478a647dc8765c",
+      "valid": true,
+      "baseline_sha256": "0314a6fd02cfc62e9ae75910b0c4c9fe466834156144d866997bda8b187bb9ed",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/canary_plan.schema.json",
+      "sha256": "70470017246ca22d273435bba0aa7903fd52330ef640a5350c641f9da1204d7c",
+      "valid": true,
+      "baseline_sha256": "a057d741aae6c9498021a33a2a9c928b496e3d2e7583a29d0c40ca8c7af63fc4",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/capability_plan.schema.json",
+      "sha256": "2029a4213703f39dd876b17c864ee325dcefa5eacb94ca5b98901a5c9675df6e",
+      "valid": true,
+      "baseline_sha256": "dcff05ebec479300512b989b3fd2d43fe419363d8805bc702e5466d6ad762e7c",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/capability_spec.schema.json",
+      "sha256": "ec1a435de8f3afe0e878dd6989a313967650799e763797a6f470dc81fd983651",
+      "valid": true,
+      "baseline_sha256": "4120e9d0da25ff9583a285ccdd1610f806ee0d33a05840f6c797aa1e19f0e557",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/checkpoint.schema.json",
+      "sha256": "a98f514fc0f664b6d4fa126662dd3918ec5281b6600180cc51e2556cfd334deb",
+      "valid": true,
+      "baseline_sha256": "8820902d68ef8a2b37773595b70eebdccc5d46a338ac335a681a0dfa3bc99f38",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/command_envelope.schema.json",
+      "sha256": "80cea34425a098a337641c313378eb0b24110b99840eb9bb76008f1138b2ae28",
+      "valid": true,
+      "baseline_sha256": "46e7eee894194ed2ca86253fed1ca49917892436c2d27faacc6debdb16755ead",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/common.digest.schema.json",
+      "sha256": "5728047becca5b04e4d7ff764c50f1549ab250abea3e0188c637a531fd9e175b",
+      "valid": true,
+      "baseline_sha256": "fabddf4888e4e6093ca928bdef0919351b4078a4c6ce6a2a8c9202aa5136ce1d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/common.principal.schema.json",
+      "sha256": "ae9bf108c8ff7b8c5fc135bf0a642c107d3161c07dea7b2c70cef46036e8ac4b",
+      "valid": true,
+      "baseline_sha256": "f68ad19c7f19f5cd327aab746be4c37e0aaa5b417fdaf60f04af9c555feaadc6",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/compatibility_profile.schema.json",
+      "sha256": "4715dc1012cfd05d8d7bd02203f11d8283d67645859818abe1d8a3c99b404180",
+      "valid": true,
+      "baseline_sha256": "a6853bdafa8c14ab5dabf560da5797c65baffd4d0d1cb70cf23a10647a26a799",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/component_abi_manifest.schema.json",
+      "sha256": "2ec7155705e31f4b97a152c472e37e584f4b77057a1ce1222e0ea9b770c2d4c5",
+      "valid": true,
+      "baseline_sha256": "c01e6920166c7fcb04ff7c4594e541c387d792ca821a428fc7d43907083b5e6f",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/contract_registry_entry.schema.json",
+      "sha256": "30a2fd26edc4d03a5009b2c57f0756f961827734632d58a1396b4986f565223e",
+      "valid": true,
+      "baseline_sha256": "22a62ac2d230a072bd20902f5f61d0effe41822581dfb09aa86797b4bd9207ae",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/data_retention_policy.schema.json",
+      "sha256": "7b24a9d9033b09e8f13c8f599bdc42381edc2bfe2cee9ed0f6d2d754d836bdb1",
+      "valid": true,
+      "baseline_sha256": "58d3c5a9ef66df4a2797138efb3e74ab0d603bda1e78a3f7ddc20b87d7c7ea41",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/decision_record.schema.json",
+      "sha256": "970762caf2b23d3e8e2179a4378b62a643df9c748080fad9a9a4f212489de083",
+      "valid": true,
+      "baseline_sha256": "50c62ca127534e788e576b9bdbf7d27225d47c574f941ac2336dc2c4c945e491",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/delivery_contract.schema.json",
+      "sha256": "ccc98158eb73ac182918e008254012abf05cc917951b32c0f1c8d83ac5145582",
+      "valid": true,
+      "baseline_sha256": "baf3eef65ef321f49ae099127eac861b009eae2ac50b1e92bee38de5ae9f1951",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/delivery_readiness_record.schema.json",
+      "sha256": "7f006df7bf1eaf0edf34e85602f9ee7e2cacddb66eaccf53c0a5efcc16a527b9",
+      "valid": true,
+      "baseline_sha256": "9f4d90ee1b345b6e275e0155f74acebc6be35e54acee0744c934a03a6a8d1d31",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/department_charter.schema.json",
+      "sha256": "ab43d0dfeafa8092a74ee4212d05b00d605d9413e3c62951c9caf30667868422",
+      "valid": true,
+      "baseline_sha256": "f76d80c766e7bd74036c5fd2e2c6eb46a272813a6e6c1afcb5a3829ec6275627",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/disaster_recovery_plan.schema.json",
+      "sha256": "6c694b71bc91c1b4a34fad67d7545f7e24ba5dfb1a43ae43d107ca87bdcd92d5",
+      "valid": true,
+      "baseline_sha256": "a4935cf7f63cb33ce3259d18c55b72c38d89bdcde9912fadd37a43376ce60938",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/evaluation_run.schema.json",
+      "sha256": "4700b98012119a7f51f5fe5d05e82d00e4b97f040d444c4b27c7f8d8817b8692",
+      "valid": true,
+      "baseline_sha256": "4955b1101ecfc550f7a98a989359d4dd697cf3903da61f91ba5a908f11d23d01",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/evaluation_spec.schema.json",
+      "sha256": "4abbb5f47aff6c3d01931087e4b6a795ae42218e9afec6481f73d24667c43845",
+      "valid": true,
+      "baseline_sha256": "cc32c8e9bc0f623c02d35160bf6f0d11a6d096faf1ade6d664d44c6b76626d8d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/event_envelope.schema.json",
+      "sha256": "1c2727882dd613e668977e809004c3cee0607791599545512fdc7a0be49b887a",
+      "valid": true,
+      "baseline_sha256": "236c147ba4c9d8322a237fdd6ccc1c2c35b2291e2c5ed5533e9ebfdcefb9829d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/evidence_bundle.schema.json",
+      "sha256": "386e894e9ecdaadbdbf253796ba88018cc65cface3496d66ece0a8f018aa7a72",
+      "valid": true,
+      "baseline_sha256": "88107d792d329c43311eeeceaab5ad5730bd1651fbf645fb3872f9df94b707c5",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/evolution_proposal.schema.json",
+      "sha256": "0ba251b20df7c7e2bd7b843d993a0379d87942d40170e9ade31db5b63a0c9c79",
+      "valid": true,
+      "baseline_sha256": "d7cd756d1077ff28448899e2fd553a4efa39cbb3173477f18f76509dad22bafb",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/execution_attempt.schema.json",
+      "sha256": "d785fe3d16e5e411ecd617e85d05b6b6c0ff9239b78b49890f38d3ed31db0fca",
+      "valid": true,
+      "baseline_sha256": "e2b52a3f8f4caa6b9d473eb4dd9a86360f19c91b8bc7198e592429600692cee2",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/executive_mandate.schema.json",
+      "sha256": "0e7975252013c3fd67fdd5269ba44a3b4acdf1f0d742fd4b74668f7ba31b8a49",
+      "valid": true,
+      "baseline_sha256": "2775017982ce404fed248f2a6492b66d1df93a7ed7f03f996cab3a623e74640f",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/experiment_plan.schema.json",
+      "sha256": "98485b929a104f0c4acbfaf8daa8fd3b1347487f8755f4485e5f2bafb578881f",
+      "valid": true,
+      "baseline_sha256": "c09601ab3ac718a9f80bf9f9c443fdf8d2188401e8c0b9ca56e44f60e11593dc",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/external_review_attestation.schema.json",
+      "sha256": "89a8ecaf3ee4fbf1cd9757e51962778ded345f31c0b231184010b82cb2e6936f",
+      "valid": true,
+      "baseline_sha256": "9cc9c0c33dfc2a0d727532576883c76dfe4eeebbbeae20ba5d13ebb526327534",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/federation_node.schema.json",
+      "sha256": "749352a41249e1f5538c7f8ec7abbb3041dc3a5f64fabcf503c97dcf4e318215",
+      "valid": true,
+      "baseline_sha256": "1789e6e602c53ea2cefdd479bb30a55292154eba53942471f70a52ed99b15df5",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/goal_spec.schema.json",
+      "sha256": "31c585d4e1a3bbf14f2ed14dccf5578f5a7adad16db83ff1028675d59575da14",
+      "valid": true,
+      "baseline_sha256": "3d9322188af69b41479aeb48cb36557887a6d2b8cf8daa65ee8fd3a88ade82be",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/handoff_contract.schema.json",
+      "sha256": "65394d9b7b8ec83bcbc2b2d64b8f082f60a900c92aab276e73d66aa6f743bc43",
+      "valid": true,
+      "baseline_sha256": "c3d62a172b7bf64820c61561b61bb256aec6da5070c6a45e44f165a4edf9c10a",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/memory_context_bundle.schema.json",
+      "sha256": "2fadbefae5cfb6ec8ad0d7a242c2f49e17dd93c93d906bebdb63216a70ea5177",
+      "valid": true,
+      "baseline_sha256": "baf3f5d59b11d5056451046e91ce7c3c2fd2a145cacffb7ace7766c241a6b170",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/memory_query.schema.json",
+      "sha256": "e04d5753aa81e0c0fa428e32d7c204c1399ec5c63775bd1dbf7aa033a4f34c51",
+      "valid": true,
+      "baseline_sha256": "dc42096ff996f109afcaa66e1f7d2ae00c8f38fe96ecebe83e1ea04c8e1aa41c",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/memory_record.schema.json",
+      "sha256": "1d7512725b1f095eb0ac29ca49705e10b70ae0cdfcd0a1c1e47032b13cb879b7",
+      "valid": true,
+      "baseline_sha256": "596b31a79a071fde122e6fdc4c5f67d33e9f92e5978c5d78d9a26c4ee12128fb",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/memory_tombstone.schema.json",
+      "sha256": "7aaaf97740bb185f218e3a4bb2d4ff1c7e0ef0a82d8274391d8162fb8034f028",
+      "valid": true,
+      "baseline_sha256": "0c3b4f7103cb9343c8b1767ebe60bb3fd977a53abe5711e9f4101d53ee0b7797",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/oracle_result.schema.json",
+      "sha256": "3936342ff2c9f6ab6112c7ff62152ddfa95780bebb1da115663cb042746ff609",
+      "valid": true,
+      "baseline_sha256": "bf37dd20d716445b0926639e2d9845e528bfb6ac39e34f4457d1d4dd55b7ec17",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/organization_route.schema.json",
+      "sha256": "8eef74ad00dfc52afaf576b2b8fc4ab7dc950b2e5382fabc051a2dd20b99e001",
+      "valid": true,
+      "baseline_sha256": "91e08b203c00b74ca5fc7bef4d15e4142fbd3293c68e9000e15dd79e17867470",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/organizational_lesson.schema.json",
+      "sha256": "9b9cec683d9af8334adf7c34bcff2af1856f4ab2c3d4e6e4abc55369c3334527",
+      "valid": true,
+      "baseline_sha256": "f9d97e90842ab29494ded70981ca4f72c7d064d83703dc4aaa63368227da5b0c",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/policy_snapshot.schema.json",
+      "sha256": "f667c75e1d5d8d77b4bbfab4aa35f7de7e5cfd14bb6d4b63447b2bbcd9864189",
+      "valid": true,
+      "baseline_sha256": "ba00949df9f0245d4965de7c809e1deccd8046a261467f4cd730577ef702b144",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/product_component.schema.json",
+      "sha256": "fc02e7602b27915834eb368d8994f2503a3f242f53e32eb6e5feb0150c4eb931",
+      "valid": true,
+      "baseline_sha256": "98a11974a096270fd1a3aa1fe2ac8fb4de0252c537b60a9c61a6cf64932c6df7",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/product_contract.schema.json",
+      "sha256": "57159bd9ba25470bd16f300ff8699319ec13ebfa63ee4fc50b92f8c1aeeb9f24",
+      "valid": true,
+      "baseline_sha256": "e7a8ef7279ececf2b119e2b0cdfe450dea10e55d07531377081fe7d440c1b8c8",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/product_delivery_bundle.schema.json",
+      "sha256": "a4948f0324e79008875bbb4b5e4a864b121caf3afdb1bfc854435c1d9910e341",
+      "valid": true,
+      "baseline_sha256": "38901f6447bc80dc7e81fbdbb22ee57cf4eef144bab569cf7406c0117a29cdb7",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/product_spec.schema.json",
+      "sha256": "017b78fef49e209843deaff52f7ddfdddc0e56c61f2291d89eac2bfabe816388",
+      "valid": true,
+      "baseline_sha256": "367d3491b0d9f6ffe0839e56ee77eed6bffd6fdb5a1d938115a7d2b7acdfa403",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/program_spec.schema.json",
+      "sha256": "255708ac5feb2fe858d89eff956ed0fa254968a64211037cb1f266e7ca45cece",
+      "valid": true,
+      "baseline_sha256": "361d0892fa5436cef8cf33f1be28bbdfff7195382e5cafd0598b545585611d28",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/promotion_approval.schema.json",
+      "sha256": "1f0698ff0aafadad6ee7b3831018941e0e7be6bd53d4520c7e6705f89c4cd9ae",
+      "valid": true,
+      "baseline_sha256": "f411152dfb4643b025b698273baa2fd572872a469b84341a8bfabbfe095c8f4e",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/promotion_request.schema.json",
+      "sha256": "db3853c9ed61d18f3a3b1b3c3ac2bad410cf2f8b050e4b05a07e04d0767a7009",
+      "valid": true,
+      "baseline_sha256": "4b8b37a1d80fbc52018df9851b3e37b89a2c8356d9d949a1ef03f885399f8549",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/protocol_adapter_descriptor.schema.json",
+      "sha256": "4402918d22581e92d0603929854e5d5dfaab5c71b148ea65e053eee9f81fc068",
+      "valid": true,
+      "baseline_sha256": "920b3dee30a0005dde705c31e7b2be15ffb66ef052f3f271d10888a67d070b6d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/recovery_decision.schema.json",
+      "sha256": "bad5f379c598ac95ef36bda013b1bb4b8eec9e72925648df1859b71e45f80bcf",
+      "valid": true,
+      "baseline_sha256": "ccd58b961290be1984f96c76cadca2055f11acafa95b51113349b526e2f345b5",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/release_record.schema.json",
+      "sha256": "4a58fde88d5caa0b8f90fb08605287e3505f1fa0db812a09d93f68ea0b3aa77b",
+      "valid": true,
+      "baseline_sha256": "284b22a267ca9250c4847cb365c2b259b809c18e8b70c196c76a79f2dd87c0b4",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/resource_lease.schema.json",
+      "sha256": "bdce19609ab4d1fef0cda9e08c0543257b72e570e7e5176ebbf7f61caaca7df9",
+      "valid": true,
+      "baseline_sha256": "7cf92fd74e37f641c0c0581661eecafe122d34c0ac2d1f19b03aa611175ec144",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/review_request.schema.json",
+      "sha256": "0c2740d894e0d28b5ed7a8f65615dc1155a8ecb68af10c6193020ce7c2d15816",
+      "valid": true,
+      "baseline_sha256": "2da9941f1d5a76c00cc86bac85f740f09af6aede1cfefd2a8c40f47991bb5d5f",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/review_subject_manifest.schema.json",
+      "sha256": "6dfd6c96f40bcb167c940d7bcdffb82a69e2e5545a1f960818659fed912554a8",
+      "valid": true,
+      "baseline_sha256": "491bd6234cefae4e7f3227f8928d707cfe65ce379f59c99d52100cd3982466b3",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/review_verdict.schema.json",
+      "sha256": "e8144d21de9934e47234608ea0f13751aaabb7c8c91f0a25dcd4447e507c2fe7",
+      "valid": true,
+      "baseline_sha256": "c98eeb1949736512df301648a7bf8eae0df3c840f8edaa63fc402f24d01ea792",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/risk_envelope.schema.json",
+      "sha256": "cd77128c62c0f4530dd820ccd289bc616d07d95ef0ab3ffff0ba7cc0a017d245",
+      "valid": true,
+      "baseline_sha256": "00a96f51b5276bfe2fa8211bbd79d446677f01e393c2becf0dca9282c5b22cc9",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/rollback_plan.schema.json",
+      "sha256": "3c6f0e04ef19d9e9b9ca236c91402ce453586bad865566d02af62924b921abba",
+      "valid": true,
+      "baseline_sha256": "8cf584064c613d4e67cbef8da9e10ef80b9ab76d7367c50d76e89bf7504ca4c9",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/root_guard_result.schema.json",
+      "sha256": "961c506e88dd9d0591439490faab5af0878f681ebc2b2dbbf5ead85d2306d264",
+      "valid": true,
+      "baseline_sha256": "63fab85edaf25ba04a58307ff3e8df21f2684f663360d932c5d8e2c8d1413ce5",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/root_layout_manifest.schema.json",
+      "sha256": "2b404bc8ecf7383314e86455d69bc7b2e6f3a61b9723cc0236e32ef28d57477c",
+      "valid": true,
+      "baseline_sha256": "a823c41d776e8dc0f9a96f0ed4eb75b431eafd9367278638a740362ab3eb83f6",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/skill_binding.schema.json",
+      "sha256": "127559acde99117873ed72a96743e11ecfef05156f66c688c81bd26cba68ccc9",
+      "valid": true,
+      "baseline_sha256": "4705bae1d1e03150b01976119338724edfb49b1ecc906b829f74d5191136c4da",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/skill_spec.schema.json",
+      "sha256": "8df554996ee21e9acac5de832398508c268a38609db33aca260c300054b630ff",
+      "valid": true,
+      "baseline_sha256": "03e9cd990e03d1d14891dec909e3ab74b4f9add275f6ff7218c01d7dab564720",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/strategy_profile.schema.json",
+      "sha256": "de4955c8efdf3fafd9f3482a9e963cc69a5093dea5e004d2b8558fcc14afd253",
+      "valid": true,
+      "baseline_sha256": "5c9e7c906d71924a3e7c2d9b8b0d7c93b5a485e742b378f7f6fe867197349fa8",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/supply_chain_attestation.schema.json",
+      "sha256": "510428ca3a5d0b88542f3d3932de330709181e138232e116e0fc3f013928f817",
+      "valid": true,
+      "baseline_sha256": "e0e0927302d344a1496a0978cdbc2b6ad0bb77ed46d007766553dc900c2effad",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/task_spec.schema.json",
+      "sha256": "84cb4015405b08a56ed31342675eca806b6738b7f739226bcb42cd56a99ba650",
+      "valid": true,
+      "baseline_sha256": "9354cb7937f66127e217de3b91d15dff3c78e42f3772e6be7e0f645b012a6742",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/technology_lifecycle_entry.schema.json",
+      "sha256": "3dbc2124c9d2827031c96e144bdcd3f03e0f15207ad6b423c1065b4dad785c40",
+      "valid": true,
+      "baseline_sha256": "472e8d219368debec9d1b1d00441a333261e7e41dc91e9be1a39cefdb34ed45c",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/test_spec.schema.json",
+      "sha256": "d661add7976ec823edca9825e3181f4c5d6ac1177ba73e2d9fa77eb031d6013b",
+      "valid": true,
+      "baseline_sha256": "c21504af26ff20acaa55556998b346cdcd09f42861f53ef1e0532f76f6de5f23",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/upgrade_proposal.schema.json",
+      "sha256": "5c48be88e60b4282c3c271ec66243755f819581bdf176a4a44bc9d3acde48ef0",
+      "valid": true,
+      "baseline_sha256": "d7d2560952db2f435adc799b64e27367d5e7c37310732b4ac198b9a83dbbde5d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/upgrade_signal.schema.json",
+      "sha256": "544636d871d4b3dd1da8cc76f57e7b89042a6b79039794b623da54bfeecbe596",
+      "valid": true,
+      "baseline_sha256": "fcb6faf202d65b23feed0a79419dcd66b1ac449cd4e9a1214a9a50d1435fda3f",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/worker_descriptor.schema.json",
+      "sha256": "b6b47cbfd68311fb6d07a5cfc574c9c295278b44b357498b9fe2a7bf540b3030",
+      "valid": true,
+      "baseline_sha256": "f11c79449811db39829f9f58ed7dcc022f4bf922e0ec74054120eb5ec7fbec0b",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/workflow_instance.schema.json",
+      "sha256": "e2b63e51f2ea898711c927fb4ce331e540a2ffab8b15da6c0b5679a9d3b65229",
+      "valid": true,
+      "baseline_sha256": "6871553e8b34542357dd6e811778eeefbb59f2df41ed3494995bc31a40c8fbb9",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    },
+    {
+      "file": "schemas/workstream_spec.schema.json",
+      "sha256": "0b755be1d40582df600e741ab16d2b95513fd4a2e6834a4ec9d4c73777ca632a",
+      "valid": true,
+      "baseline_sha256": "2c033004496d258bf7571e02f2e8784a9864382ad345b82852ae7f9dcd78f27d",
+      "byte_identical_to_head": false,
+      "json_identical_to_head": true,
+      "identical_after_newline_normalization": true
+    }
+  ],
+  "status": "pass"
+}
