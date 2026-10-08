@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-202-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-INT-001",
+  "test_id": "L9-T-202",
+  "frozen_preconditions": [
+    "Mapped HYAI v2.0 architecture/requirement revision is frozen input for the implementation subject.",
+    "Review subject identifies exact current commit/artifact/config/policy revision."
+  ],
+  "frozen_assertions": [
+    "MCP/A2A/REST/gRPC/future protocols are adapters, not Stable Core semantics."
+  ],
+  "expected_result": "PASS"
+}

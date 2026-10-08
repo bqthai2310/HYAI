@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-056-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-FED-003",
+  "test_id": "L9-T-056",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Expired node lease cannot commit."
+  ],
+  "expected_result": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-205-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-INT-004",
+  "test_id": "L9-T-205",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Adapter declares unsupported/lossy semantics and fails closed when required capability cannot map.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Adapter declares unsupported/lossy semantics and fails closed when required capability cannot map.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-INT-004 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-INT-004 and L9-T-205."
+  ]
+}
