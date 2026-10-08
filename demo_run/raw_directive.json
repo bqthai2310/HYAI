@@ -1,0 +1,22 @@
+{
+  "schema_version": "2.1.0",
+  "raw_directive_id": "raw_dir_b6182845bcf5",
+  "raw_directive_ref": "directive://po/stack01-schema-drift-check",
+  "source_ref": "directive://po/stack01-schema-drift-check",
+  "digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "2da17b9cfd550eafc801f107075989ec312d7358db84155d216161f524ef3096"
+  },
+  "source_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "2da17b9cfd550eafc801f107075989ec312d7358db84155d216161f524ef3096"
+  },
+  "raw_text": "Check whether all 73 canonical schemas still validate, and report any drift.",
+  "captured_at": "2026-10-08T10:16:05.635031Z",
+  "principal": {
+    "principal_type": "PO",
+    "id": "po-principal"
+  }
+}

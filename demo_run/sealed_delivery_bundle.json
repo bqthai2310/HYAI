@@ -1,0 +1,31 @@
+{
+  "schema_version": "2.1.0",
+  "bundle_id": "deliverybundle_8b989d0a434c48ff",
+  "product_ref": "product_canonical_schemas",
+  "release_subject_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "b7887d6f153e0672a961843e8ed5c4e094e0d0f2be5eddbecaa8c270243e0462"
+  },
+  "artifact_refs": [
+    "artifact_schema_validation_report",
+    "artifact_task_bundle"
+  ],
+  "config_refs": [
+    "config_default_loopback"
+  ],
+  "documentation_refs": [
+    "doc_schema_validation_report"
+  ],
+  "evidence_refs": [
+    "evidence_paperclip_run_b0b84e73_3808_4806_b70e_a5d54040f118",
+    "evidence_paperclip_issue_tai2"
+  ],
+  "delivery_readiness_ref": "deliveryready_verified_pass",
+  "rollback_ref": "rollback_noop_read_only_audit",
+  "content_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "3c7b221b69997795cfb6238af1b6abe2a5a4683b67b02dde8b32709f4d840349"
+  }
+}

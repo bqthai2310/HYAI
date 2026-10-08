@@ -1,0 +1,36 @@
+{
+  "schema_version": "2.1.0",
+  "goal_id": "goal_fbe20f50f20e",
+  "original_input_ref": "directive://po/stack01-schema-drift-check",
+  "original_input_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "2da17b9cfd550eafc801f107075989ec312d7358db84155d216161f524ef3096"
+  },
+  "objective": "Check whether all 73 canonical schemas still validate, and report any drift.",
+  "desired_outcomes": [
+    "All 73 canonical schemas validated against Draft202012 specification",
+    "Schema drift analysis report generated confirming consistency"
+  ],
+  "constraints": [
+    "Read-only validation of canonical schemas",
+    "No file mutation in repository schemas directory"
+  ],
+  "out_of_scope": [
+    "Modifying existing canonical schema specifications",
+    "Production deployment"
+  ],
+  "assumptions": [],
+  "ambiguity_flags": [],
+  "authority_envelope_ref": "auth_env_default",
+  "risk_envelope_ref": "risk_env_default",
+  "budget_envelope_ref": "budget_env_default",
+  "success_metrics": [],
+  "acceptance_intent": [],
+  "decomposition_policy": "AUTO_WITHIN_ENVELOPE",
+  "created_at": "2026-10-08T10:16:05.635031Z",
+  "producer": {
+    "principal_type": "PO",
+    "id": "po-principal"
+  }
+}

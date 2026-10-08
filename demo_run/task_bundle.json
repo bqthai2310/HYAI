@@ -1,0 +1,58 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "taskbundle_29eff5db570c",
+  "goal_ref": "goal_fbe20f50f20e",
+  "plan_steps": [
+    {
+      "step_id": "step_01_ingress_and_plan",
+      "title": "Ingest directive and compile canonical GoalSpec",
+      "description": "Process raw natural language directive and compile GoalSpec",
+      "assigned_role": "COORDINATOR"
+    },
+    {
+      "step_id": "step_02_schema_validation",
+      "title": "Validate 73 canonical schemas and check drift",
+      "description": "Enumerate and validate all 73 schemas in schemas/ directory against Draft202012",
+      "assigned_role": "CODER"
+    },
+    {
+      "step_id": "step_03_verify_results",
+      "title": "Verify schema validation outcomes",
+      "description": "Verify schema validation outputs against acceptance criteria",
+      "assigned_role": "VERIFIER"
+    },
+    {
+      "step_id": "step_04_delivery_seal",
+      "title": "Integrate results and seal delivery bundle",
+      "description": "Seal cryptographic delivery bundle with exact digest",
+      "assigned_role": "COORDINATOR"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "CRIT-01",
+      "description": "All 73 canonical schemas in schemas/ validate against Draft202012 without syntax errors or invalid declarations",
+      "verification_type": "SCHEMA_VALIDATION",
+      "target_ref": "schemas/*.schema.json"
+    },
+    {
+      "criterion_id": "CRIT-02",
+      "description": "Schema validation and drift report generated confirming 73 valid schemas and zero drift",
+      "verification_type": "FILE_EXISTENCE",
+      "target_ref": "schema_validation_report.json"
+    }
+  ],
+  "constraints": {
+    "workspace_root": "C:/Users/THAIPC/AppData/Local/Temp/hyai_stack01_fresh",
+    "sandbox_mode": "WORKSPACE_WRITE",
+    "network_egress": "LOCALHOST_ONLY",
+    "max_duration_seconds": 300
+  },
+  "expected_deliverable_format": {
+    "deliverable_type": "SCHEMA_VALIDATION_REPORT",
+    "required_files": [
+      "schema_validation_report.json"
+    ],
+    "result_bundle_schema_ref": "wiring/schemas/result_bundle.schema.json"
+  }
+}

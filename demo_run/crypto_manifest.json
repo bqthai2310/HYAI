@@ -1,0 +1,57 @@
+{
+  "extractions": [
+    {
+      "label": "Fresh clone HEAD commit SHA-256 (40 hex)",
+      "source": "demo_run/head_commit.txt",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Raw directive file SHA-256",
+      "source": "demo_run/raw_directive.json",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Raw directive digest value",
+      "source": "demo_run/raw_directive.json",
+      "method": "json-field",
+      "field": "digest.value"
+    },
+    {
+      "label": "Compiled GoalSpec file SHA-256",
+      "source": "demo_run/goal.json",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Task bundle file SHA-256",
+      "source": "demo_run/task_bundle.json",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Agent schema validation report SHA-256",
+      "source": "demo_run/schema_validation_report.json",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Paperclip run log NDJSON SHA-256",
+      "source": "demo_run/paperclip_run.ndjson",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Sealed delivery bundle file SHA-256",
+      "source": "demo_run/sealed_delivery_bundle.json",
+      "method": "sha256sum"
+    },
+    {
+      "label": "Sealed delivery bundle release_subject_digest value",
+      "source": "demo_run/sealed_delivery_bundle.json",
+      "method": "json-field",
+      "field": "release_subject_digest.value"
+    },
+    {
+      "label": "Sealed delivery bundle content_digest value",
+      "source": "demo_run/sealed_delivery_bundle.json",
+      "method": "json-field",
+      "field": "content_digest.value"
+    }
+  ]
+}
