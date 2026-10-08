@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-195-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-CMP-008",
+  "test_id": "L9-T-195",
+  "frozen_preconditions": [
+    "Mapped HYAI v2.0 architecture/requirement revision is frozen input for the implementation subject.",
+    "Review subject identifies exact current commit/artifact/config/policy revision."
+  ],
+  "frozen_assertions": [
+    "F15 demonstrates at least one representative dependency replacement without loss of canonical truth."
+  ],
+  "expected_result": "PASS"
+}

@@ -173,3 +173,21 @@ def handle_correction_outcome(
             f"Non-converging correction produced blocker package {pkg.blocker_id} (L9-REQ-DLV-009)"
         )
     return {"status": "CONVERGED"}
+
+
+class RecoveryReadinessError(ValueError):
+    """Raised when required rollback or disaster recovery paths are untested before delivery (L9-REQ-DLV-007)."""
+
+
+def verify_recovery_readiness(
+    *,
+    rollback_tested: bool,
+    restore_verified: bool,
+    recovery_plan_ref: str,
+) -> bool:
+    """L9-REQ-DLV-007: Required rollback/restore/recovery path is tested before DELIVERY_READY."""
+    if not (rollback_tested and restore_verified and recovery_plan_ref):
+        raise RecoveryReadinessError(
+            "Rollback, restore, and disaster recovery path must be tested prior to DELIVERY_READY (L9-REQ-DLV-007)"
+        )
+    return True

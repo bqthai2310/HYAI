@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-209-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-SCA-001",
+  "test_id": "L9-T-209",
+  "frozen_preconditions": [
+    "Mapped HYAI v2.0 architecture/requirement revision is frozen input for the implementation subject.",
+    "Review subject identifies exact current commit/artifact/config/policy revision."
+  ],
+  "frozen_assertions": [
+    "Material release binds source revision/build/artifact provenance."
+  ],
+  "expected_result": "PASS"
+}

@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-211-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-SCA-003",
+  "test_id": "L9-T-211",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Supply-chain attestation is verified against trusted builder/source policy before release.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Supply-chain attestation is verified against trusted builder/source policy before release.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-SCA-003 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-SCA-003 and L9-T-211."
+  ]
+}
