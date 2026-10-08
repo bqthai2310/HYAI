@@ -81,3 +81,17 @@ class ProviderAdapter(ProviderPort):
 def verify_adapter_access(provider: Any) -> bool:
     """Verify that model or provider access complies with adapter boundary port requirements."""
     return isinstance(provider, ProviderPort)
+
+
+class DependencyReplacementDrill:
+    """L9-REQ-CMP-008: F15 demonstrates representative dependency replacement without loss of canonical truth."""
+
+    @staticmethod
+    def execute_drill(
+        primary_adapter: Any,
+        substitute_adapter: Any,
+        sample_workload: Any,
+    ) -> bool:
+        r1 = primary_adapter(sample_workload)
+        r2 = substitute_adapter(sample_workload)
+        return r1 == r2

@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-195-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-CMP-008",
+  "test_id": "L9-T-195",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "F15 demonstrates at least one representative dependency replacement without loss of canonical truth.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: F15 demonstrates at least one representative dependency replacement without loss of canonical truth.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-CMP-008 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-CMP-008 and L9-T-195."
+  ]
+}
