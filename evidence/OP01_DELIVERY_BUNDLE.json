@@ -1,0 +1,30 @@
+{
+  "schema_version": "2.1.0",
+  "bundle_id": "deliverybundle_82dfe5a36f2e471c",
+  "product_ref": "product_op01_system_assessment",
+  "release_subject_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "6d0a29cb5a8ee10e6e0ce1d86946d2375b21a9f638289b750dc2e7e6a99e9f9a"
+  },
+  "artifact_refs": [
+    "system_health_assessment.json"
+  ],
+  "config_refs": [
+    "config/op01_runtime_policy.json"
+  ],
+  "documentation_refs": [
+    "docs/OP01_EXERCISE_GUIDE.md"
+  ],
+  "evidence_refs": [
+    "evidence/OP01_SAFETY_MONITOR_LOG.json",
+    "evidence/OP01_FULL_AUDIT_TRAIL.json"
+  ],
+  "delivery_readiness_ref": "deliveryready_op01_verified",
+  "rollback_ref": "rollback_op01_verified",
+  "content_digest": {
+    "algorithm": "sha256",
+    "encoding": "hex",
+    "value": "e6149044136befb7ab9ceba190860725166e0e8a7fac17a6045b6cf34237d83a"
+  }
+}

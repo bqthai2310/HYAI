@@ -1,0 +1,513 @@
+{
+  "schema_version": "2.1.0",
+  "directive_ref": "po_directive_20261007_op01",
+  "raw_directive": {
+    "schema_version": "2.1.0",
+    "raw_directive_id": "raw_dir_11b292697edd",
+    "raw_directive_ref": "po_directive_20261007_op01",
+    "source_ref": "po_directive_20261007_op01",
+    "digest": {
+      "algorithm": "sha256",
+      "encoding": "hex",
+      "value": "2b17856946fab7423de1a05d5ef36bc17148940e79adc6de33c0a7309e847c98"
+    },
+    "source_digest": {
+      "algorithm": "sha256",
+      "encoding": "hex",
+      "value": "2b17856946fab7423de1a05d5ef36bc17148940e79adc6de33c0a7309e847c98"
+    },
+    "raw_text": "Produce a system health self-assessment: inspect your own telemetry and durable state, identify the top 3 operational risks, propose a mitigation for each, and deliver the assessment as a sealed delivery bundle.",
+    "captured_at": "2026-10-08T03:20:15.625710Z",
+    "principal": {
+      "principal_type": "PO",
+      "id": "po_operational_authority"
+    }
+  },
+  "goal_spec": {
+    "schema_version": "2.1.0",
+    "goal_id": "goal_b03bd71dafe0",
+    "original_input_ref": "po_directive_20261007_op01",
+    "original_input_digest": {
+      "algorithm": "sha256",
+      "encoding": "hex",
+      "value": "2b17856946fab7423de1a05d5ef36bc17148940e79adc6de33c0a7309e847c98"
+    },
+    "objective": "Produce system health self-assessment with top 3 operational risks, mitigations, and sealed delivery bundle",
+    "desired_outcomes": [
+      "Inspect telemetry and durable state",
+      "Identify top 3 operational risks",
+      "Propose mitigation for each risk",
+      "Produce sealed product delivery bundle"
+    ],
+    "constraints": [
+      "Sandbox/staging only, no external calls or writes outside sandbox",
+      "Read-only outside world",
+      "Max 50 tool invocations, max 30 min wall-clock"
+    ],
+    "out_of_scope": [
+      "Production deployment",
+      "External API communication",
+      "Unbounded tool invocations"
+    ],
+    "assumptions": [],
+    "ambiguity_flags": [],
+    "authority_envelope_ref": "auth_env_default",
+    "risk_envelope_ref": "risk_env_default",
+    "budget_envelope_ref": "budget_env_default",
+    "success_metrics": [],
+    "acceptance_intent": [
+      "OP-AC-001: NL Ingress Goal created",
+      "OP-AC-002: Plan traceable to goal",
+      "OP-AC-003: Durable execution & mid-run restart",
+      "OP-AC-004: Sealed delivery bundle",
+      "OP-AC-005: Unbroken audit trail",
+      "OP-AC-006: Zero safety violations",
+      "OP-AC-007: Injected fault detected and recovered"
+    ],
+    "decomposition_policy": "AUTO_WITHIN_ENVELOPE",
+    "created_at": "2026-10-08T03:20:15.625710Z",
+    "producer": {
+      "principal_type": "PO",
+      "id": "po_operational_authority"
+    }
+  },
+  "program_spec": {
+    "schema_version": "2.1.0",
+    "program_id": "prog_op01_health_assessment",
+    "goal_id": "goal_b03bd71dafe0",
+    "product_refs": [
+      "product_op01_system_assessment"
+    ],
+    "product_contract_refs": [
+      "productcontract_op01_health_assessment"
+    ],
+    "name": "System Health Self-Assessment Program",
+    "objective": "Produce system health self-assessment with top 3 operational risks, mitigations, and sealed delivery bundle",
+    "workstream_ids": [
+      "ws_op01_assessment"
+    ],
+    "state": "PLANNED",
+    "created_at": "2026-10-08T03:20:15.627710Z"
+  },
+  "workstream_spec": {
+    "schema_version": "2.1.0",
+    "workstream_id": "ws_op01_assessment",
+    "program_id": "prog_op01_health_assessment",
+    "name": "Operational Health Assessment Workstream",
+    "outcome": "Complete verified system health assessment bundle",
+    "task_ids": [
+      "task_op01_inspect_telemetry_and_state",
+      "task_op01_synthesize_risks_and_mitigations",
+      "task_op01_seal_delivery_bundle"
+    ],
+    "dependency_refs": [],
+    "state": "PLANNED"
+  },
+  "tasks": [
+    {
+      "schema_version": "2.1.0",
+      "task_id": "task_op01_inspect_telemetry_and_state",
+      "workstream_id": "ws_op01_assessment",
+      "objective": "Inspect telemetry metrics, active traces, and durable SQLite state",
+      "scope": [
+        "telemetry",
+        "durable_state"
+      ],
+      "out_of_scope": [
+        "external_state"
+      ],
+      "requirement_refs": [
+        "OP-REQ-001"
+      ],
+      "acceptance_contract_ref": "acc_inspect_telemetry",
+      "required_capabilities": [
+        "cap_telemetry_inspection"
+      ],
+      "authority_class": "A1",
+      "risk_class": "LOW",
+      "state": "DEFINED"
+    },
+    {
+      "schema_version": "2.1.0",
+      "task_id": "task_op01_synthesize_risks_and_mitigations",
+      "workstream_id": "ws_op01_assessment",
+      "objective": "Synthesize top 3 operational risks and concrete mitigations",
+      "scope": [
+        "risk_analysis",
+        "mitigation_proposals"
+      ],
+      "out_of_scope": [
+        "risk_suppression"
+      ],
+      "requirement_refs": [
+        "OP-REQ-002"
+      ],
+      "acceptance_contract_ref": "acc_risk_synthesis",
+      "required_capabilities": [
+        "cap_risk_synthesis"
+      ],
+      "authority_class": "A1",
+      "risk_class": "LOW",
+      "state": "DEFINED"
+    },
+    {
+      "schema_version": "2.1.0",
+      "task_id": "task_op01_seal_delivery_bundle",
+      "workstream_id": "ws_op01_assessment",
+      "objective": "Compile assessment artifact, verify operational readiness and seal delivery bundle",
+      "scope": [
+        "bundle_compilation",
+        "sealing"
+      ],
+      "out_of_scope": [
+        "unverified_delivery"
+      ],
+      "requirement_refs": [
+        "OP-REQ-003"
+      ],
+      "acceptance_contract_ref": "acc_bundle_sealing",
+      "required_capabilities": [
+        "cap_bundle_sealing"
+      ],
+      "authority_class": "A1",
+      "risk_class": "LOW",
+      "state": "DEFINED"
+    }
+  ],
+  "workflow_timings": [
+    {
+      "step": "step_1_inspect_telemetry_and_state",
+      "duration_ms": 0.0,
+      "fault_injected": true
+    },
+    {
+      "step": "step_2_synthesize_risks",
+      "duration_ms": 0.0,
+      "fault_injected": false
+    },
+    {
+      "step": "step_3_seal_delivery_bundle",
+      "duration_ms": 0.0,
+      "fault_injected": false
+    }
+  ],
+  "fault_injection_record": {
+    "injected_at": "2026-10-08T03:20:15.628709Z",
+    "target_tool": "tool_inspect_telemetry",
+    "failure_type": "TimeoutError (Simulated transient I/O bus timeout)",
+    "caught_exception": "FaultInjection: Simulated transient I/O bus timeout on telemetry stream",
+    "recovery_decision": {
+      "failure_class": "TRANSIENT",
+      "action": "RETRY",
+      "recovery_id": "rec_attempt_01_step1_0"
+    },
+    "recovery_outcome": "SUCCESSFUL_RETRY"
+  },
+  "tool_invocations_log": [
+    {
+      "tool_id": "tool_inspect_telemetry",
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "status": "INJECTED_FAULT_ERROR",
+      "error": "FaultInjection: Simulated transient I/O bus timeout on telemetry stream",
+      "duration_ms": 0.0
+    },
+    {
+      "tool_id": "tool_inspect_telemetry",
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "status": "SUCCESS",
+      "duration_ms": 0.0,
+      "result_summary": {
+        "metric_record": "{'metric_name': 'system_error_rate', 'metric_type': 'GAUGE', 'value': 0.01, 'tim",
+        "log_record": "{'timestamp': '2026-10-08T03:20:15.628709Z', 'level': 'INFO', 'message': 'Teleme",
+        "slo_compliant": "True",
+        "telemetry_health": "NORMAL"
+      }
+    },
+    {
+      "tool_id": "tool_inspect_durable_state",
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "status": "SUCCESS",
+      "duration_ms": 0.0,
+      "result_summary": {
+        "db_location": "E:\\HYAI\\.hyai\\workspaces\\op01_sandbox\\durable_state.db",
+        "stored_state": "None",
+        "sqlite_integrity": "OK"
+      }
+    },
+    {
+      "tool_id": "tool_risk_assessment_engine",
+      "timestamp": "2026-10-08T03:20:15.639827Z",
+      "status": "SUCCESS",
+      "duration_ms": 0.0,
+      "result_summary": {
+        "assessed_risks": "[{'risk_id': 'RISK-01', 'title': 'Unbounded Tool Execution & Wall-Clock Drift', "
+      }
+    },
+    {
+      "tool_id": "tool_bundle_hasher",
+      "timestamp": "2026-10-08T03:20:15.649068Z",
+      "status": "SUCCESS",
+      "duration_ms": 0.0,
+      "result_summary": {
+        "sha256": "6d0a29cb5a8ee10e6e0ce1d86946d2375b21a9f638289b750dc2e7e6a99e9f9a",
+        "status": "HASHED"
+      }
+    }
+  ],
+  "durable_checkpoints": [
+    {
+      "schema_version": "2.1.0",
+      "checkpoint_id": "chk_op01_step1_completed",
+      "workflow_id": "wf_op01_health_assessment",
+      "workflow_revision": 1,
+      "task_revision": 1,
+      "completed_steps": [
+        "step_1_inspect_telemetry_and_state"
+      ],
+      "side_effect_refs": [
+        "se_sqlite_persist_step1"
+      ],
+      "created_at": "2026-10-08T03:20:15.637828Z",
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "33485c61ba7866959f0ab1d3e92e8d3d62964208b02ef7f96fabdc72a33bbfff"
+      },
+      "cursor": "cursor_after_step1"
+    },
+    {
+      "schema_version": "2.1.0",
+      "checkpoint_id": "chk_op01_step2_completed",
+      "workflow_id": "wf_op01_health_assessment",
+      "workflow_revision": 2,
+      "task_revision": 2,
+      "completed_steps": [
+        "step_1_inspect_telemetry_and_state",
+        "step_2_synthesize_risks"
+      ],
+      "side_effect_refs": [
+        "se_sqlite_persist_step1",
+        "se_sqlite_persist_step2"
+      ],
+      "created_at": "2026-10-08T03:20:15.648067Z",
+      "digest": {
+        "algorithm": "sha256",
+        "encoding": "hex",
+        "value": "438b3d5deefc074d3958f157b8b840b72a0890f77830729900d567b4f5bb5dd6"
+      },
+      "cursor": "cursor_after_step2"
+    }
+  ],
+  "system_health_assessment": {
+    "schema_version": "2.1.0",
+    "document_type": "SYSTEM_HEALTH_SELF_ASSESSMENT",
+    "assessment_id": "assess_op01_20261007",
+    "produced_at": "2026-10-08T03:20:15.649068Z",
+    "producer": {
+      "principal_type": "EXECUTOR",
+      "id": "worker_op01"
+    },
+    "system_head_sha": "65df5bcfab1c3a5766c4f760a20ef8d6560f963d",
+    "goal_id": "goal_b03bd71dafe0",
+    "telemetry_summary": {
+      "metric_record": {
+        "metric_name": "system_error_rate",
+        "metric_type": "GAUGE",
+        "value": 0.01,
+        "timestamp": "2026-10-08T03:20:15.628709Z",
+        "trace_context": {
+          "goal_id": "goal_b03bd71dafe0",
+          "program_id": "prog_op01_health_assessment",
+          "task_id": "task_op01_inspect_telemetry_and_state",
+          "attempt_id": "att_op01_01",
+          "trace_id": "trace_op01_primary",
+          "span_id": "span_op01_root",
+          "parent_span_id": null
+        },
+        "dimensions": {}
+      },
+      "log_record": {
+        "timestamp": "2026-10-08T03:20:15.628709Z",
+        "level": "INFO",
+        "message": "Telemetry pipeline healthy",
+        "trace_context": {
+          "goal_id": "goal_b03bd71dafe0",
+          "program_id": "prog_op01_health_assessment",
+          "task_id": "task_op01_inspect_telemetry_and_state",
+          "attempt_id": "att_op01_01",
+          "trace_id": "trace_op01_primary",
+          "span_id": "span_op01_root",
+          "parent_span_id": null
+        },
+        "attributes": {}
+      },
+      "slo_compliant": true,
+      "telemetry_health": "NORMAL"
+    },
+    "durable_state_summary": {
+      "db_location": "E:\\HYAI\\.hyai\\workspaces\\op01_sandbox\\durable_state.db",
+      "stored_state": null,
+      "sqlite_integrity": "OK"
+    },
+    "top_operational_risks": [
+      {
+        "risk_id": "RISK-01",
+        "title": "Unbounded Tool Execution & Wall-Clock Drift",
+        "severity": "HIGH",
+        "mitigation": "Enforce strict FinOps budget envelopes and pre-execution countdown guards at kernel level."
+      },
+      {
+        "risk_id": "RISK-02",
+        "title": "State Corruption on Mid-Run Process Crash",
+        "severity": "CRITICAL",
+        "mitigation": "Require atomic SQLite write-ahead logging with explicit CheckpointManager durable markers."
+      },
+      {
+        "risk_id": "RISK-03",
+        "title": "Silent Authority Elevation in Autonomous Goal Decomposition",
+        "severity": "HIGH",
+        "mitigation": "Fail-closed authority envelope validation rejecting undeclared principal privilege escalation."
+      }
+    ]
+  },
+  "product_delivery_bundle": {
+    "schema_version": "2.1.0",
+    "bundle_id": "deliverybundle_82dfe5a36f2e471c",
+    "product_ref": "product_op01_system_assessment",
+    "release_subject_digest": {
+      "algorithm": "sha256",
+      "encoding": "hex",
+      "value": "6d0a29cb5a8ee10e6e0ce1d86946d2375b21a9f638289b750dc2e7e6a99e9f9a"
+    },
+    "artifact_refs": [
+      "system_health_assessment.json"
+    ],
+    "config_refs": [
+      "config/op01_runtime_policy.json"
+    ],
+    "documentation_refs": [
+      "docs/OP01_EXERCISE_GUIDE.md"
+    ],
+    "evidence_refs": [
+      "evidence/OP01_SAFETY_MONITOR_LOG.json",
+      "evidence/OP01_FULL_AUDIT_TRAIL.json"
+    ],
+    "delivery_readiness_ref": "deliveryready_op01_verified",
+    "rollback_ref": "rollback_op01_verified",
+    "content_digest": {
+      "algorithm": "sha256",
+      "encoding": "hex",
+      "value": "e6149044136befb7ab9ceba190860725166e0e8a7fac17a6045b6cf34237d83a"
+    }
+  },
+  "safety_monitor_summary": {
+    "violations_count": 0,
+    "tool_calls": 5,
+    "status": "ZERO_VIOLATIONS"
+  },
+  "audit_trail": [
+    {
+      "step_id": "OP-STEP-01",
+      "action": "INSTANCE_DEPLOYMENT",
+      "timestamp": "2026-10-08T03:20:15.624709Z",
+      "details": {
+        "head_sha": "65df5bcfab1c3a5766c4f760a20ef8d6560f963d",
+        "sandbox_root": "E:\\HYAI\\.hyai\\workspaces\\op01_sandbox",
+        "durable_storage": "SqliteDurableStorage"
+      }
+    },
+    {
+      "step_id": "OP-STEP-02",
+      "action": "NL_INGRESS_COMPILED",
+      "timestamp": "2026-10-08T03:20:15.625710Z",
+      "details": {
+        "raw_directive_id": "raw_dir_11b292697edd",
+        "raw_text_digest": {
+          "algorithm": "sha256",
+          "encoding": "hex",
+          "value": "2b17856946fab7423de1a05d5ef36bc17148940e79adc6de33c0a7309e847c98"
+        },
+        "goal_id": "goal_b03bd71dafe0",
+        "objective": "Produce system health self-assessment with top 3 operational risks, mitigations, and sealed delivery bundle"
+      }
+    },
+    {
+      "step_id": "OP-STEP-03",
+      "action": "PLAN_GENERATED_AND_VERIFIED",
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "details": {
+        "program_id": "prog_op01_health_assessment",
+        "goal_id": "goal_b03bd71dafe0",
+        "tasks": [
+          "task_op01_inspect_telemetry_and_state",
+          "task_op01_synthesize_risks_and_mitigations",
+          "task_op01_seal_delivery_bundle"
+        ],
+        "traceability_status": "VERIFIED_UNBROKEN"
+      }
+    },
+    {
+      "step_id": "OP-STEP-04-FAULT",
+      "action": "FAULT_INJECTED_AND_DETECTED",
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "details": {
+        "injected_at": "2026-10-08T03:20:15.628709Z",
+        "target_tool": "tool_inspect_telemetry",
+        "failure_type": "TimeoutError (Simulated transient I/O bus timeout)",
+        "caught_exception": "FaultInjection: Simulated transient I/O bus timeout on telemetry stream",
+        "recovery_decision": {
+          "failure_class": "TRANSIENT",
+          "action": "RETRY",
+          "recovery_id": "rec_attempt_01_step1_0"
+        },
+        "recovery_outcome": "SUCCESSFUL_RETRY"
+      }
+    },
+    {
+      "step_id": "OP-STEP-05",
+      "action": "STEP1_CHECKPOINT_SAVED",
+      "timestamp": "2026-10-08T03:20:15.637828Z",
+      "details": {
+        "checkpoint_id": "chk_op01_step1_completed"
+      }
+    },
+    {
+      "step_id": "OP-STEP-06",
+      "action": "MID_RUN_RESTART_PROVEN",
+      "timestamp": "2026-10-08T03:20:15.639827Z",
+      "details": {
+        "restored_checkpoint_id": "chk_op01_step1_completed",
+        "restored_steps": [
+          "step_1_inspect_telemetry_and_state"
+        ],
+        "restored_kernel_revision": 1
+      }
+    },
+    {
+      "step_id": "OP-STEP-07",
+      "action": "STEP2_CHECKPOINT_SAVED",
+      "timestamp": "2026-10-08T03:20:15.649068Z",
+      "details": {
+        "checkpoint_id": "chk_op01_step2_completed"
+      }
+    },
+    {
+      "step_id": "OP-STEP-08",
+      "action": "DELIVERY_BUNDLE_SEALED",
+      "timestamp": "2026-10-08T03:20:15.649068Z",
+      "details": {
+        "bundle_id": "deliverybundle_82dfe5a36f2e471c",
+        "sealed_digest": {
+          "algorithm": "sha256",
+          "encoding": "hex",
+          "value": "e6149044136befb7ab9ceba190860725166e0e8a7fac17a6045b6cf34237d83a"
+        },
+        "release_subject_digest": {
+          "algorithm": "sha256",
+          "encoding": "hex",
+          "value": "6d0a29cb5a8ee10e6e0ce1d86946d2375b21a9f638289b750dc2e7e6a99e9f9a"
+        }
+      }
+    }
+  ]
+}
