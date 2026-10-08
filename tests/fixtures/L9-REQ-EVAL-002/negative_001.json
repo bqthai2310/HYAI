@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-137-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-EVAL-002",
+  "test_id": "L9-T-137",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "BenchmarkSuite cases/fixtures have stable IDs/digests and leakage policy.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: BenchmarkSuite cases/fixtures have stable IDs/digests and leakage policy.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-EVAL-002 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-EVAL-002 and L9-T-137."
+  ]
+}

@@ -1,1 +1,40 @@
-"""HYAI evaluation boundary."""
+"""Canonical Evaluation and Benchmarking boundary."""
+from hyai.evaluation.spec import (
+    BenchmarkSuite,
+    EvaluationEngine,
+    EvaluationError,
+    EvaluationRun,
+    EvaluationSpec,
+    MissingRawEvidenceError,
+    NarrativeScoreRejectedError,
+    RegressionQuarantineError,
+    RunResult,
+    SubjectType,
+    ThresholdModificationForbiddenError,
+    create_benchmark_suite,
+    create_evaluation_run,
+    create_evaluation_spec,
+    validate_benchmark_suite_document,
+    validate_evaluation_run_document,
+    validate_evaluation_spec_document,
+)
+
+__all__ = [
+    "BenchmarkSuite",
+    "EvaluationEngine",
+    "EvaluationError",
+    "EvaluationRun",
+    "EvaluationSpec",
+    "MissingRawEvidenceError",
+    "NarrativeScoreRejectedError",
+    "RegressionQuarantineError",
+    "RunResult",
+    "SubjectType",
+    "ThresholdModificationForbiddenError",
+    "create_benchmark_suite",
+    "create_evaluation_run",
+    "create_evaluation_spec",
+    "validate_benchmark_suite_document",
+    "validate_evaluation_run_document",
+    "validate_evaluation_spec_document",
+]
