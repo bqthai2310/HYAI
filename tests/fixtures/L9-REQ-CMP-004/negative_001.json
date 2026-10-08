@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-191-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-CMP-004",
+  "test_id": "L9-T-191",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Critical technology dependency has lifecycle state/owner/support range/evaluation/exit plan.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Critical technology dependency has lifecycle state/owner/support range/evaluation/exit plan.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-CMP-004 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-CMP-004 and L9-T-191."
+  ]
+}
