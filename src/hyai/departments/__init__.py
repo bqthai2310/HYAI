@@ -1,1 +1,36 @@
-"""HYAI departments boundary."""
+"""Canonical Digital Organization Departments boundary."""
+from hyai.departments.charter import (
+    CharterLifecycleState,
+    CircularHandoffError,
+    ConflictResolver,
+    DepartmentCharter,
+    DepartmentError,
+    HandoffContract,
+    HandoffGraphValidator,
+    IndependenceEnforcer,
+    MajorityVoteForbiddenError,
+    RouteInvalidationError,
+    SelfAuditingForbiddenError,
+    create_department_charter,
+    create_handoff_contract,
+    validate_department_charter_document,
+    validate_handoff_contract_document,
+)
+
+__all__ = [
+    "CharterLifecycleState",
+    "CircularHandoffError",
+    "ConflictResolver",
+    "DepartmentCharter",
+    "DepartmentError",
+    "HandoffContract",
+    "HandoffGraphValidator",
+    "IndependenceEnforcer",
+    "MajorityVoteForbiddenError",
+    "RouteInvalidationError",
+    "SelfAuditingForbiddenError",
+    "create_department_charter",
+    "create_handoff_contract",
+    "validate_department_charter_document",
+    "validate_handoff_contract_document",
+]

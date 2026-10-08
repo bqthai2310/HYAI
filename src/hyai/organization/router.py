@@ -1,6 +1,7 @@
 """ProductContract-gated organization routing."""
 from __future__ import annotations
 
+from dataclasses import dataclass
 from typing import Any, Mapping
 from uuid import uuid4
 
@@ -86,3 +87,20 @@ class OrganizationRouter:
         route["content_digest"] = content_digest(route)
         validate(route, "organization_route.schema.json", OrganizationRoutingError)
         return route
+
+
+@dataclass(frozen=True)
+class OrganizationRoute:
+    organization_route_id: str
+    program_ref: str
+    department_nodes: tuple[str, ...]
+    coordination_mode: str
+    handoff_contract_refs: tuple[str, ...]
+    escalation_path: tuple[str, ...]
+    is_invalidated: bool = False
+    invalidation_reason: str = ""
+    recorded_by: str = ""
+
+    def invalidate(self, reason: str, recorded_by: str = "") -> "OrganizationRoute":
+        from dataclasses import replace
+        return replace(self, is_invalidated=True, invalidation_reason=reason, recorded_by=recorded_by)

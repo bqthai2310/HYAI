@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-158-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-DPT-003",
+  "test_id": "L9-T-158",
+  "frozen_preconditions": [
+    "Mapped HYAI v2.0 architecture/requirement revision is frozen input for the implementation subject.",
+    "Review subject identifies exact current commit/artifact/config/policy revision."
+  ],
+  "frozen_assertions": [
+    "Policy forces Assurance/Security/Ops participation when Product risk/profile requires them."
+  ],
+  "expected_result": "PASS"
+}

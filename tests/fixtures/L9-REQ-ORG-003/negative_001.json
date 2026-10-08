@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-067-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-ORG-003",
+  "test_id": "L9-T-067",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Material decisions canonical.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Material decisions canonical.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-ORG-003 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-ORG-003 and L9-T-067."
+  ]
+}
