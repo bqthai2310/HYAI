@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-116-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-SKL-001",
+  "test_id": "L9-T-116",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "SkillSpec declares capabilities, schemas, dependencies, permission and side-effect semantics.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: SkillSpec declares capabilities, schemas, dependencies, permission and side-effect semantics.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-SKL-001 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-SKL-001 and L9-T-116."
+  ]
+}

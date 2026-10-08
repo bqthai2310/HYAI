@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-031-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-CAP-001",
+  "test_id": "L9-T-031",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Task yêu cầu capability, không hard-code model.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Task yêu cầu capability, không hard-code model.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-CAP-001 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-CAP-001 and L9-T-031."
+  ]
+}
