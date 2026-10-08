@@ -180,7 +180,8 @@ class DeliveryReadinessManager:
         missing = required - set(present)
         if missing:
             raise DeliveryError(f"readiness evaluation is missing required criteria: {sorted(missing)}")
-        all_pass = bool(results) and all(item.get("result") == "PASS" for item in results)
+        has_evidence = all(bool(item.get("evidence_refs")) for item in results)
+        all_pass = bool(results) and all(item.get("result") == "PASS" for item in results) and has_evidence
         review_ref = independent_review_ref or "pending://independent-review"
         if all_pass and independent_review_ref:
             state = "DELIVERY_READY"
