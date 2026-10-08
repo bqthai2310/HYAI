@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-171-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-DLV-008",
+  "test_id": "L9-T-171",
+  "frozen_preconditions": [
+    "Mapped HYAI v2.0 architecture/requirement revision is frozen input for the implementation subject.",
+    "Review subject identifies exact current commit/artifact/config/policy revision."
+  ],
+  "frozen_assertions": [
+    "Material delivery is represented by complete ProductDeliveryBundle bound exact release subject."
+  ],
+  "expected_result": "PASS"
+}

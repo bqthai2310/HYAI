@@ -1,0 +1,16 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-171-NEG-001",
+  "kind": "NEGATIVE_VECTOR",
+  "requirement_id": "L9-REQ-DLV-008",
+  "test_id": "L9-T-171",
+  "mutation_operator": "FORCE_FROZEN_PREDICATE_FALSE",
+  "frozen_predicate": "Material delivery is represented by complete ProductDeliveryBundle bound exact release subject.",
+  "mutation": "Force the exact frozen acceptance predicate to FALSE: Material delivery is represented by complete ProductDeliveryBundle bound exact release subject.",
+  "expected_result": "FAIL",
+  "forbidden_result": "PASS",
+  "required_assertions": [
+    "L9-REQ-DLV-008 must not produce PASS when its frozen predicate is false.",
+    "Failure evidence must identify L9-REQ-DLV-008 and L9-T-171."
+  ]
+}
