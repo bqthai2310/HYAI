@@ -1,0 +1,44 @@
+{
+  "decomposition_id": "decomp_902a1b4e81",
+  "task_bundle_ref": "taskbundle_7f3a9e102bc4",
+  "goal_ref": "goal_c48b10e9f123",
+  "timestamp": "2026-10-08T05:15:00Z",
+  "coordinator": "Hermes Agent (Orchestrator)",
+  "subtasks": [
+    {
+      "subtask_id": "subtask_01_author_metrics_and_tests",
+      "target_role": "CODER",
+      "tool": "codex-cli",
+      "criteria_covered": ["CRIT-01", "CRIT-02", "CRIT-03", "CRIT-04"],
+      "target_files": [
+        "src/metrics/latency_stats.py",
+        "tests/test_latency_stats.py"
+      ],
+      "specification": {
+        "class_name": "RollingLatencyTracker",
+        "methods": [
+          "__init__(window_size: int = 1000)",
+          "record(latency_ms: float) -> None",
+          "get_stats() -> dict[str, float]",
+          "count -> int",
+          "clear() -> None"
+        ],
+        "percentile_algorithm": "nearest-rank or linear interpolation using math/numpy/stdlib",
+        "error_cases": [
+          "window_size <= 0 -> ValueError",
+          "latency_ms < 0 -> ValueError",
+          "empty get_stats() -> ValueError('Cannot compute stats on empty tracker')"
+        ],
+        "test_cases_required": [
+          "test_empty_tracker_raises_value_error",
+          "test_single_sample_stats",
+          "test_multiple_samples_percentiles_accuracy",
+          "test_window_capacity_eviction_fifo",
+          "test_invalid_inputs_raise_value_error",
+          "test_clear_resets_tracker"
+        ]
+      }
+    }
+  ],
+  "delegation_prompt": "You are Codex CLI acting as Coder for HYAI-Hermes. Implement src/metrics/latency_stats.py and tests/test_latency_stats.py in E:/hyai-wiring according to these strict requirements:\n1. src/metrics/latency_stats.py:\n   - Class RollingLatencyTracker(window_size: int = 1000)\n   - Must validate window_size > 0 (raise ValueError if <= 0)\n   - record(latency_ms: float): records latency, must reject negative values (raise ValueError if < 0). Maintains a deque of maximum length window_size.\n   - get_stats() -> dict[str, float]: returns dict with keys 'min', 'max', 'mean', 'p50', 'p95', 'p99'. Must raise ValueError('Cannot compute statistics on empty buffer') if count == 0.\n   - Percentiles calculated using sorted samples.\n   - count property returning current number of samples in the window.\n   - clear() method clearing the buffer.\n2. tests/test_latency_stats.py:\n   - Comprehensive pytest suite with at least 5 test functions:\n     a) test_empty_tracker_raises_value_error\n     b) test_single_sample_stats\n     c) test_multiple_samples_percentiles_accuracy\n     d) test_window_capacity_eviction_fifo\n     e) test_invalid_inputs_raise_value_error\n     f) test_clear_resets_tracker\n3. Ensure all tests pass with pytest tests/test_latency_stats.py."
+}
