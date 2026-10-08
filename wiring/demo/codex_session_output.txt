@@ -1,0 +1,1485 @@
+Reading additional input from stdin...
+OpenAI Codex v0.149.1
+--------
+workdir: E:\hyai-wiring
+model: gpt-5.6-terra
+provider: cpa-gui
+approval: never
+sandbox: danger-full-access
+reasoning effort: high
+reasoning summaries: none
+session id: 01a11a25-e99c-7f73-bf38-9fbfedfcb58e
+--------
+user
+Create src/metrics/latency_stats.py and tests/test_latency_stats.py in E:/hyai-wiring with these exact requirements:
+
+1. In src/metrics/latency_stats.py:
+- Class RollingLatencyTracker(window_size: int = 1000)
+- __init__ raises ValueError if window_size <= 0.
+- record(latency_ms: float): raises ValueError if latency_ms < 0. Keeps a collections.deque(maxlen=window_size) of values.
+- count property: returns current number of samples.
+- clear(): clears the deque.
+- get_stats() -> dict: raises ValueError('Cannot compute statistics on empty buffer') if count == 0.
+  Returns dict with keys: 'min', 'max', 'mean', 'p50', 'p95', 'p99'.
+  Uses math or sorted array with nearest rank / interpolation for percentiles.
+
+2. In tests/test_latency_stats.py:
+- Write pytest test functions:
+  - test_empty_tracker_raises_value_error
+  - test_single_sample_stats
+  - test_multiple_samples_percentiles_accuracy
+  - test_window_capacity_eviction_fifo
+  - test_invalid_inputs_raise_value_error
+  - test_clear_resets_tracker
+
+3. Run pytest tests/test_latency_stats.py to ensure all pass.
+Let me start by exploring the workspace to understand the context.
+
+Let me plan: create the file, create tests, run pytest.
+
+Let me look at the workspace first.
+codex
+I'll take a quick look at the workspace layout first, then write the module and tests.
+
+
+exec
+"C:\\Users\\THAIPC\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe" -Command "cd E:\\hyai-wiring; git status --porcelain -b; Get-ChildItem -Force -Name | Select-Object -First 40" in E:\hyai-wiring
+ succeeded in 196ms:
+## No commits yet on main
+?? wiring/
+.git
+
+wiring
+
+
+exec
+"C:\\Users\\THAIPC\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe" -Command "cd E:\\hyai-wiring; if (Test-Path src) { Get-ChildItem -Recurse -Name src | Select-Object -First 40 } else { 'no src dir' }; python --version; python -m pytest --version" in E:\hyai-wiring
+ succeeded in 375ms:
+no src dir
+
+Python 3.11.15
+
+pytest 9.1.1
+
+
+The workspace root has `.git`, `wiring` directory, no `src` dir. The user says create src/metrics/latency_stats.py and tests/test_latency_stats.py in E:/hyai-wiring. Let me check the contents of wiring and the repo structure to make sure I'm in the right place.
+
+Let's check `wiring` contents.
+codex
+<tool_call><function=exec>const r = await tools.exec_command({cmd: "Get-ChildItem -Recurse -Depth 3 -Name E:\\hyai-wiring | Select-Object -First 60", max_output_tokens: 4000});
+text(r.output);</parameter></tool_call>
+exec
+"C:\\Users\\THAIPC\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe" -Command "Get-ChildItem -Recurse -Depth 3 -Name E:\\hyai-wiring | Select-Object -First 60" in E:\hyai-wiring
+ succeeded in 124ms:
+wiring
+
+wiring\demo
+
+wiring\schemas
+
+wiring\COORDINATOR_LOOP.md
+
+wiring\TASK_BUNDLE_CONTRACT.md
+
+wiring\demo\decomposition_log.json
+
+wiring\demo\task_bundle.json
+
+wiring\schemas\result_bundle.schema.json
+
+wiring\schemas\task_bundle.schema.json
+
+
+The repo is basically empty of code. There's a `wiring` folder with docs. The user wants a new `src/metrics/latency_stats.py` and `tests/test_latency_stats.py` at E:/hyai-wiring root.
+
+Let me quickly peek at the docs to see if there's a convention (e.g., package layout). Actually, it might be relevant — TASK_BUNDLE_CONTRACT.md. But the request is clear enough. Let me glance briefly to check whether there's a src layout convention.
+
+Let me just check quickly.
+exec
+"C:\\Users\\THAIPC\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe" -Command "Get-Content E:\\hyai-wiring\\wiring\\TASK_BUNDLE_CONTRACT.md -TotalCount 40" in E:\hyai-wiring
+ succeeded in 162ms:
+# HYAI-Hermes-Codex Task Bundle Contract (Model A — External Wiring)
+
+
+
+## 1. Overview & Context
+
+
+
+This contract governs the external operational handoff between:
+
+- **HYAI (The Sovereign Brain):** Owns sovereign intent, natural language goal ingress, high-level planning, constitutional authority, and delivery bundle sealing.
+
+- **Hermes Agent (The Coordinator / Orchestrator):** Receives the structured `TaskBundle`, performs operational decomposition into bounded engineering subtasks, orchestrates execution, delegates coding to Codex CLI, enforces verification gates, and returns a sealed `ResultBundle`.
+
+- **Codex CLI (The Coder):** An isolated, non-interactive coding agent process (`codex exec`) that reads task prompts, inspects the codebase, writes/refactors source files, and implements unit tests.
+
+
+
+Under **Model A (Pragmatic External Wiring)**, HYAI and Hermes communicate via strongly typed, schema-validated JSON documents over a filesystem or IPC interface.
+
+
+
+---
+
+
+
+## 2. Component Architecture & Flow
+
+
+
+```
+
++-------------------------------------------------------------+
+
+|                      HYAI (Brain)                           |
+
+|  - Ingests directive & compiles GoalSpecification          |
+
+|  - Compiles execution plan steps                            |
+
+|  - Emits TaskBundle (JSON) with hard acceptance criteria    |
+
++------------------------------+------------------------------+
+
+                               |
+
+                               | (1) TaskBundle.json
+
+                               v
+
++-------------------------------------------------------------+
+
+|                 Hermes Agent (Coordinator)                  |
+
+|  - Validates TaskBundle schema                              |
+
+|  - Decomposes into actionable engineering subtasks          |
+
+|  - Dispatches subtask prompt to Codex CLI                   |
+
++------------------------------+------------------------------+
+
+                               |
+
+                               | (2) codex exec (subprocess)
+
+                               v
+
++-------------------------------------------------------------+
+
+|                  Codex CLI (Coder Agent)                    |
+
+|  - Reads instructions, workspace files                      |
+
+|  - Authors code, modules, test suites                       |
+
+|  - Emits changes to disk & reports terminal logs            |
+
++------------------------------+------------------------------+
+
+
+The wiring docs are context about the broader architecture but not directly relevant to implementation. I'll create the standard Python package layout: `src/metrics/__init__.py`, `src/metrics/latency_stats.py`, and `tests/test_latency_stats.py`.
+
+The user asked exactly for two files. But to make the module importable, I need `src` on the path. Options:
+1. Add `src/metrics/__init__.py` (a third file — reasonable and standard).
+2. Add a `conftest.py` or `pytest.ini` with `pythonpath = src`.
+
+pytest 9.1.1 — note that pytest has had `pythonpath` ini option since 7.0 (built-in). So I can add a `pytest.ini` with `pythonpath = src`. That's cleaner and doesn't require touching package semantics.
+
+Actually, best practice for src layout: `src/metrics/__init__.py` + pytest.ini with pythonpath=src. Let me do that. The user asked for "these exact requirements" for the two files — adding minimal supporting files is necessary to make imports work. I'll add `src/metrics/__init__.py` (empty-ish) and `pytest.ini`.
+
+Now for the implementation.
+
+```python
+"""Rolling latency statistics over a fixed-size window of samples."""
+
+from __future__ import annotations
+
+import math
+from collections import deque
+from typing import Deque, Dict
+
+
+class RollingLatencyTracker:
+    def __init__(self, window_size: int = 1000):
+        if window_size <= 0:
+            raise ValueError("window_size must be a positive integer")
+        self._window_size = window_size
+        self._samples: Deque[float] = deque(maxlen=window_size)
+
+    def record(self, latency_ms: float) -> None:
+        if latency_ms < 0:
+            raise ValueError("latency_ms must be non-negative")
+        self._samples.append(float(latency_ms))
+
+    @property
+    def count(self) -> int:
+        return len(self._samples)
+
+    def clear(self) -> None:
+        self._samples.clear()
+
+    def get_stats(self) -> Dict[str, float]:
+        if self.count == 0:
+            raise ValueError("Cannot compute statistics on empty buffer")
+        ordered = sorted(self._samples)
+        return {
+            "min": ordered[0],
+            "max": ordered[-1],
+            "mean": math.fsum(ordered) / len(ordered),
+            "p50": _percentile(ordered, 50),
+            "p95": _percentile(ordered, 95),
+            "p99": _percentile(ordered, 99),
+        }
+```
+
+Percentile with linear interpolation (the "inclusive" / numpy-default method):
+
+```python
+def _percentile(ordered, pct):
+    if len(ordered) == 1:
+        return ordered[0]
+    k = (len(ordered) - 1) * (pct / 100.0)
+    lower = math.floor(k)
+    upper = math.ceil(k)
+    if lower == upper:
+        return ordered[int(k)]
+    return ordered[lower] + (ordered[upper] - ordered[lower]) * (k - lower)
+```
+
+This is the standard linear interpolation method (same as numpy's default, `statistics.quantiles` inclusive method). Good.
+
+Note: `record` should probably also handle non-numeric? Not required. Keep it simple, but float() conversion handles ints.
+
+Should `window_size` be validated as int? Requirement says `__init__ raises ValueError if window_size <= 0`. Non-int would raise TypeError from deque naturally. Fine.
+
+Now the tests. Tests need to import from src. With pytest.ini pythonpath=src, `from metrics.latency_stats import RollingLatencyTracker` works.
+
+Test functions:
+
+1. test_empty_tracker_raises_value_error — get_stats() on empty raises ValueError with the exact message.
+2. test_single_sample_stats — record one value, all stats equal that value.
+3. test_multiple_samples_percentiles_accuracy — record a known set, check min/max/mean/p50/p95/p99 approx.
+4. test_window_capacity_eviction_fifo — window_size=3, record 5 values, only last 3 kept (FIFO eviction), count == 3, min == oldest retained.
+5. test_invalid_inputs_raise_value_error — window_size 0 and -1; record(-1).
+6. test_clear_resets_tracker — record some, clear, count == 0, get_stats raises.
+
+For test 3, let's use values 1..100? Let me compute with interpolation method on 1..100 (n=100):
+- k = (100-1)*0.50 = 49.5 → between ordered[49]=50 and ordered[50]=51 → 50.5
+- p95: k = 99*0.95 = 94.05 → ordered[94]=95, ordered[95]=96 → 95 + (96-95)*0.05 = 95.05
+- p99: k = 99*0.99 = 98.01 → ordered[98]=99, ordered[99]=100 → 99 + 1*0.01 = 99.01
+- mean = 50.5, min 1, max 100.
+
+That's a good accuracy test. Let me verify ordered index: sorted list of 1..100, ordered[i] = i+1. Yes.
+
+Alternatively use pytest.approx.
+
+Let me write the files now. I'll use apply_patch for edits.
+
+Also add `src/metrics/__init__.py`. Should I? Yes, for a proper package. But note: pythonpath=src + namespace packages in py3 work even without __init__.py. Adding __init__.py is cleaner. I'll add it.
+
+Let me write everything.
+
+For the tests, I'll use pytest.approx for float comparisons.
+
+Let me create the files.
+codex
+Repo is essentially empty (just `wiring/` docs), so I'll set up a clean `src`-layout package. Writing the module, its package marker, a `pytest.ini` so `src` is importable, and the test suite.
+apply patch
+patch: completed
+E:\hyai-wiring\pytest.ini
+E:\hyai-wiring\src\metrics\__init__.py
+E:\hyai-wiring\src\metrics\latency_stats.py
+E:\hyai-wiring\tests\test_latency_stats.py
+diff --git a/pytest.ini b/pytest.ini
+new file mode 100644
+index 0000000000000000000000000000000000000000..442bb94326502888a8e6694e1c4dc47849017171
+--- /dev/null
++++ b/pytest.ini
+@@ -0,0 +1,3 @@
++[pytest]
++pythonpath = src
++testpaths = tests
+diff --git a/src/metrics/__init__.py b/src/metrics/__init__.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..8bdbbe7da5fdcaf14da5128b51d8e5f8df427505
+--- /dev/null
++++ b/src/metrics/__init__.py
+@@ -0,0 +1,5 @@
++"""Metrics helpers for tracking runtime behaviour."""
++
++from .latency_stats import RollingLatencyTracker
++
++__all__ = ["RollingLatencyTracker"]
+diff --git a/src/metrics/latency_stats.py b/src/metrics/latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed92f86b9c514af0c7b8ae3d4c54d2c6dc9d7f8f
+--- /dev/null
++++ b/src/metrics/latency_stats.py
+@@ -0,0 +1,94 @@
++"""Rolling latency statistics over a fixed-size window of samples.
++
++The tracker keeps the most recent ``window_size`` latency observations and
++derives summary statistics (including percentiles) from that window only.
++"""
++
++from __future__ import annotations
++
++import math
++from collections import deque
++from typing import Deque, Dict, Sequence
++
++
++def _percentile(ordered: Sequence[float], pct: float) -> float:
++    """Return the ``pct`` percentile of an ascending-sorted sequence.
++
++    Uses linear interpolation between the two nearest ranks, which matches
++    the inclusive method used by ``numpy.percentile`` by default. A single
++    sample is its own percentile for every requested percentage.
++    """
++    n = len(ordered)
++    if n == 1:
++        return ordered[0]
++
++    rank = (n - 1) * (pct / 100.0)
++    lower = math.floor(rank)
++    upper = math.ceil(rank)
++    if lower == upper:
++        return ordered[int(rank)]
++    return ordered[lower] + (ordered[upper] - ordered[lower]) * (rank - lower)
++
++
++class RollingLatencyTracker:
++    """Collect latency samples in a bounded FIFO window.
++
++    Args:
++        window_size: Maximum number of samples retained. Older samples are
++            evicted first-in-first-out once the window is full.
++
++    Raises:
++        ValueError: If ``window_size`` is not positive.
++    """
++
++    def __init__(self, window_size: int = 1000):
++        if window_size <= 0:
++            raise ValueError("window_size must be a positive integer")
++        self._window_size = window_size
++        self._samples: Deque[float] = deque(maxlen=window_size)
++
++    @property
++    def window_size(self) -> int:
++        return self._window_size
++
++    def record(self, latency_ms: float) -> None:
++        """Add one latency observation to the window.
++
++        Raises:
++            ValueError: If ``latency_ms`` is negative.
++        """
++        if latency_ms < 0:
++            raise ValueError("latency_ms must be non-negative")
++        self._samples.append(float(latency_ms))
++
++    @property
++    def count(self) -> int:
++        """Number of samples currently held in the window."""
++        return len(self._samples)
++
++    def clear(self) -> None:
++        """Discard all buffered samples."""
++        self._samples.clear()
++
++    def get_stats(self) -> Dict[str, float]:
++        """Compute summary statistics over the current window.
++
++        Returns:
++            A dict with keys ``min``, ``max``, ``mean``, ``p50``, ``p95``
++            and ``p99``.
++
++        Raises:
++            ValueError: If the window is empty.
++        """
++        if self.count == 0:
++            raise ValueError("Cannot compute statistics on empty buffer")
++
++        ordered = sorted(self._samples)
++        return {
++            "min": ordered[0],
++            "max": ordered[-1],
++            "mean": math.fsum(ordered) / len(ordered),
++            "p50": _percentile(ordered, 50),
++            "p95": _percentile(ordered, 95),
++            "p99": _percentile(ordered, 99),
++        }
+diff --git a/tests/test_latency_stats.py b/tests/test_latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..dec7461458459360a27270e08d3ca1a7c6667875
+--- /dev/null
++++ b/tests/test_latency_stats.py
+@@ -0,0 +1,87 @@
++"""Tests for :class:`metrics.latency_stats.RollingLatencyTracker`."""
++
++import pytest
++
++from metrics.latency_stats import RollingLatencyTracker
++
++
++EXPECTED_KEYS = {"min", "max", "mean", "p50", "p95", "p99"}
++
++
++def test_empty_tracker_raises_value_error():
++    tracker = RollingLatencyTracker(window_size=10)
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++
++def test_single_sample_stats():
++    tracker = RollingLatencyTracker()
++    tracker.record(42.0)
++
++    assert tracker.count == 1
++    stats = tracker.get_stats()
++
++    assert set(stats) == EXPECTED_KEYS
++    for key in EXPECTED_KEYS:
++        assert stats[key] == pytest.approx(42.0)
++
++
++def test_multiple_samples_percentiles_accuracy():
++    tracker = RollingLatencyTracker()
++    for value in range(1, 101):
++        tracker.record(float(value))
++
++    assert tracker.count == 100
++    stats = tracker.get_stats()
++
++    assert stats["min"] == pytest.approx(1.0)
++    assert stats["max"] == pytest.approx(100.0)
++    assert stats["mean"] == pytest.approx(50.5)
++    assert stats["p50"] == pytest.approx(50.5)
++    assert stats["p95"] == pytest.approx(95.05)
++    assert stats["p99"] == pytest.approx(99.01)
++
++
++def test_window_capacity_eviction_fifo():
++    tracker = RollingLatencyTracker(window_size=3)
++    for value in [10.0, 20.0, 30.0, 40.0, 50.0]:
++        tracker.record(value)
++
++    # The window never grows past 3; the two oldest samples were evicted.
++    assert tracker.count == 3
++    stats = tracker.get_stats()
++    assert stats["min"] == pytest.approx(30.0)
++    assert stats["max"] == pytest.approx(50.0)
++    assert stats["mean"] == pytest.approx(40.0)
++
++
++def test_invalid_inputs_raise_value_error():
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=0)
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=-5)
++
++    tracker = RollingLatencyTracker()
++    with pytest.raises(ValueError):
++        tracker.record(-0.001)
++    assert tracker.count == 0
++
++
++def test_clear_resets_tracker():
++    tracker = RollingLatencyTracker(window_size=5)
++    for value in [1.0, 2.0, 3.0]:
++        tracker.record(value)
++    assert tracker.count == 3
++
++    tracker.clear()
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++    # The tracker stays usable after being cleared.
++    tracker.record(7.5)
++    assert tracker.count == 1
++    assert tracker.get_stats()["mean"] == pytest.approx(7.5)
+
+diff --git a/pytest.ini b/pytest.ini
+new file mode 100644
+index 0000000000000000000000000000000000000000..442bb94326502888a8e6694e1c4dc47849017171
+--- /dev/null
++++ b/pytest.ini
+@@ -0,0 +1,3 @@
++[pytest]
++pythonpath = src
++testpaths = tests
+diff --git a/src/metrics/__init__.py b/src/metrics/__init__.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..8bdbbe7da5fdcaf14da5128b51d8e5f8df427505
+--- /dev/null
++++ b/src/metrics/__init__.py
+@@ -0,0 +1,5 @@
++"""Metrics helpers for tracking runtime behaviour."""
++
++from .latency_stats import RollingLatencyTracker
++
++__all__ = ["RollingLatencyTracker"]
+diff --git a/src/metrics/latency_stats.py b/src/metrics/latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed92f86b9c514af0c7b8ae3d4c54d2c6dc9d7f8f
+--- /dev/null
++++ b/src/metrics/latency_stats.py
+@@ -0,0 +1,94 @@
++"""Rolling latency statistics over a fixed-size window of samples.
++
++The tracker keeps the most recent ``window_size`` latency observations and
++derives summary statistics (including percentiles) from that window only.
++"""
++
++from __future__ import annotations
++
++import math
++from collections import deque
++from typing import Deque, Dict, Sequence
++
++
++def _percentile(ordered: Sequence[float], pct: float) -> float:
++    """Return the ``pct`` percentile of an ascending-sorted sequence.
++
++    Uses linear interpolation between the two nearest ranks, which matches
++    the inclusive method used by ``numpy.percentile`` by default. A single
++    sample is its own percentile for every requested percentage.
++    """
++    n = len(ordered)
++    if n == 1:
++        return ordered[0]
++
++    rank = (n - 1) * (pct / 100.0)
++    lower = math.floor(rank)
++    upper = math.ceil(rank)
++    if lower == upper:
++        return ordered[int(rank)]
++    return ordered[lower] + (ordered[upper] - ordered[lower]) * (rank - lower)
++
++
++class RollingLatencyTracker:
++    """Collect latency samples in a bounded FIFO window.
++
++    Args:
++        window_size: Maximum number of samples retained. Older samples are
++            evicted first-in-first-out once the window is full.
++
++    Raises:
++        ValueError: If ``window_size`` is not positive.
++    """
++
++    def __init__(self, window_size: int = 1000):
++        if window_size <= 0:
++            raise ValueError("window_size must be a positive integer")
++        self._window_size = window_size
++        self._samples: Deque[float] = deque(maxlen=window_size)
++
++    @property
++    def window_size(self) -> int:
++        return self._window_size
++
++    def record(self, latency_ms: float) -> None:
++        """Add one latency observation to the window.
++
++        Raises:
++            ValueError: If ``latency_ms`` is negative.
++        """
++        if latency_ms < 0:
++            raise ValueError("latency_ms must be non-negative")
++        self._samples.append(float(latency_ms))
++
++    @property
++    def count(self) -> int:
++        """Number of samples currently held in the window."""
++        return len(self._samples)
++
++    def clear(self) -> None:
++        """Discard all buffered samples."""
++        self._samples.clear()
++
++    def get_stats(self) -> Dict[str, float]:
++        """Compute summary statistics over the current window.
++
++        Returns:
++            A dict with keys ``min``, ``max``, ``mean``, ``p50``, ``p95``
++            and ``p99``.
++
++        Raises:
++            ValueError: If the window is empty.
++        """
++        if self.count == 0:
++            raise ValueError("Cannot compute statistics on empty buffer")
++
++        ordered = sorted(self._samples)
++        return {
++            "min": ordered[0],
++            "max": ordered[-1],
++            "mean": math.fsum(ordered) / len(ordered),
++            "p50": _percentile(ordered, 50),
++            "p95": _percentile(ordered, 95),
++            "p99": _percentile(ordered, 99),
++        }
+diff --git a/tests/test_latency_stats.py b/tests/test_latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..dec7461458459360a27270e08d3ca1a7c6667875
+--- /dev/null
++++ b/tests/test_latency_stats.py
+@@ -0,0 +1,87 @@
++"""Tests for :class:`metrics.latency_stats.RollingLatencyTracker`."""
++
++import pytest
++
++from metrics.latency_stats import RollingLatencyTracker
++
++
++EXPECTED_KEYS = {"min", "max", "mean", "p50", "p95", "p99"}
++
++
++def test_empty_tracker_raises_value_error():
++    tracker = RollingLatencyTracker(window_size=10)
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++
++def test_single_sample_stats():
++    tracker = RollingLatencyTracker()
++    tracker.record(42.0)
++
++    assert tracker.count == 1
++    stats = tracker.get_stats()
++
++    assert set(stats) == EXPECTED_KEYS
++    for key in EXPECTED_KEYS:
++        assert stats[key] == pytest.approx(42.0)
++
++
++def test_multiple_samples_percentiles_accuracy():
++    tracker = RollingLatencyTracker()
++    for value in range(1, 101):
++        tracker.record(float(value))
++
++    assert tracker.count == 100
++    stats = tracker.get_stats()
++
++    assert stats["min"] == pytest.approx(1.0)
++    assert stats["max"] == pytest.approx(100.0)
++    assert stats["mean"] == pytest.approx(50.5)
++    assert stats["p50"] == pytest.approx(50.5)
++    assert stats["p95"] == pytest.approx(95.05)
++    assert stats["p99"] == pytest.approx(99.01)
++
++
++def test_window_capacity_eviction_fifo():
++    tracker = RollingLatencyTracker(window_size=3)
++    for value in [10.0, 20.0, 30.0, 40.0, 50.0]:
++        tracker.record(value)
++
++    # The window never grows past 3; the two oldest samples were evicted.
++    assert tracker.count == 3
++    stats = tracker.get_stats()
++    assert stats["min"] == pytest.approx(30.0)
++    assert stats["max"] == pytest.approx(50.0)
++    assert stats["mean"] == pytest.approx(40.0)
++
++
++def test_invalid_inputs_raise_value_error():
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=0)
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=-5)
++
++    tracker = RollingLatencyTracker()
++    with pytest.raises(ValueError):
++        tracker.record(-0.001)
++    assert tracker.count == 0
++
++
++def test_clear_resets_tracker():
++    tracker = RollingLatencyTracker(window_size=5)
++    for value in [1.0, 2.0, 3.0]:
++        tracker.record(value)
++    assert tracker.count == 3
++
++    tracker.clear()
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++    # The tracker stays usable after being cleared.
++    tracker.record(7.5)
++    assert tracker.count == 1
++    assert tracker.get_stats()["mean"] == pytest.approx(7.5)
+
+Now let's run pytest. Also verify the files exist.
+
+Let me double check the p95/p99 computation values I asserted. n=100, sorted 1..100.
+p50: rank = 99*0.5 = 49.5 → lower=49 (value 50), upper=50 (value 51) → 50 + 1*0.5 = 50.5 ✓
+p95: rank = 99*0.95 = 94.05 → lower=94 (value 95), upper=95 (value 96) → 95 + 1*0.05 = 95.05 ✓ (floating point: 94.05 - 94 = 0.05000000000000426? Let's see, 99*0.95 = 94.05, floor=94, so 94.05-94 = 0.05000000000000426 possibly. pytest.approx default rel=1e-6, so fine.)
+p99: rank = 99*0.99 = 98.01 → 99 + 1*0.01 = 99.01 ✓
+
+Also test_single_sample_stats: n=1 returns ordered[0]=42.0 for all percentiles. mean = 42.0. min/max 42.0 ✓
+
+Note `record(-0.001)` raises ValueError; `-0.001 < 0` is True ✓. Also, what about `record(-0.0)`? -0.0 < 0 is False, so it would be accepted — that's fine and mathematically zero.
+
+Let's run pytest.
+exec
+"C:\\Users\\THAIPC\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe" -Command "cd E:\\hyai-wiring; python -m pytest tests/test_latency_stats.py -v" in E:\hyai-wiring
+ succeeded in 760ms:
+============================= test session starts =============================
+
+platform win32 -- Python 3.11.15, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\THAIPC\AppData\Local\hermes\hermes-agent\venv\Scripts\python.exe
+
+cachedir: .pytest_cache
+
+rootdir: E:\hyai-wiring
+
+configfile: pytest.ini
+
+plugins: anyio-4.15.1, timeout-2.4.0, respx-0.22.0
+
+collecting ... collected 6 items
+
+
+
+tests/test_latency_stats.py::test_empty_tracker_raises_value_error PASSED [ 16%]
+
+tests/test_latency_stats.py::test_single_sample_stats PASSED             [ 33%]
+
+tests/test_latency_stats.py::test_multiple_samples_percentiles_accuracy PASSED [ 50%]
+
+tests/test_latency_stats.py::test_window_capacity_eviction_fifo PASSED   [ 66%]
+
+tests/test_latency_stats.py::test_invalid_inputs_raise_value_error PASSED [ 83%]
+
+tests/test_latency_stats.py::test_clear_resets_tracker PASSED            [100%]
+
+
+
+============================== 6 passed in 0.02s ==============================
+
+
+diff --git a/pytest.ini b/pytest.ini
+new file mode 100644
+index 0000000000000000000000000000000000000000..442bb94326502888a8e6694e1c4dc47849017171
+--- /dev/null
++++ b/pytest.ini
+@@ -0,0 +1,3 @@
++[pytest]
++pythonpath = src
++testpaths = tests
+diff --git a/src/metrics/__init__.py b/src/metrics/__init__.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..8bdbbe7da5fdcaf14da5128b51d8e5f8df427505
+--- /dev/null
++++ b/src/metrics/__init__.py
+@@ -0,0 +1,5 @@
++"""Metrics helpers for tracking runtime behaviour."""
++
++from .latency_stats import RollingLatencyTracker
++
++__all__ = ["RollingLatencyTracker"]
+diff --git a/src/metrics/latency_stats.py b/src/metrics/latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed92f86b9c514af0c7b8ae3d4c54d2c6dc9d7f8f
+--- /dev/null
++++ b/src/metrics/latency_stats.py
+@@ -0,0 +1,94 @@
++"""Rolling latency statistics over a fixed-size window of samples.
++
++The tracker keeps the most recent ``window_size`` latency observations and
++derives summary statistics (including percentiles) from that window only.
++"""
++
++from __future__ import annotations
++
++import math
++from collections import deque
++from typing import Deque, Dict, Sequence
++
++
++def _percentile(ordered: Sequence[float], pct: float) -> float:
++    """Return the ``pct`` percentile of an ascending-sorted sequence.
++
++    Uses linear interpolation between the two nearest ranks, which matches
++    the inclusive method used by ``numpy.percentile`` by default. A single
++    sample is its own percentile for every requested percentage.
++    """
++    n = len(ordered)
++    if n == 1:
++        return ordered[0]
++
++    rank = (n - 1) * (pct / 100.0)
++    lower = math.floor(rank)
++    upper = math.ceil(rank)
++    if lower == upper:
++        return ordered[int(rank)]
++    return ordered[lower] + (ordered[upper] - ordered[lower]) * (rank - lower)
++
++
++class RollingLatencyTracker:
++    """Collect latency samples in a bounded FIFO window.
++
++    Args:
++        window_size: Maximum number of samples retained. Older samples are
++            evicted first-in-first-out once the window is full.
++
++    Raises:
++        ValueError: If ``window_size`` is not positive.
++    """
++
++    def __init__(self, window_size: int = 1000):
++        if window_size <= 0:
++            raise ValueError("window_size must be a positive integer")
++        self._window_size = window_size
++        self._samples: Deque[float] = deque(maxlen=window_size)
++
++    @property
++    def window_size(self) -> int:
++        return self._window_size
++
++    def record(self, latency_ms: float) -> None:
++        """Add one latency observation to the window.
++
++        Raises:
++            ValueError: If ``latency_ms`` is negative.
++        """
++        if latency_ms < 0:
++            raise ValueError("latency_ms must be non-negative")
++        self._samples.append(float(latency_ms))
++
++    @property
++    def count(self) -> int:
++        """Number of samples currently held in the window."""
++        return len(self._samples)
++
++    def clear(self) -> None:
++        """Discard all buffered samples."""
++        self._samples.clear()
++
++    def get_stats(self) -> Dict[str, float]:
++        """Compute summary statistics over the current window.
++
++        Returns:
++            A dict with keys ``min``, ``max``, ``mean``, ``p50``, ``p95``
++            and ``p99``.
++
++        Raises:
++            ValueError: If the window is empty.
++        """
++        if self.count == 0:
++            raise ValueError("Cannot compute statistics on empty buffer")
++
++        ordered = sorted(self._samples)
++        return {
++            "min": ordered[0],
++            "max": ordered[-1],
++            "mean": math.fsum(ordered) / len(ordered),
++            "p50": _percentile(ordered, 50),
++            "p95": _percentile(ordered, 95),
++            "p99": _percentile(ordered, 99),
++        }
+diff --git a/tests/test_latency_stats.py b/tests/test_latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..dec7461458459360a27270e08d3ca1a7c6667875
+--- /dev/null
++++ b/tests/test_latency_stats.py
+@@ -0,0 +1,87 @@
++"""Tests for :class:`metrics.latency_stats.RollingLatencyTracker`."""
++
++import pytest
++
++from metrics.latency_stats import RollingLatencyTracker
++
++
++EXPECTED_KEYS = {"min", "max", "mean", "p50", "p95", "p99"}
++
++
++def test_empty_tracker_raises_value_error():
++    tracker = RollingLatencyTracker(window_size=10)
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++
++def test_single_sample_stats():
++    tracker = RollingLatencyTracker()
++    tracker.record(42.0)
++
++    assert tracker.count == 1
++    stats = tracker.get_stats()
++
++    assert set(stats) == EXPECTED_KEYS
++    for key in EXPECTED_KEYS:
++        assert stats[key] == pytest.approx(42.0)
++
++
++def test_multiple_samples_percentiles_accuracy():
++    tracker = RollingLatencyTracker()
++    for value in range(1, 101):
++        tracker.record(float(value))
++
++    assert tracker.count == 100
++    stats = tracker.get_stats()
++
++    assert stats["min"] == pytest.approx(1.0)
++    assert stats["max"] == pytest.approx(100.0)
++    assert stats["mean"] == pytest.approx(50.5)
++    assert stats["p50"] == pytest.approx(50.5)
++    assert stats["p95"] == pytest.approx(95.05)
++    assert stats["p99"] == pytest.approx(99.01)
++
++
++def test_window_capacity_eviction_fifo():
++    tracker = RollingLatencyTracker(window_size=3)
++    for value in [10.0, 20.0, 30.0, 40.0, 50.0]:
++        tracker.record(value)
++
++    # The window never grows past 3; the two oldest samples were evicted.
++    assert tracker.count == 3
++    stats = tracker.get_stats()
++    assert stats["min"] == pytest.approx(30.0)
++    assert stats["max"] == pytest.approx(50.0)
++    assert stats["mean"] == pytest.approx(40.0)
++
++
++def test_invalid_inputs_raise_value_error():
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=0)
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=-5)
++
++    tracker = RollingLatencyTracker()
++    with pytest.raises(ValueError):
++        tracker.record(-0.001)
++    assert tracker.count == 0
++
++
++def test_clear_resets_tracker():
++    tracker = RollingLatencyTracker(window_size=5)
++    for value in [1.0, 2.0, 3.0]:
++        tracker.record(value)
++    assert tracker.count == 3
++
++    tracker.clear()
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++    # The tracker stays usable after being cleared.
++    tracker.record(7.5)
++    assert tracker.count == 1
++    assert tracker.get_stats()["mean"] == pytest.approx(7.5)
+
+All 6 tests pass. Let me do a quick sanity check that the module also works via the `src.metrics` import path and there are no lint issues. Actually, one more thing worth verifying: the tests import `from metrics.latency_stats import ...` which relies on pytest.ini's `pythonpath = src`. If someone runs pytest from a different rootdir it might break — but rootdir is E:\hyai-wiring and configfile pytest.ini, fine.
+
+Let me also do a quick sanity check of an edge case beyond the tests: window_size=1 tracker, and confirm eviction order preserved (deque with maxlen preserves order). Quick smoke test.
+
+Also verify the file listing / final structure.
+codex
+All 6 pass. Quick smoke check on a couple of edge cases beyond the suite, plus the final file layout:
+
+
+exec
+"C:\\Users\\THAIPC\\AppData\\Local\\Microsoft\\WindowsApps\\pwsh.exe" -Command "cd E:\\hyai-wiring; "'$env:PYTHONPATH='"'src'; python -c \"from metrics import RollingLatencyTracker as T; t=T(1); [t.record(v) for v in [5.0,9.0,1.0]]; print('window1:', t.count, t.get_stats()); u=T(); u.record(0); u.record(0.0); print('zeros ok:', u.get_stats())\"; git status --porcelain" in E:\hyai-wiring
+ succeeded in 215ms:
+window1: 1 {'min': 1.0, 'max': 1.0, 'mean': 1.0, 'p50': 1.0, 'p95': 1.0, 'p99': 1.0}
+
+zeros ok: {'min': 0.0, 'max': 0.0, 'mean': 0.0, 'p50': 0.0, 'p95': 0.0, 'p99': 0.0}
+
+?? pytest.ini
+?? src/
+?? tests/
+?? wiring/
+
+diff --git a/pytest.ini b/pytest.ini
+new file mode 100644
+index 0000000000000000000000000000000000000000..442bb94326502888a8e6694e1c4dc47849017171
+--- /dev/null
++++ b/pytest.ini
+@@ -0,0 +1,3 @@
++[pytest]
++pythonpath = src
++testpaths = tests
+diff --git a/src/metrics/__init__.py b/src/metrics/__init__.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..8bdbbe7da5fdcaf14da5128b51d8e5f8df427505
+--- /dev/null
++++ b/src/metrics/__init__.py
+@@ -0,0 +1,5 @@
++"""Metrics helpers for tracking runtime behaviour."""
++
++from .latency_stats import RollingLatencyTracker
++
++__all__ = ["RollingLatencyTracker"]
+diff --git a/src/metrics/latency_stats.py b/src/metrics/latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed92f86b9c514af0c7b8ae3d4c54d2c6dc9d7f8f
+--- /dev/null
++++ b/src/metrics/latency_stats.py
+@@ -0,0 +1,94 @@
++"""Rolling latency statistics over a fixed-size window of samples.
++
++The tracker keeps the most recent ``window_size`` latency observations and
++derives summary statistics (including percentiles) from that window only.
++"""
++
++from __future__ import annotations
++
++import math
++from collections import deque
++from typing import Deque, Dict, Sequence
++
++
++def _percentile(ordered: Sequence[float], pct: float) -> float:
++    """Return the ``pct`` percentile of an ascending-sorted sequence.
++
++    Uses linear interpolation between the two nearest ranks, which matches
++    the inclusive method used by ``numpy.percentile`` by default. A single
++    sample is its own percentile for every requested percentage.
++    """
++    n = len(ordered)
++    if n == 1:
++        return ordered[0]
++
++    rank = (n - 1) * (pct / 100.0)
++    lower = math.floor(rank)
++    upper = math.ceil(rank)
++    if lower == upper:
++        return ordered[int(rank)]
++    return ordered[lower] + (ordered[upper] - ordered[lower]) * (rank - lower)
++
++
++class RollingLatencyTracker:
++    """Collect latency samples in a bounded FIFO window.
++
++    Args:
++        window_size: Maximum number of samples retained. Older samples are
++            evicted first-in-first-out once the window is full.
++
++    Raises:
++        ValueError: If ``window_size`` is not positive.
++    """
++
++    def __init__(self, window_size: int = 1000):
++        if window_size <= 0:
++            raise ValueError("window_size must be a positive integer")
++        self._window_size = window_size
++        self._samples: Deque[float] = deque(maxlen=window_size)
++
++    @property
++    def window_size(self) -> int:
++        return self._window_size
++
++    def record(self, latency_ms: float) -> None:
++        """Add one latency observation to the window.
++
++        Raises:
++            ValueError: If ``latency_ms`` is negative.
++        """
++        if latency_ms < 0:
++            raise ValueError("latency_ms must be non-negative")
++        self._samples.append(float(latency_ms))
++
++    @property
++    def count(self) -> int:
++        """Number of samples currently held in the window."""
++        return len(self._samples)
++
++    def clear(self) -> None:
++        """Discard all buffered samples."""
++        self._samples.clear()
++
++    def get_stats(self) -> Dict[str, float]:
++        """Compute summary statistics over the current window.
++
++        Returns:
++            A dict with keys ``min``, ``max``, ``mean``, ``p50``, ``p95``
++            and ``p99``.
++
++        Raises:
++            ValueError: If the window is empty.
++        """
++        if self.count == 0:
++            raise ValueError("Cannot compute statistics on empty buffer")
++
++        ordered = sorted(self._samples)
++        return {
++            "min": ordered[0],
++            "max": ordered[-1],
++            "mean": math.fsum(ordered) / len(ordered),
++            "p50": _percentile(ordered, 50),
++            "p95": _percentile(ordered, 95),
++            "p99": _percentile(ordered, 99),
++        }
+diff --git a/tests/test_latency_stats.py b/tests/test_latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..dec7461458459360a27270e08d3ca1a7c6667875
+--- /dev/null
++++ b/tests/test_latency_stats.py
+@@ -0,0 +1,87 @@
++"""Tests for :class:`metrics.latency_stats.RollingLatencyTracker`."""
++
++import pytest
++
++from metrics.latency_stats import RollingLatencyTracker
++
++
++EXPECTED_KEYS = {"min", "max", "mean", "p50", "p95", "p99"}
++
++
++def test_empty_tracker_raises_value_error():
++    tracker = RollingLatencyTracker(window_size=10)
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++
++def test_single_sample_stats():
++    tracker = RollingLatencyTracker()
++    tracker.record(42.0)
++
++    assert tracker.count == 1
++    stats = tracker.get_stats()
++
++    assert set(stats) == EXPECTED_KEYS
++    for key in EXPECTED_KEYS:
++        assert stats[key] == pytest.approx(42.0)
++
++
++def test_multiple_samples_percentiles_accuracy():
++    tracker = RollingLatencyTracker()
++    for value in range(1, 101):
++        tracker.record(float(value))
++
++    assert tracker.count == 100
++    stats = tracker.get_stats()
++
++    assert stats["min"] == pytest.approx(1.0)
++    assert stats["max"] == pytest.approx(100.0)
++    assert stats["mean"] == pytest.approx(50.5)
++    assert stats["p50"] == pytest.approx(50.5)
++    assert stats["p95"] == pytest.approx(95.05)
++    assert stats["p99"] == pytest.approx(99.01)
++
++
++def test_window_capacity_eviction_fifo():
++    tracker = RollingLatencyTracker(window_size=3)
++    for value in [10.0, 20.0, 30.0, 40.0, 50.0]:
++        tracker.record(value)
++
++    # The window never grows past 3; the two oldest samples were evicted.
++    assert tracker.count == 3
++    stats = tracker.get_stats()
++    assert stats["min"] == pytest.approx(30.0)
++    assert stats["max"] == pytest.approx(50.0)
++    assert stats["mean"] == pytest.approx(40.0)
++
++
++def test_invalid_inputs_raise_value_error():
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=0)
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=-5)
++
++    tracker = RollingLatencyTracker()
++    with pytest.raises(ValueError):
++        tracker.record(-0.001)
++    assert tracker.count == 0
++
++
++def test_clear_resets_tracker():
++    tracker = RollingLatencyTracker(window_size=5)
++    for value in [1.0, 2.0, 3.0]:
++        tracker.record(value)
++    assert tracker.count == 3
++
++    tracker.clear()
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++    # The tracker stays usable after being cleared.
++    tracker.record(7.5)
++    assert tracker.count == 1
++    assert tracker.get_stats()["mean"] == pytest.approx(7.5)
+
+Everything works. Let me summarize concisely.
+
+Files created:
+- src/metrics/latency_stats.py
+- src/metrics/__init__.py (supporting)
+- pytest.ini (supporting, makes src importable)
+- tests/test_latency_stats.py
+
+Test results: 6 passed.
+
+I should mention the two supporting files I added since the user asked for exactly two files. That's a reasonable and necessary addition to make imports work.
+
+Let me write a concise final answer with file links (absolute paths).
+
+Note the user's request language is English, so respond in English.
+codex
+Done — all 6 tests pass.
+
+**Files**
+
+- [src/metrics/latency_stats.py](E:/hyai-wiring/src/metrics/latency_stats.py) — `RollingLatencyTracker` with validation, FIFO `deque`, `count`, `clear()`, and `get_stats()` returning `min/max/mean/p50/p95/p99` via linear-interpolation percentiles.
+- [tests/test_latency_stats.py](E:/hyai-wiring/tests/test_latency_stats.py) — the six requested pytest functions.
+- Added two supporting files so the `src` layout is importable in a fresh checkout: [src/metrics/__init__.py](E:/hyai-wiring/src/metrics/__init__.py) and [pytest.ini](E:/hyai-wiring/pytest.ini) (`pythonpath = src`).
+
+**Verification**
+
+```
+python -m pytest tests/test_latency_stats.py -v
+6 passed in 0.02s
+```
+
+A separate smoke check also confirmed a `window_size=1` tracker evicts correctly and that zero-valued latencies are accepted.
+diff --git a/pytest.ini b/pytest.ini
+new file mode 100644
+index 0000000000000000000000000000000000000000..442bb94326502888a8e6694e1c4dc47849017171
+--- /dev/null
++++ b/pytest.ini
+@@ -0,0 +1,3 @@
++[pytest]
++pythonpath = src
++testpaths = tests
+diff --git a/src/metrics/__init__.py b/src/metrics/__init__.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..8bdbbe7da5fdcaf14da5128b51d8e5f8df427505
+--- /dev/null
++++ b/src/metrics/__init__.py
+@@ -0,0 +1,5 @@
++"""Metrics helpers for tracking runtime behaviour."""
++
++from .latency_stats import RollingLatencyTracker
++
++__all__ = ["RollingLatencyTracker"]
+diff --git a/src/metrics/latency_stats.py b/src/metrics/latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..ed92f86b9c514af0c7b8ae3d4c54d2c6dc9d7f8f
+--- /dev/null
++++ b/src/metrics/latency_stats.py
+@@ -0,0 +1,94 @@
++"""Rolling latency statistics over a fixed-size window of samples.
++
++The tracker keeps the most recent ``window_size`` latency observations and
++derives summary statistics (including percentiles) from that window only.
++"""
++
++from __future__ import annotations
++
++import math
++from collections import deque
++from typing import Deque, Dict, Sequence
++
++
++def _percentile(ordered: Sequence[float], pct: float) -> float:
++    """Return the ``pct`` percentile of an ascending-sorted sequence.
++
++    Uses linear interpolation between the two nearest ranks, which matches
++    the inclusive method used by ``numpy.percentile`` by default. A single
++    sample is its own percentile for every requested percentage.
++    """
++    n = len(ordered)
++    if n == 1:
++        return ordered[0]
++
++    rank = (n - 1) * (pct / 100.0)
++    lower = math.floor(rank)
++    upper = math.ceil(rank)
++    if lower == upper:
++        return ordered[int(rank)]
++    return ordered[lower] + (ordered[upper] - ordered[lower]) * (rank - lower)
++
++
++class RollingLatencyTracker:
++    """Collect latency samples in a bounded FIFO window.
++
++    Args:
++        window_size: Maximum number of samples retained. Older samples are
++            evicted first-in-first-out once the window is full.
++
++    Raises:
++        ValueError: If ``window_size`` is not positive.
++    """
++
++    def __init__(self, window_size: int = 1000):
++        if window_size <= 0:
++            raise ValueError("window_size must be a positive integer")
++        self._window_size = window_size
++        self._samples: Deque[float] = deque(maxlen=window_size)
++
++    @property
++    def window_size(self) -> int:
++        return self._window_size
++
++    def record(self, latency_ms: float) -> None:
++        """Add one latency observation to the window.
++
++        Raises:
++            ValueError: If ``latency_ms`` is negative.
++        """
++        if latency_ms < 0:
++            raise ValueError("latency_ms must be non-negative")
++        self._samples.append(float(latency_ms))
++
++    @property
++    def count(self) -> int:
++        """Number of samples currently held in the window."""
++        return len(self._samples)
++
++    def clear(self) -> None:
++        """Discard all buffered samples."""
++        self._samples.clear()
++
++    def get_stats(self) -> Dict[str, float]:
++        """Compute summary statistics over the current window.
++
++        Returns:
++            A dict with keys ``min``, ``max``, ``mean``, ``p50``, ``p95``
++            and ``p99``.
++
++        Raises:
++            ValueError: If the window is empty.
++        """
++        if self.count == 0:
++            raise ValueError("Cannot compute statistics on empty buffer")
++
++        ordered = sorted(self._samples)
++        return {
++            "min": ordered[0],
++            "max": ordered[-1],
++            "mean": math.fsum(ordered) / len(ordered),
++            "p50": _percentile(ordered, 50),
++            "p95": _percentile(ordered, 95),
++            "p99": _percentile(ordered, 99),
++        }
+diff --git a/tests/test_latency_stats.py b/tests/test_latency_stats.py
+new file mode 100644
+index 0000000000000000000000000000000000000000..dec7461458459360a27270e08d3ca1a7c6667875
+--- /dev/null
++++ b/tests/test_latency_stats.py
+@@ -0,0 +1,87 @@
++"""Tests for :class:`metrics.latency_stats.RollingLatencyTracker`."""
++
++import pytest
++
++from metrics.latency_stats import RollingLatencyTracker
++
++
++EXPECTED_KEYS = {"min", "max", "mean", "p50", "p95", "p99"}
++
++
++def test_empty_tracker_raises_value_error():
++    tracker = RollingLatencyTracker(window_size=10)
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++
++def test_single_sample_stats():
++    tracker = RollingLatencyTracker()
++    tracker.record(42.0)
++
++    assert tracker.count == 1
++    stats = tracker.get_stats()
++
++    assert set(stats) == EXPECTED_KEYS
++    for key in EXPECTED_KEYS:
++        assert stats[key] == pytest.approx(42.0)
++
++
++def test_multiple_samples_percentiles_accuracy():
++    tracker = RollingLatencyTracker()
++    for value in range(1, 101):
++        tracker.record(float(value))
++
++    assert tracker.count == 100
++    stats = tracker.get_stats()
++
++    assert stats["min"] == pytest.approx(1.0)
++    assert stats["max"] == pytest.approx(100.0)
++    assert stats["mean"] == pytest.approx(50.5)
++    assert stats["p50"] == pytest.approx(50.5)
++    assert stats["p95"] == pytest.approx(95.05)
++    assert stats["p99"] == pytest.approx(99.01)
++
++
++def test_window_capacity_eviction_fifo():
++    tracker = RollingLatencyTracker(window_size=3)
++    for value in [10.0, 20.0, 30.0, 40.0, 50.0]:
++        tracker.record(value)
++
++    # The window never grows past 3; the two oldest samples were evicted.
++    assert tracker.count == 3
++    stats = tracker.get_stats()
++    assert stats["min"] == pytest.approx(30.0)
++    assert stats["max"] == pytest.approx(50.0)
++    assert stats["mean"] == pytest.approx(40.0)
++
++
++def test_invalid_inputs_raise_value_error():
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=0)
++    with pytest.raises(ValueError):
++        RollingLatencyTracker(window_size=-5)
++
++    tracker = RollingLatencyTracker()
++    with pytest.raises(ValueError):
++        tracker.record(-0.001)
++    assert tracker.count == 0
++
++
++def test_clear_resets_tracker():
++    tracker = RollingLatencyTracker(window_size=5)
++    for value in [1.0, 2.0, 3.0]:
++        tracker.record(value)
++    assert tracker.count == 3
++
++    tracker.clear()
++
++    assert tracker.count == 0
++    with pytest.raises(ValueError, match="Cannot compute statistics on empty buffer"):
++        tracker.get_stats()
++
++    # The tracker stays usable after being cleared.
++    tracker.record(7.5)
++    assert tracker.count == 1
++    assert tracker.get_stats()["mean"] == pytest.approx(7.5)
+
+tokens used
+50,157
+Done — all 6 tests pass.
+
+**Files**
+
+- [src/metrics/latency_stats.py](E:/hyai-wiring/src/metrics/latency_stats.py) — `RollingLatencyTracker` with validation, FIFO `deque`, `count`, `clear()`, and `get_stats()` returning `min/max/mean/p50/p95/p99` via linear-interpolation percentiles.
+- [tests/test_latency_stats.py](E:/hyai-wiring/tests/test_latency_stats.py) — the six requested pytest functions.
+- Added two supporting files so the `src` layout is importable in a fresh checkout: [src/metrics/__init__.py](E:/hyai-wiring/src/metrics/__init__.py) and [pytest.ini](E:/hyai-wiring/pytest.ini) (`pythonpath = src`).
+
+**Verification**
+
+```
+python -m pytest tests/test_latency_stats.py -v
+6 passed in 0.02s
+```
+
+A separate smoke check also confirmed a `window_size=1` tracker evicts correctly and that zero-valued latencies are accepted.
+
+__HERMES_CWD_93a25bf2d254__/e/hyai-wiring__HERMES_CWD_93a25bf2d254__

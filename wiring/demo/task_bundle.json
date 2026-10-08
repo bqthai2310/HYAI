@@ -1,0 +1,71 @@
+{
+  "schema_version": "1.0.0",
+  "bundle_id": "taskbundle_7f3a9e102bc4",
+  "goal_ref": "goal_c48b10e9f123",
+  "plan_steps": [
+    {
+      "step_id": "step_01_spec_and_decompose",
+      "title": "Analyze Task Requirements & Author Coder Prompt",
+      "description": "Decompose task bundle criteria into explicit implementation requirements for Codex CLI",
+      "assigned_role": "COORDINATOR"
+    },
+    {
+      "step_id": "step_02_delegate_coding",
+      "title": "Delegate Implementation to Codex CLI",
+      "description": "Invoke Codex CLI in isolated workspace to author src/metrics/latency_stats.py and tests/test_latency_stats.py",
+      "assigned_role": "CODER"
+    },
+    {
+      "step_id": "step_03_independent_verification",
+      "title": "Verify Acceptance Criteria with Pytest",
+      "description": "Execute pytest and verify 100% of acceptance criteria without shortcuts",
+      "assigned_role": "VERIFIER"
+    },
+    {
+      "step_id": "step_04_assemble_result",
+      "title": "Assemble & Cryptographically Seal Result Bundle",
+      "description": "Map all criteria 1-to-1 to verification records, compute SHA-256 digest, and output result bundle",
+      "assigned_role": "COORDINATOR"
+    }
+  ],
+  "acceptance_criteria": [
+    {
+      "criterion_id": "CRIT-01",
+      "description": "Module src/metrics/latency_stats.py provides RollingLatencyTracker class supporting recording numeric sample latencies (ms) with bounded rolling window capacity.",
+      "verification_type": "UNIT_TEST",
+      "target_ref": "src/metrics/latency_stats.py"
+    },
+    {
+      "criterion_id": "CRIT-02",
+      "description": "Tracker computes exact min, max, mean, p50, p95, and p99 percentiles; raises ValueError fail-closed if computing stats on an empty sample buffer.",
+      "verification_type": "UNIT_TEST",
+      "target_ref": "src/metrics/latency_stats.py"
+    },
+    {
+      "criterion_id": "CRIT-03",
+      "description": "Rolling window correctly evicts oldest samples when window capacity is reached (FIFO order preservation).",
+      "verification_type": "UNIT_TEST",
+      "target_ref": "src/metrics/latency_stats.py"
+    },
+    {
+      "criterion_id": "CRIT-04",
+      "description": "Test suite tests/test_latency_stats.py passes 100% via pytest with at least 5 distinct test scenarios covering empty state, single sample, window eviction, percentiles calculation, and invalid inputs.",
+      "verification_type": "UNIT_TEST",
+      "target_ref": "tests/test_latency_stats.py"
+    }
+  ],
+  "constraints": {
+    "workspace_root": "E:/hyai-wiring",
+    "sandbox_mode": "DANGER_FULL_ACCESS",
+    "network_egress": "BLOCKED",
+    "max_duration_seconds": 300
+  },
+  "expected_deliverable_format": {
+    "deliverable_type": "HYAI_RESULT_BUNDLE",
+    "required_files": [
+      "src/metrics/latency_stats.py",
+      "tests/test_latency_stats.py"
+    ],
+    "result_bundle_schema_ref": "wiring/schemas/result_bundle.schema.json"
+  }
+}

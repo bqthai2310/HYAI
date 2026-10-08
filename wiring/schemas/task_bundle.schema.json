@@ -1,0 +1,83 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "HYAITaskBundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "bundle_id",
+    "goal_ref",
+    "plan_steps",
+    "acceptance_criteria",
+    "constraints",
+    "expected_deliverable_format"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "string",
+      "enum": ["1.0.0"]
+    },
+    "bundle_id": {
+      "type": "string",
+      "pattern": "^taskbundle_[a-f0-9]{8,32}$"
+    },
+    "goal_ref": {
+      "type": "string",
+      "pattern": "^goal_[a-f0-9]{8,32}$"
+    },
+    "plan_steps": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["step_id", "title", "description", "assigned_role"],
+        "properties": {
+          "step_id": { "type": "string" },
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "assigned_role": { "type": "string", "enum": ["COORDINATOR", "CODER", "VERIFIER"] }
+        }
+      }
+    },
+    "acceptance_criteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["criterion_id", "description", "verification_type", "target_ref"],
+        "properties": {
+          "criterion_id": { "type": "string" },
+          "description": { "type": "string" },
+          "verification_type": { "type": "string", "enum": ["UNIT_TEST", "SYNTAX_CHECK", "SCHEMA_VALIDATION", "FILE_EXISTENCE"] },
+          "target_ref": { "type": "string" }
+        }
+      }
+    },
+    "constraints": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["workspace_root", "sandbox_mode", "network_egress", "max_duration_seconds"],
+      "properties": {
+        "workspace_root": { "type": "string" },
+        "sandbox_mode": { "type": "string", "enum": ["STRICT_SANDBOX", "WORKSPACE_WRITE", "DANGER_FULL_ACCESS"] },
+        "network_egress": { "type": "string", "enum": ["BLOCKED", "LOCALHOST_ONLY", "TELEGRAM_ONLY"] },
+        "max_duration_seconds": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "expected_deliverable_format": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["deliverable_type", "required_files", "result_bundle_schema_ref"],
+      "properties": {
+        "deliverable_type": { "type": "string" },
+        "required_files": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "result_bundle_schema_ref": { "type": "string" }
+      }
+    }
+  }
+}
