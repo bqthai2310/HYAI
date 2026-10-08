@@ -1,0 +1,72 @@
+{
+  "schema_version": "2.1.0",
+  "document_type": "SYSTEM_HEALTH_SELF_ASSESSMENT",
+  "assessment_id": "assess_op01_20261007",
+  "produced_at": "2026-10-08T03:20:15.649068Z",
+  "producer": {
+    "principal_type": "EXECUTOR",
+    "id": "worker_op01"
+  },
+  "system_head_sha": "65df5bcfab1c3a5766c4f760a20ef8d6560f963d",
+  "goal_id": "goal_b03bd71dafe0",
+  "telemetry_summary": {
+    "metric_record": {
+      "metric_name": "system_error_rate",
+      "metric_type": "GAUGE",
+      "value": 0.01,
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "trace_context": {
+        "goal_id": "goal_b03bd71dafe0",
+        "program_id": "prog_op01_health_assessment",
+        "task_id": "task_op01_inspect_telemetry_and_state",
+        "attempt_id": "att_op01_01",
+        "trace_id": "trace_op01_primary",
+        "span_id": "span_op01_root",
+        "parent_span_id": null
+      },
+      "dimensions": {}
+    },
+    "log_record": {
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "level": "INFO",
+      "message": "Telemetry pipeline healthy",
+      "trace_context": {
+        "goal_id": "goal_b03bd71dafe0",
+        "program_id": "prog_op01_health_assessment",
+        "task_id": "task_op01_inspect_telemetry_and_state",
+        "attempt_id": "att_op01_01",
+        "trace_id": "trace_op01_primary",
+        "span_id": "span_op01_root",
+        "parent_span_id": null
+      },
+      "attributes": {}
+    },
+    "slo_compliant": true,
+    "telemetry_health": "NORMAL"
+  },
+  "durable_state_summary": {
+    "db_location": "E:\\HYAI\\.hyai\\workspaces\\op01_sandbox\\durable_state.db",
+    "stored_state": null,
+    "sqlite_integrity": "OK"
+  },
+  "top_operational_risks": [
+    {
+      "risk_id": "RISK-01",
+      "title": "Unbounded Tool Execution & Wall-Clock Drift",
+      "severity": "HIGH",
+      "mitigation": "Enforce strict FinOps budget envelopes and pre-execution countdown guards at kernel level."
+    },
+    {
+      "risk_id": "RISK-02",
+      "title": "State Corruption on Mid-Run Process Crash",
+      "severity": "CRITICAL",
+      "mitigation": "Require atomic SQLite write-ahead logging with explicit CheckpointManager durable markers."
+    },
+    {
+      "risk_id": "RISK-03",
+      "title": "Silent Authority Elevation in Autonomous Goal Decomposition",
+      "severity": "HIGH",
+      "mitigation": "Fail-closed authority envelope validation rejecting undeclared principal privilege escalation."
+    }
+  ]
+}

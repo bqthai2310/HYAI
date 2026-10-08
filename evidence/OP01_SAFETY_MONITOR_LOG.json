@@ -1,0 +1,62 @@
+{
+  "schema_version": "2.1.0",
+  "exercise_id": "OP-01",
+  "sandbox_workspace": "E:\\HYAI\\.hyai\\workspaces\\op01_sandbox",
+  "total_wallclock_elapsed_s": 0.03,
+  "total_tool_invocations": 5,
+  "max_tool_invocations_allowed": 50,
+  "max_wallclock_allowed_s": 1800,
+  "bound_violations_count": 0,
+  "bound_violations": [],
+  "events": [
+    {
+      "timestamp": "2026-10-08T03:20:15.621710Z",
+      "event_type": "MONITOR_START",
+      "detail": "Safety bounds active: Localhost only, bounded sandbox.",
+      "elapsed_s": 0.0,
+      "tool_calls_so_far": 0
+    },
+    {
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "event_type": "TOOL_INVOCATION",
+      "detail": "Tool 'tool_inspect_telemetry' invoked (count: 1)",
+      "elapsed_s": 0.0,
+      "tool_calls_so_far": 1
+    },
+    {
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "event_type": "TOOL_INVOCATION",
+      "detail": "Tool 'tool_inspect_telemetry' invoked (count: 2)",
+      "elapsed_s": 0.0,
+      "tool_calls_so_far": 2
+    },
+    {
+      "timestamp": "2026-10-08T03:20:15.628709Z",
+      "event_type": "TOOL_INVOCATION",
+      "detail": "Tool 'tool_inspect_durable_state' invoked (count: 3)",
+      "elapsed_s": 0.0,
+      "tool_calls_so_far": 3
+    },
+    {
+      "timestamp": "2026-10-08T03:20:15.639827Z",
+      "event_type": "TOOL_INVOCATION",
+      "detail": "Tool 'tool_risk_assessment_engine' invoked (count: 4)",
+      "elapsed_s": 0.015,
+      "tool_calls_so_far": 4
+    },
+    {
+      "timestamp": "2026-10-08T03:20:15.649068Z",
+      "event_type": "TOOL_INVOCATION",
+      "detail": "Tool 'tool_bundle_hasher' invoked (count: 5)",
+      "elapsed_s": 0.031,
+      "tool_calls_so_far": 5
+    },
+    {
+      "timestamp": "2026-10-08T03:20:15.649068Z",
+      "event_type": "MONITOR_STOP",
+      "detail": "Monitor stopped. Total violations: 0",
+      "elapsed_s": 0.031,
+      "tool_calls_so_far": 5
+    }
+  ]
+}
