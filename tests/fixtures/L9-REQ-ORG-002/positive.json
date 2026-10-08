@@ -1,0 +1,15 @@
+{
+  "schema_version": "2.1.0",
+  "fixture_id": "FIX-L9-T-066-POS",
+  "kind": "POSITIVE_BASELINE",
+  "requirement_id": "L9-REQ-ORG-002",
+  "test_id": "L9-T-066",
+  "frozen_preconditions": [
+    "Requirement/TestSpec revision is the frozen architecture input for the implementation subject.",
+    "Review subject points to the exact current commit/artifact revision."
+  ],
+  "frozen_assertions": [
+    "Domain handoff via typed artifacts."
+  ],
+  "expected_result": "PASS"
+}
